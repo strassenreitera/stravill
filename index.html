@@ -25,7 +25,6 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
-/* 🔥 Lábléc aktív link */
 .footer-links a.active-footer {
     text-decoration: underline;
     color: #fff;
@@ -44,11 +43,9 @@ function loadPage(page, linkElement) {
                 initContactForm();
             }
 
-            /* 🔥 FELSŐ MENÜ AKTÍV */
             document.querySelectorAll("nav ul li a").forEach(a => a.classList.remove("active"));
             if (linkElement) linkElement.classList.add("active");
 
-            /* 🔥 LÁBLÉC AKTÍV */
             document.querySelectorAll(".footer-links a").forEach(a => {
                 if (a.getAttribute("data-page") === page) {
                     a.classList.add("active-footer");
@@ -145,26 +142,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </div>
 
-<!-- 🍪 COOKIE BANNER – MINDIG MEGJELENIK -->
+<!-- 🍪 COOKIE BANNER – NORMÁL MŰKÖDÉS -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const banner = document.getElementById("cookie-banner");
     const accept = document.getElementById("cookie-accept");
     const decline = document.getElementById("cookie-decline");
 
-    // Mindig jelenjen meg
     setTimeout(() => {
-        banner.style.display = "block";
+        if (!localStorage.getItem("cookie-consent")) {
+            banner.style.display = "block";
+        }
     }, 150);
 
     accept.onclick = function() {
+        localStorage.setItem("cookie-consent", "accepted");
         banner.style.display = "none";
         loadAnalytics();
     };
 
     decline.onclick = function() {
+        localStorage.setItem("cookie-consent", "declined");
         banner.style.display = "none";
     };
+
+    if (localStorage.getItem("cookie-consent") === "accepted") {
+        loadAnalytics();
+    }
 });
 
 function loadAnalytics() {
