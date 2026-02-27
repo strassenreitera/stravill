@@ -2,13 +2,8 @@
 <html lang="hu">
 <head>
 
-<!-- 🔹 Karakterkódolás és mobilbarát nézet -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- ======================= -->
-<!-- STRAVILL.HU SEO CSOMAG -->
-<!-- ======================= -->
 
 <title>Villanyszerelő Orosháza – StraVill | Strassenreiter Attila E.V.</title>
 
@@ -26,31 +21,16 @@
 <meta name="twitter:description" content="Gyors, precíz villanyszerelés Orosházán – hívjon most!">
 <meta name="twitter:image" content="https://www.stravill.hu/images/logo.png">
 
-<!-- Strukturált adatok (JSON-LD) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Electrician",
-  "name": "StraVill - Strassenreiter Attila E.V.",
-  "image": "https://www.stravill.hu/images/logo.png",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Szarvasi utca 12",
-    "addressLocality": "Orosháza",
-    "postalCode": "5900",
-    "addressCountry": "HU"
-  },
-  "telephone": "+36304938929",
-  "email": "strassenreiter.a@gmail.com",
-  "url": "https://www.stravill.hu",
-  "priceRange": "Hívjon az árakért",
-  "description": "Gyors, precíz villanyszerelés Orosházán. Lakossági szolgáltatás, hibaelhárítás, új építés, felújítás."
-}
-</script>
-
-<!-- 🔹 Favicon és stíluslap -->
 <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
 <link rel="stylesheet" href="style.css">
+
+<style>
+/* 🔥 Lábléc aktív link */
+.footer-links a.active-footer {
+    text-decoration: underline;
+    color: #fff;
+}
+</style>
 
 <!-- 🔥 DINAMIKUS OLDALBETÖLTŐ MOTOR -->
 <script>
@@ -64,8 +44,18 @@ function loadPage(page, linkElement) {
                 initContactForm();
             }
 
+            /* 🔥 FELSŐ MENÜ AKTÍV */
             document.querySelectorAll("nav ul li a").forEach(a => a.classList.remove("active"));
             if (linkElement) linkElement.classList.add("active");
+
+            /* 🔥 LÁBLÉC AKTÍV */
+            document.querySelectorAll(".footer-links a").forEach(a => {
+                if (a.getAttribute("data-page") === page) {
+                    a.classList.add("active-footer");
+                } else {
+                    a.classList.remove("active-footer");
+                }
+            });
         })
         .catch(() => {
             document.getElementById("content-box").innerHTML =
@@ -202,7 +192,7 @@ function initContactForm() {
 }
 </script>
 
-<!-- 🍪 COOKIE BANNER + GOOGLE ANALYTICS HOZZÁJÁRULÁS -->
+<!-- 🍪 COOKIE BANNER -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const banner = document.getElementById("cookie-banner");
