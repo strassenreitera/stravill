@@ -48,7 +48,6 @@ body {
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-/* HEADER — nagy kijelzőn: logó bal, menü jobb */
 nav {
     width: 100%;
     padding: 0.7rem 1rem;
@@ -119,7 +118,8 @@ nav ul li a.active::after {
     width: 60%;
 }
 
-/* HEADER — mobilon: logó felül, menü alatta */
+/* MOBIL HEADER */
+
 @media (max-width: 900px) {
     nav {
         flex-direction: column;
@@ -138,7 +138,6 @@ nav ul li a.active::after {
     }
 }
 
-/* Menü zsugorodás */
 @media (max-width: 750px) {
     nav ul li a {
         font-size: 0.85rem;
@@ -278,7 +277,7 @@ nav ul li a.active::after {
 }
 
 /* ============================
-   GLOBÁLIS KÉP + RÁCS
+   KÉPEK + RÁCS
 ============================ */
 
 img {
@@ -288,13 +287,11 @@ img {
     object-fit: cover;
 }
 
-/* 300×300 px képek */
 .image-300 {
     width: 300px;
     height: 300px;
 }
 
-/* 3×3 rács */
 .grid-3x3 {
     display: grid;
     grid-template-columns: repeat(3, 300px);
@@ -303,7 +300,6 @@ img {
     margin: 20px auto;
 }
 
-/* Mobil */
 @media (max-width: 960px) {
     .grid-3x3 {
         grid-template-columns: repeat(2, 1fr);
@@ -345,7 +341,7 @@ img {
 }
 
 /* ============================
-   VÉLEMÉNYEK BOX
+   VÉLEMÉNYEK
 ============================ */
 
 .reviews-box {
@@ -363,7 +359,7 @@ img {
 }
 
 /* ============================
-   KAPCSOLAT – KÉT OSZLOPOS ELRENDEZÉS
+   KAPCSOLAT – KÉT OSZLOP
 ============================ */
 
 .contact-wrapper {
@@ -465,7 +461,9 @@ img {
     background-color: #ffc107;
 }
 
-.gdpr-row {
+/* 🔥 JAVÍTOTT GDPR / PRIVACY SOR – Brave kompatibilis */
+
+.privacy-row {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -473,9 +471,17 @@ img {
     justify-content: center;
 }
 
-.gdpr-row a {
+.privacy-row a {
     color: #0d47a1;
     text-decoration: underline;
+}
+
+/* 🔥 STATUS ÜZENET KÖZÉPRE IGAZÍTVA */
+
+.status-box {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 600;
 }
 
 /* ============================
