@@ -646,6 +646,11 @@ footer {
     color: #fff;
     margin: 0 6px;
 }
+/* 🔥 Lábléc aktív link aláhúzás */
+.footer-links a.active-footer {
+    text-decoration: underline;
+    color: #fff;
+}
 
 /* ============================
    COOKIE BANNER
