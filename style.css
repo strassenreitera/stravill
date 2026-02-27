@@ -645,3 +645,31 @@ footer {
     color: #fff;
     margin: 0 6px;
 }
+
+/* ============================
+   coockie banner
+============================ */
+.cookie-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    color: #000;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: none;
+    z-index: 9999;
+    text-align: center;
+}
+
+.cookie-banner button {
+    margin: 0 8px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #0d47a1;
+    color: #fff;
+}
