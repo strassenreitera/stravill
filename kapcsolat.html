@@ -57,6 +57,7 @@
 <form id="contactForm">
   <input type="text" name="name" placeholder="Név" required>
   <input type="email" name="email" placeholder="E-mail" required>
+  <input type="tel" name="phone" placeholder="Telefonszám(nem kötelező)" required>
   <textarea name="message" placeholder="Üzenet" required></textarea>
 
   <label style="display:flex; align-items:center; gap:8px; margin:10px 0;">
@@ -87,6 +88,7 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
     body: JSON.stringify({
       name: this.name.value,
       email: this.email.value,
+      phone: this.phone.value,
       message: this.message.value,
       gdpr: this.gdpr.checked ? "Elfogadva" : "Nincs elfogadva"
     })
@@ -105,6 +107,5 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
   });
 });
 </script>
-
 
 <p style="text-align:center; margin-top:1rem;"><strong>Gyors válasz, korrekt árak, garanciális munkavégzés.</strong></p>
