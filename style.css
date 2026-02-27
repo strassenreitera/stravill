@@ -610,31 +610,40 @@ img {
 }
 
 /* ============================
-   FOOTER
+   LÁBLÉC – KÉK MARAD, NEM TÖRIK SZÉT
 ============================ */
 
+/* A lábléc két soros, de soha nem törik háromba */
 footer {
     background-color: #0d47a1;
     color: #fff;
     text-align: center;
     padding: 1.2rem;
     margin-top: 1rem;
-    font-size: 0.9rem;
+    font-size: clamp(0.7rem, 1.8vw, 0.9rem); /* ❗ copyright is zsugorodik */
     border-radius: 20px 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
 }
 
-/* 🔥 LÁBLÉC LINKJEI – Impresszum + Adatkezelés + Cookie */
-
+/* A menüsor mindig egy sorban marad */
 .footer-links {
-    margin-top: 8px;
-    text-align: center;
-    font-size: 0.95rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(6px, 2vw, 12px);
+    flex-wrap: nowrap;       /* ❗ nem törhet sorba */
+    white-space: nowrap;     /* ❗ minden egy sorban marad */
 }
 
+/* A linkek zsugorodnak, de maradnak sárgák */
 .footer-links a {
     color: #ffca28;
     text-decoration: none;
     font-weight: 600;
+    font-size: clamp(0.65rem, 2vw, 0.95rem); /* ❗ automatikus zsugorodás */
     transition: 0.2s ease;
 }
 
@@ -642,11 +651,13 @@ footer {
     color: #fff;
 }
 
+/* A választóvonalak is zsugorodnak */
 .footer-links span {
     color: #fff;
-    margin: 0 6px;
+    font-size: clamp(0.65rem, 2vw, 0.95rem);
 }
-/* 🔥 Lábléc aktív link aláhúzás */
+
+/* Aktív link aláhúzás */
 .footer-links a.active-footer {
     text-decoration: underline;
     color: #fff;
