@@ -2,64 +2,43 @@
 
 <p><strong>Forduljon hozzám bizalommal bármilyen villanyszerelési munkával kapcsolatban!</strong></p>
 
-<!-- FŐ KAPCSOLATI ADATOK + TÉRKÉP -->
-<div class="service-box contact-map-box">
+<div class="contact-wrapper">
 
-    <div class="contact-info">
-        <p class="service-title">📌 Kapcsolat – ⚡ StraVill ⚡</p>
+    <div class="contact-card">
+        <h3>📌 Elérhetőségek</h3>
 
-        <p>🔌 <strong>Strassenreiter Attila E.V.</strong></p>
-        <p>📍 Székhely: <strong>5900 Orosháza, Szarvaszi utca 12.</strong></p>
-        <p>📞 Hívjon bátran: <a href="tel:+36304938929" class="contact-link">06 30 493 8929</a></p>
-        <p>📬 Írjon üzenetet: <a href="mailto:strassenreiter.a@gmail.com" class="contact-link">strassenreiter.a@gmail.com</a></p>
-        <p>💳 Adószám: <strong>90227242-1-24</strong></p>
-        <p>📄 Nyilvántartási szám: <strong>59381563</strong></p>
+        <p><strong>Strassenreiter Attila E.V.</strong></p>
+        <p>📍 5900 Orosháza, Szarvaszi utca 12.</p>
+        <p>📞 <a href="tel:+36304938929">06 30 493 8929</a></p>
+        <p>📬 <a href="mailto:strassenreiter.a@gmail.com">strassenreiter.a@gmail.com</a></p>
+        <p>💳 Adószám: 90227242-1-24</p>
+        <p>📄 Nyilvántartási szám: 59381563</p>
     </div>
 
     <div class="contact-map">
         <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10969.609170720607!2d20.6672226!3d46.579284!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47443f2d22d977cf%3A0xd12daeff6b3b374d!2sStrassenreiter%20Attila%20Villanyszerel%C5%91%20E.V.!5e0!3m2!1shu!2shu!4v1772120210144!5m2!1shu!2hu" 
-            width="100%" 
-            height="300" 
-            style="border:0; border-radius:10px;" 
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10969.609170720607!2d20.6672226!3d46.579284!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47443f2d22d977cf%3A0xd12daeff6b3b374d!2sStrassenreiter%20Attila%20Villanyszerel%C5%91%20E.V.!5e0!3m2!1shu!2hu!4v1772120210144!5m2!1shu!2hu" 
             allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade">
+            loading="lazy">
         </iframe>
     </div>
 
 </div>
 
-<!-- SZOLGÁLTATÁSI TERÜLET -->
-<div class="service-box">
-    <p class="service-title">📍 Szolgáltatási terület</p>
+<h3 class="form-title">📨 Üzenet küldése</h3>
 
-    <p><strong>Orosháza és környéke:</strong></p>
-
-    <p>
-        Békéssámson • Békéscsaba • Csanádapáca • Csorvás • Gádoros •  
-        Hódmezővásárhely • Kardoskút • Kondoros • Medgyesegyháza •  
-        Mezőkovácsháza • Nagyszénás • Orosháza • Pusztaföldvár •  
-        Szarvas • Székkutas • Tótkomlós • Újkígyós
-    </p>
-</div>
-
-<!-- ELÉRHETŐSÉG -->
-<div class="service-box">
-    <p class="service-title">⏰ Elérhetőség</p>
-    <p>Hétfőtől péntekig: 08:00 – 18:00</p>
-    <p><strong>Hétvégén is elérhető vagyok !</strong></p>
-</div>
-
-<!-- ÜZENETKÜLDŐ ŰRLAP -->
-<h3 style="text-align:center; margin-top:2rem;">📨 Üzenet küldése</h3>
-
-<form action="sendmail.php" method="POST" class="contact-form">
+<form id="contactForm" class="contact-form">
     <input type="text" name="name" placeholder="Név" required>
-    <input type="email" name="email" placeholder="E-mail cím" required>
-    <input type="text" name="phone" placeholder="Telefonszám (nem kötelező)">
+    <input type="email" name="email" placeholder="E-mail" required>
+    <input type="tel" name="phone" placeholder="Telefonszám (nem kötelező)">
     <textarea name="message" placeholder="Üzenet" required></textarea>
-    <button type="submit">Üzenet küldése</button>
+
+    <div class="gdpr-row">
+        <input type="checkbox" id="gdpr" required>
+        <span class="gdpr-text"></span>
+    </div>
+
+    <button type="submit">Küldés</button>
 </form>
 
-<p style="text-align:center; margin-top:1rem;"><strong>Gyors válasz, korrekt árak, garanciális munkavégzés.</strong></p>
+<div id="status" class="status-box"></div>
