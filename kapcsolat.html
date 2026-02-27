@@ -73,40 +73,5 @@
 
 <div id="status" style="margin-top:10px; font-weight:bold;"></div>
 
-<!-- IDE JÖN A JAVASCRIPT -->
-<script>
-document.getElementById("contactForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  if (!document.getElementById("gdpr").checked) {
-    document.getElementById("status").innerText = "Kérjük, fogadd el az adatkezelési szabályzatot.";
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append("name", this.name.value);
-  formData.append("email", this.email.value);
-  formData.append("phone", this.phone.value || "Nincs megadva");
-  formData.append("message", this.message.value);
-  formData.append("gdpr", this.gdpr.checked ? "Elfogadva" : "Nincs elfogadva");
-
-  fetch("https://script.google.com/macros/s/AKfycbxQpEr7w9WMgfBHwFB5qQ6gqe8hMQOKTFrE9sKku_11Iz5l3KYULNMLG8oGBmzDEThr/exec", {
-    method: "POST",
-    body: formData
-  })
-  .then(r => r.text())
-  .then(text => {
-    if (text === "OK") {
-      document.getElementById("status").innerText = "Üzenet elküldve!";
-      this.reset();
-    } else {
-      document.getElementById("status").innerText = "Hiba történt.";
-    }
-  })
-  .catch(() => {
-    document.getElementById("status").innerText = "Hiba történt.";
-  });
-});
-</script>
 
 <p style="text-align:center; margin-top:1rem;"><strong>Gyors válasz, korrekt árak, garanciális munkavégzés.</strong></p>
