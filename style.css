@@ -139,7 +139,7 @@ nav ul li a.active::after {
     }
 }
 
-/* 🔥 MENÜ BETŰMÉRET DINAMIKUS ZSUGORÍTÁSA – hogy ne törjön 3 sorba */
+/* 🔥 MENÜ BETŰMÉRET DINAMIKUS ZSUGORÍTÁSA */
 
 @media (max-width: 1400px) {
     nav ul li a {
@@ -491,7 +491,7 @@ img {
 }
 
 /* ============================
-   PRIVACY / GDPR – JAVÍTOTT + ANIMÁLT CHECKBOX
+   PRIVACY / GDPR – ANIMÁLT CHECKBOX
 ============================ */
 
 .privacy-row {
@@ -623,7 +623,8 @@ footer {
     border-radius: 20px 20px 0 0;
 }
 
-/* 🔥 LÁBLÉC LINKJEI – Impresszum + Adatkezelés */
+/* 🔥 LÁBLÉC LINKJEI – Impresszum + Adatkezelés + Cookie */
+
 .footer-links {
     margin-top: 8px;
     text-align: center;
@@ -647,8 +648,9 @@ footer {
 }
 
 /* ============================
-   coockie banner
+   COOKIE BANNER
 ============================ */
+
 .cookie-banner {
     position: fixed;
     bottom: 20px;
@@ -672,4 +674,20 @@ footer {
     cursor: pointer;
     background: #0d47a1;
     color: #fff;
+}
+
+/* ============================
+   FELSOROLÁSOK JAVÍTÁSA
+============================ */
+
+.content-box ul {
+    text-align: left;
+    margin: 1rem auto;
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+.content-box li {
+    margin-bottom: 6px;
+    line-height: 1.6;
 }
