@@ -159,5 +159,46 @@
 </footer>
 
 </div>
+
+<!-- Email küldő -->
+<script>
+function initContactForm() {
+    const form = document.getElementById("contactForm");
+    const statusBox = document.getElementById("status");
+
+    if (!form) return;
+
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        statusBox.innerHTML = "Küldés folyamatban...";
+        statusBox.style.color = "blue";
+
+        const formData = new FormData(form);
+
+        fetch("send_email.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.text())
+        .then(result => {
+            if (result.trim() === "OK") {
+                statusBox.innerHTML = "Üzenet sikeresen elküldve!";
+                statusBox.style.color = "green";
+                form.reset();
+            } else {
+                statusBox.innerHTML = "Hiba történt: " + result;
+                statusBox.style.color = "red";
+            }
+        })
+        .catch(error => {
+            statusBox.innerHTML = "Hálózati hiba történt.";
+            statusBox.style.color = "red";
+        });
+    });
+}
+</script>
+
+
 </body>
 </html>
