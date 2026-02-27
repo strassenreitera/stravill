@@ -668,24 +668,29 @@ footer {
 }
 
 /* ============================
-   COOKIE BANNER
+   COOKIE BANNER – MOBIL FIX
 ============================ */
 
 .cookie-banner {
     position: fixed;
-    bottom: 20px;
+    bottom: 0; /* ❗ mindig a lábléc fölött marad */
     left: 50%;
     transform: translateX(-50%);
+    width: 100%;
+    max-width: 1200px;
+
     background: #fff;
     color: #000;
     padding: 15px 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+
     display: none;
-    z-index: 9999;
+    z-index: 99999; /* ❗ minden fölött legyen */
     text-align: center;
 }
 
+/* Gombok */
 .cookie-banner button {
     margin: 0 8px;
     padding: 8px 14px;
@@ -694,6 +699,19 @@ footer {
     cursor: pointer;
     background: #0d47a1;
     color: #fff;
+}
+
+/* Mobil optimalizálás */
+@media (max-width: 600px) {
+    .cookie-banner {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+
+    .cookie-banner button {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
 }
 
 /* ============================
