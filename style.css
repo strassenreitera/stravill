@@ -685,6 +685,7 @@ footer {
     margin: 1rem auto;
     padding-left: 20px;
     list-style-type: disc;
+    max-width: 600px;
 }
 
 .content-box li {
