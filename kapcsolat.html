@@ -54,12 +54,59 @@
 <!-- ÜZENETKÜLDŐ ŰRLAP -->
 <h3 style="text-align:center; margin-top:2rem;">📨 Üzenet küldése</h3>
 
-<form action="sendmail.php" method="POST" class="contact-form">
-    <input type="text" name="name" placeholder="Név" required>
-    <input type="email" name="email" placeholder="E-mail cím" required>
-    <input type="text" name="phone" placeholder="Telefonszám (nem kötelező)">
-    <textarea name="message" placeholder="Üzenet" required></textarea>
-    <button type="submit">Üzenet küldése</button>
+<form id="contactForm">
+  <input type="text" name="name" placeholder="Név" required>
+  <input type="email" name="email" placeholder="E-mail" required>
+
+  <!-- NEM kötelező -->
+  <input type="tel" name="phone" placeholder="Telefonszám">
+
+  <textarea name="message" placeholder="Üzenet" required></textarea>
+
+  <label style="display:flex; align-items:center; gap:8px; margin:10px 0;">
+    <input type="checkbox" id="gdpr" name="gdpr" required>
+    <span>Elfogadom az <a href="adatkezeles.html" target="_blank">adatkezelési szabályzatot</a></span>
+  </label>
+
+  <button type="submit">Küldés</button>
 </form>
+
+<div id="status" style="margin-top:10px; font-weight:bold;"></div>
+
+<!-- JAVA SCRIPT -->
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  if (!document.getElementById("gdpr").checked) {
+    document.getElementById("status").innerText = "Kérjük, fogadd el az adatkezelési szabályzatot.";
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("name", this.name.value);
+  formData.append("email", this.email.value);
+  formData.append("phone", this.phone.value || "Nincs megadva");
+  formData.append("message", this.message.value);
+  formData.append("gdpr", this.gdpr.checked ? "Elfogadva" : "Nincs elfogadva");
+
+  fetch("https://script.google.com/macros/s/AKfycbxQpEr7w9WMgfBHwFB5qQ6gqe8hMQOKTFrE9sKku_11Iz5l3KYULNMLG8oGBmzDEThr/exec", {
+    method: "POST",
+    body: formData
+  })
+  .then(r => r.text())
+  .then(text => {
+    if (text === "OK") {
+      document.getElementById("status").innerText = "Üzenet elküldve!";
+      this.reset();
+    } else {
+      document.getElementById("status").innerText = "Hiba történt.";
+    }
+  })
+  .catch(() => {
+    document.getElementById("status").innerText = "Hiba történt.";
+  });
+});
+</script>
 
 <p style="text-align:center; margin-top:1rem;"><strong>Gyors válasz, korrekt árak, garanciális munkavégzés.</strong></p>
