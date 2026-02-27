@@ -464,26 +464,24 @@ nav ul li a.active::after {
 }
 
 /* GDPR sor – Brave kompatibilis */
-.gdpr-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 10px;
+.gdpr-row {
+    display: block;
     text-align: center;
+    margin-top: 10px;
 }
 
-.gdpr-box input {
+.gdpr-row input {
+    margin-right: 6px;
     transform: scale(1.2);
 }
 
-.gdpr-box span {
+.gdpr-text {
+    display: inline-block;
     font-size: 0.95rem;
     color: #333;
 }
 
-.gdpr-box a {
+.gdpr-text a {
     color: #0d47a1;
     font-weight: 600;
     text-decoration: underline;
