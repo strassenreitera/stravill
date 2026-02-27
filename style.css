@@ -120,7 +120,7 @@ nav ul li a.active::after {
 
 /* 🔥 FELSŐ SOR JAVÍTÁSA – minden telefonon szép legyen */
 
-@media (max-width: 1200px) {
+@media (max-width: 900px) {
     nav {
         flex-direction: column;
         justify-content: center;
