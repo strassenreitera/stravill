@@ -139,17 +139,45 @@ nav ul li a.active::after {
     }
 }
 
-@media (max-width: 750px) {
+/* 🔥 MENÜ BETŰMÉRET DINAMIKUS ZSUGORÍTÁSA – hogy ne törjön 3 sorba */
+
+@media (max-width: 1400px) {
+    nav ul li a {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 1200px) {
     nav ul li a {
         font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 1000px) {
+    nav ul li a {
+        font-size: 0.78rem;
         padding: 4px 8px;
+    }
+}
+
+@media (max-width: 850px) {
+    nav ul li a {
+        font-size: 0.72rem;
+        padding: 3px 6px;
+    }
+}
+
+@media (max-width: 700px) {
+    nav ul li a {
+        font-size: 0.68rem;
+        padding: 3px 5px;
     }
 }
 
 @media (max-width: 600px) {
     nav ul li a {
-        font-size: 0.75rem;
-        padding: 3px 6px;
+        font-size: 0.63rem;
+        padding: 2px 4px;
     }
 }
 
