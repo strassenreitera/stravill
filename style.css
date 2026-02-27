@@ -226,8 +226,13 @@ nav ul li a.active::after {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
+.content-box h2,
+.content-box p {
+    text-align: center;
+}
+
 /* ============================
-   SERVICE BOX (Árlista, Szolgáltatások, Social)
+   SERVICE BOX
 ============================ */
 
 .service-box {
@@ -247,6 +252,51 @@ nav ul li a.active::after {
 }
 
 /* ============================
+   GLOBÁLIS KÉP + RÁCS
+============================ */
+
+img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* 300×300 px képek */
+.image-300 {
+    width: 300px;
+    height: 300px;
+}
+
+/* 3×3 rács */
+.grid-3x3 {
+    display: grid;
+    grid-template-columns: repeat(3, 300px);
+    justify-content: center;
+    gap: 20px;
+    margin: 20px auto;
+}
+
+/* Mobil */
+@media (max-width: 960px) {
+    .grid-3x3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .grid-3x3 {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .image-300 {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+    }
+}
+
+/* ============================
    KÖZÖSSÉGI MÉDIA
 ============================ */
 
@@ -260,7 +310,6 @@ nav ul li a.active::after {
 .social-icons img {
     width: 48px;
     height: 48px;
-    object-fit: contain;
     transition: 0.2s ease;
 }
 
