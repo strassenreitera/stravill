@@ -464,7 +464,7 @@ nav ul li a.active::after {
 }
 
 /* GDPR sor – Brave kompatibilis */
-.gdpr-row {
+.gdpr-box {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -474,13 +474,27 @@ nav ul li a.active::after {
     text-align: center;
 }
 
-.gdpr-row input {
+.gdpr-box input {
     transform: scale(1.2);
 }
 
-.gdpr-text {
+.gdpr-box span {
     font-size: 0.95rem;
     color: #333;
+}
+
+.gdpr-box a {
+    color: #0d47a1;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+/* Mobilon egymás alá csúszik */
+@media (max-width: 480px) {
+    .gdpr-box {
+        flex-direction: column;
+        gap: 6px;
+    }
 }
 
 /* Mobilon egymás alá csúszik */
