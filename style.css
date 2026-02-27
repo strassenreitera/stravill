@@ -826,3 +826,8 @@ body.dark .theme-toggle {
     background: #30363d !important;
     color: #fff !important;
 }
+
+/* 🌙 Sötét mód – csak a középső sor legyen fehér */
+body.dark .bottom-info-box p {
+    color: #ffffff !important;
+}
