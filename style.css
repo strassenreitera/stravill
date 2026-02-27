@@ -48,12 +48,14 @@ body {
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
+/* HEADER — nagy kijelzőn: logó bal, menü jobb */
 nav {
     width: 100%;
     padding: 0.7rem 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: nowrap;
 }
 
 /* LOGÓ + CÉGNÉV */
@@ -83,6 +85,7 @@ nav ul {
     display: flex;
     gap: 1.6rem;
     white-space: nowrap;
+    flex-wrap: wrap; /* mobilon 2 sor lehet */
 }
 
 nav ul li a {
@@ -116,24 +119,37 @@ nav ul li a.active::after {
     width: 60%;
 }
 
-/* MENÜ MOBIL */
-
+/* HEADER — mobilon: logó felül, menü alatta */
 @media (max-width: 900px) {
     nav {
-        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .nav-left-link {
         justify-content: center;
     }
 
     nav ul {
-        flex-wrap: wrap;
         justify-content: center;
-        gap: 1rem;
-        margin-top: 8px;
+        gap: 0.8rem;
     }
+}
 
+/* Menü zsugorodás */
+@media (max-width: 750px) {
     nav ul li a {
         font-size: 0.85rem;
         padding: 4px 8px;
+    }
+}
+
+@media (max-width: 600px) {
+    nav ul li a {
+        font-size: 0.75rem;
+        padding: 3px 6px;
     }
 }
 
@@ -226,8 +242,18 @@ nav ul li a.active::after {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
+.content-box h1,
 .content-box h2,
+.content-box h3,
+.content-box h4 {
+    color: #0d47a1;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
 .content-box p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
     text-align: center;
 }
 
@@ -386,6 +412,7 @@ img {
     align-items: center;
     gap: 10px;
     font-size: 0.9rem;
+    justify-content: center;
 }
 
 .gdpr-row a {
