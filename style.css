@@ -461,19 +461,40 @@ img {
     background-color: #ffc107;
 }
 
-/* 🔥 JAVÍTOTT GDPR / PRIVACY SOR – Brave kompatibilis */
-
+/* 🔥 PRIVACY / GDPR sor – egysorban marad, dinamikusan zsugorodik */
 .privacy-row {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 0.9rem;
     justify-content: center;
+    gap: 10px;
+
+    /* A sor ne törjön el idő előtt */
+    white-space: nowrap;
+
+    /* Dinamikus betűméret: nagy kijelzőn nagyobb, mobilon kisebb */
+    font-size: clamp(0.8rem, 2.5vw, 1rem);
+
+    margin-top: 10px;
+}
+
+.privacy-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0; /* Ne zsugorodjon össze */
 }
 
 .privacy-row a {
     color: #0d47a1;
     text-decoration: underline;
+}
+
+/* 🔥 Csak nagyon kicsi kijelzőn törjük a sort */
+@media (max-width: 380px) {
+    .privacy-row {
+        white-space: normal; /* Itt már törhet */
+        text-align: center;
+        flex-wrap: wrap;
+    }
 }
 
 /* 🔥 STATUS ÜZENET KÖZÉPRE IGAZÍTVA */
