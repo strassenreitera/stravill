@@ -2,15 +2,6 @@
 <html lang="hu">
 <head>
 
-<!-- 🔹 Google Analytics követőkód -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y6NQ4G486W"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-Y6NQ4G486W');
-</script>
-
 <!-- 🔹 Karakterkódolás és mobilbarát nézet -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,21 +10,17 @@
 <!-- STRAVILL.HU SEO CSOMAG -->
 <!-- ======================= -->
 
-<!-- Title -->
 <title>Villanyszerelő Orosháza – StraVill | Strassenreiter Attila E.V.</title>
 
-<!-- Meta tags -->
 <meta name="description" content="Villanyszerelő Orosháza – StraVill: gyors hibaelhárítás, lakossági villanyszerelés, új építésű és felújított ingatlanok. Precíz munka, korrekt árak. Hívjon most!">
 <meta name="author" content="Strassenreiter Attila E.V.">
 
-<!-- Open Graph / Facebook -->
 <meta property="og:title" content="Villanyszerelő Orosháza – StraVill">
 <meta property="og:description" content="Gyors, precíz villanyszerelés Orosházán – hívjon most!">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.stravill.hu">
 <meta property="og:image" content="https://www.stravill.hu/images/logo.png">
 
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Villanyszerelő Orosháza – StraVill">
 <meta name="twitter:description" content="Gyors, precíz villanyszerelés Orosházán – hívjon most!">
@@ -73,12 +60,10 @@ function loadPage(page, linkElement) {
         .then(html => {
             document.getElementById("content-box").innerHTML = html;
 
-            // 🔥 Kapcsolat oldal betöltésekor csak az emailküldőt aktiváljuk
             if (page === "kapcsolat.html") {
                 initContactForm();
             }
 
-            // Menü aktív elemének beállítása
             document.querySelectorAll("nav ul li a").forEach(a => a.classList.remove("active"));
             if (linkElement) linkElement.classList.add("active");
         })
@@ -88,7 +73,6 @@ function loadPage(page, linkElement) {
         });
 }
 
-// 🔹 Oldal betöltésekor automatikusan a főoldal jelenjen meg
 document.addEventListener("DOMContentLoaded", () => {
     const defaultLink = document.querySelector('a[data-page="rolam.html"]');
     loadPage("rolam.html", defaultLink);
@@ -164,6 +148,8 @@ document.addEventListener("DOMContentLoaded", () => {
         <a href="#" data-page="impresszum.html" onclick="loadPage('impresszum.html', this); return false;">Impresszum</a>
         <span>|</span>
         <a href="#" data-page="adatkezeles.html" onclick="loadPage('adatkezeles.html', this); return false;">Adatkezelési tájékoztató</a>
+        <span>|</span>
+        <a href="#" data-page="cookie.html" onclick="loadPage('cookie.html', this); return false;">Cookie tájékoztató</a>
     </div>
 </footer>
 
@@ -216,12 +202,51 @@ function initContactForm() {
 }
 </script>
 
+<!-- 🍪 COOKIE BANNER + GOOGLE ANALYTICS HOZZÁJÁRULÁS -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const banner = document.getElementById("cookie-banner");
+    const accept = document.getElementById("cookie-accept");
+    const decline = document.getElementById("cookie-decline");
+
+    if (!localStorage.getItem("cookie-consent")) {
+        banner.style.display = "block";
+    }
+
+    accept.onclick = function() {
+        localStorage.setItem("cookie-consent", "accepted");
+        banner.style.display = "none";
+        loadAnalytics();
+    };
+
+    decline.onclick = function() {
+        localStorage.setItem("cookie-consent", "declined");
+        banner.style.display = "none";
+    };
+
+    if (localStorage.getItem("cookie-consent") === "accepted") {
+        loadAnalytics();
+    }
+});
+
+function loadAnalytics() {
+    const script = document.createElement("script");
+    script.src = "https://www.googletagmanager.com/gtag/js?id=G-Y6NQ4G486W";
+    script.async = true;
+    document.head.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y6NQ4G486W', { 'anonymize_ip': true });
+}
+</script>
+
 <div id="cookie-banner" class="cookie-banner">
     <p>Ez a weboldal sütiket használ a működéshez és a statisztikákhoz. Engedélyezed a statisztikai sütiket?</p>
     <button id="cookie-accept">Igen</button>
     <button id="cookie-decline">Nem</button>
 </div>
-
 
 </body>
 </html>
