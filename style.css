@@ -366,72 +366,54 @@ nav ul li a.active::after {
     opacity: 0.8;
 }
 
-
 /* ============================
-   KAPCSOLAT OLDAL – ÚJ, MODERN DESIGN
+   KAPCSOLAT + GOOGLE MAPS BLOKK
 ============================ */
 
-/* Fő wrapper a térkép + adatokhoz */
-.contact-wrapper {
+.contact-map-box {
     display: flex;
+    flex-direction: row;
     gap: 20px;
+    align-items: flex-start;
     flex-wrap: wrap;
-    margin: 1.5rem 0;
 }
 
-/* Bal oldali infókártya */
-.contact-card {
+.contact-info {
     flex: 1 1 300px;
-    background: #ffffff;
-    padding: 1.2rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.contact-card h3 {
-    color: #0d47a1;
-    margin-bottom: 0.8rem;
-    text-align: center;
-}
-
-.contact-card p {
-    margin-bottom: 0.6rem;
-    text-align: center;
-}
-
-.contact-card a {
-    color: #0d47a1;
-    font-weight: 600;
-}
-
-/* Térkép */
 .contact-map {
     flex: 1 1 300px;
 }
 
 .contact-map iframe {
     width: 100%;
-    height: 320px;
-    border: none;
+    height: 300px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-/* Üzenetküldő űrlap */
-.form-title {
-    text-align: center;
-    margin-top: 2rem;
-    font-size: 1.6rem;
-    color: #0d47a1;
+@media (max-width: 768px) {
+    .contact-map-box {
+        flex-direction: column;
+    }
+
+    .contact-map iframe {
+        height: 250px;
+    }
 }
+
+/* ============================
+   KAPCSOLAT ŰRLAP
+============================ */
 
 .contact-form {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
     max-width: 500px;
     margin: 0 auto;
-    margin-top: 1.2rem;
+    margin-top: 1.5rem;
 }
 
 .contact-form input,
@@ -462,62 +444,6 @@ nav ul li a.active::after {
 .contact-form button:hover {
     background-color: #08306b;
 }
-
-/* GDPR sor – Brave kompatibilis */
-.gdpr-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-    text-align: center;
-}
-
-.gdpr-box input {
-    transform: scale(1.2);
-}
-
-.gdpr-box span {
-    font-size: 0.95rem;
-    color: #333;
-}
-
-.gdpr-box a {
-    color: #0d47a1;
-    font-weight: 600;
-    text-decoration: underline;
-}
-
-/* Mobilon egymás alá csúszik */
-@media (max-width: 480px) {
-    .gdpr-box {
-        flex-direction: column;
-        gap: 6px;
-    }
-}
-
-/* Mobilon egymás alá csúszik */
-@media (max-width: 480px) {
-    .gdpr-box {
-        flex-direction: column;
-        gap: 6px;
-    }
-}
-
-/* Státusz üzenet */
-.status-box {
-    margin-top: 10px;
-    font-weight: bold;
-    text-align: center;
-}
-
-/* Záró szöveg */
-.closing-text {
-    text-align: center;
-    margin-top: 1rem;
-}
-
 
 /* ============================
    ALSÓ INFÓ BOX
