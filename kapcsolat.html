@@ -54,16 +54,13 @@
 <!-- ÜZENETKÜLDŐ ŰRLAP -->
 <h3 style="text-align:center; margin-top:2rem;">📨 Üzenet küldése</h3>
 
-<form id="contactForm">
+<form id="contactForm" class="contact-form">
   <input type="text" name="name" placeholder="Név" required>
   <input type="email" name="email" placeholder="E-mail" required>
-
-  <!-- NEM kötelező -->
-  <input type="tel" name="phone" placeholder="Telefonszám(nem kötelező)">
-
+  <input type="tel" name="phone" placeholder="Telefonszám (nem kötelező)">
   <textarea name="message" placeholder="Üzenet" required></textarea>
 
-  <label style="display:flex; align-items:center; gap:8px; margin:10px 0;">
+  <label style="display:flex; align-items:center; gap:8px;">
     <input type="checkbox" id="gdpr" name="gdpr" required>
     <span>Elfogadom az <a href="adatkezeles.html" target="_blank">adatkezelési szabályzatot</a></span>
   </label>
@@ -71,7 +68,6 @@
   <button type="submit">Küldés</button>
 </form>
 
-<div id="status" style="margin-top:10px; font-weight:bold;"></div>
-
+<div id="status" style="margin-top:10px; font-weight:bold; text-align:center;"></div>
 
 <p style="text-align:center; margin-top:1rem;"><strong>Gyors válasz, korrekt árak, garanciális munkavégzés.</strong></p>
