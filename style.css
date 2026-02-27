@@ -461,26 +461,60 @@ img {
     background-color: #ffc107;
 }
 
-/* 🔥 PRIVACY / GDPR sor – egysorban marad, dinamikusan zsugorodik */
+/* ============================
+   PRIVACY / GDPR – JAVÍTOTT + ANIMÁLT CHECKBOX
+============================ */
+
 .privacy-row {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-
-    /* A sor ne törjön el idő előtt */
     white-space: nowrap;
-
-    /* Dinamikus betűméret: nagy kijelzőn nagyobb, mobilon kisebb */
     font-size: clamp(0.8rem, 2.5vw, 1rem);
-
     margin-top: 10px;
 }
 
 .privacy-row input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0; /* Ne zsugorodjon össze */
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #0d47a1;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    background: #fff;
+    transition: all 0.25s ease;
+}
+
+.privacy-row input[type="checkbox"]:hover {
+    border-color: #ffca28;
+}
+
+.privacy-row input[type="checkbox"]::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 12px;
+    border-right: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+    top: 1px;
+    left: 6px;
+    transform: scale(0) rotate(45deg);
+    opacity: 0;
+    transition: all 0.25s ease;
+}
+
+.privacy-row input[type="checkbox"]:checked {
+    background-color: #ffca28;
+    border-color: #ffca28;
+}
+
+.privacy-row input[type="checkbox"]:checked::after {
+    transform: scale(1) rotate(45deg);
+    opacity: 1;
 }
 
 .privacy-row a {
@@ -488,21 +522,30 @@ img {
     text-decoration: underline;
 }
 
-/* 🔥 Csak nagyon kicsi kijelzőn törjük a sort */
 @media (max-width: 380px) {
     .privacy-row {
-        white-space: normal; /* Itt már törhet */
-        text-align: center;
+        white-space: normal;
         flex-wrap: wrap;
+        text-align: center;
     }
 }
 
-/* 🔥 STATUS ÜZENET KÖZÉPRE IGAZÍTVA */
+/* ============================
+   ANIMÁLT SIKER / HIBA ÜZENET
+============================ */
 
 .status-box {
     text-align: center;
     margin-top: 10px;
     font-weight: 600;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: all 0.35s ease;
+}
+
+.status-box.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* ============================
