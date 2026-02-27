@@ -118,9 +118,9 @@ nav ul li a.active::after {
     width: 60%;
 }
 
-/* MOBIL HEADER */
+/* 🔥 FELSŐ SOR JAVÍTÁSA – minden telefonon szép legyen */
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
     nav {
         flex-direction: column;
         justify-content: center;
@@ -135,6 +135,7 @@ nav ul li a.active::after {
     nav ul {
         justify-content: center;
         gap: 0.8rem;
+        flex-wrap: wrap;
     }
 }
 
