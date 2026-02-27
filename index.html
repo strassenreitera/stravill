@@ -196,12 +196,13 @@ function initContactForm() {
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const banner = document.getElementById("cookie-banner");
-    const accept = document.getElementById("cookie-accept");
-    const decline = document.getElementById("cookie-decline");
 
-    if (!localStorage.getItem("cookie-consent")) {
-        banner.style.display = "block";
-    }
+    setTimeout(() => {
+        if (!localStorage.getItem("cookie-consent")) {
+            banner.style.display = "block";
+        }
+    }, 150);
+});
 
     accept.onclick = function() {
         localStorage.setItem("cookie-consent", "accepted");
