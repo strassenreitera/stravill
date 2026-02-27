@@ -85,7 +85,7 @@ nav ul {
     display: flex;
     gap: 1.6rem;
     white-space: nowrap;
-    flex-wrap: wrap; /* mobilon 2 sor lehet */
+    flex-wrap: wrap;
 }
 
 nav ul li a {
@@ -363,6 +363,66 @@ img {
 }
 
 /* ============================
+   KAPCSOLAT – KÉT OSZLOPOS ELRENDEZÉS
+============================ */
+
+.contact-wrapper {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: nowrap;
+}
+
+.contact-card {
+    flex: 1;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-align: left;
+}
+
+.contact-card h3 {
+    color: #0d47a1;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.contact-card p {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.contact-map {
+    flex: 1;
+}
+
+.contact-map iframe {
+    width: 100%;
+    height: 350px;
+    border: none;
+    border-radius: 12px;
+}
+
+@media (max-width: 900px) {
+    .contact-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-card,
+    .contact-map {
+        width: 100%;
+    }
+
+    .contact-map iframe {
+        height: 300px;
+    }
+}
+
+/* ============================
    KAPCSOLAT ŰRLAP
 ============================ */
 
@@ -404,8 +464,6 @@ img {
 .contact-form button:hover {
     background-color: #ffc107;
 }
-
-/* GDPR sor */
 
 .gdpr-row {
     display: flex;
