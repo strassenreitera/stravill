@@ -143,6 +143,7 @@ function initContactForm() {
 
         statusBox.textContent = "Küldés...";
         statusBox.style.color = "blue";
+        statusBox.classList.add("show");
 
         const data = {
             name: form.name.value,
@@ -159,15 +160,18 @@ function initContactForm() {
             if (res === "OK") {
                 statusBox.textContent = "Üzenet elküldve!";
                 statusBox.style.color = "green";
+                statusBox.classList.add("show");
                 form.reset();
             } else {
-                statusBox.textContent = "Hiba: " + res;
+                statusBox.textContent = "Hiba történt: " + res;
                 statusBox.style.color = "red";
+                statusBox.classList.add("show");
             }
         })
         .catch(() => {
             statusBox.textContent = "Hálózati hiba történt.";
             statusBox.style.color = "red";
+            statusBox.classList.add("show");
         });
     });
 }
