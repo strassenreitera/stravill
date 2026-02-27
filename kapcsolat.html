@@ -2,7 +2,6 @@
 
 <p><strong>Forduljon hozzám bizalommal bármilyen villanyszerelési munkával kapcsolatban!</strong></p>
 
-<!-- KAPCSOLATI BLOKK + TÉRKÉP -->
 <div class="contact-wrapper">
 
     <div class="contact-card">
@@ -26,7 +25,6 @@
 
 </div>
 
-<!-- SZOLGÁLTATÁSI TERÜLET -->
 <div class="service-box">
     <p class="service-title">📍 Szolgáltatási terület</p>
     <p><strong>Orosháza és környéke:</strong></p>
@@ -38,14 +36,12 @@
     </p>
 </div>
 
-<!-- ELÉRHETŐSÉG -->
 <div class="service-box">
     <p class="service-title">⏰ Elérhetőség</p>
     <p>Hétfőtől péntekig: 08:00 – 18:00</p>
     <p><strong>Hétvégén is elérhető vagyok!</strong></p>
 </div>
 
-<!-- ÜZENETKÜLDŐ ŰRLAP -->
 <h3 class="form-title">📨 Üzenet küldése</h3>
 
 <form id="contactForm" class="contact-form">
@@ -54,10 +50,14 @@
     <input type="tel" name="phone" placeholder="Telefonszám (nem kötelező)">
     <textarea name="message" placeholder="Üzenet" required></textarea>
 
-    <label class="gdpr-box">
+    <div class="gdpr-box">
         <input type="checkbox" id="gdpr" name="gdpr" required>
-        <span>Elfogadom az <a href="adatkezeles.html" target="_blank">adatkezelési szabályzatot</a></span>
-    </label>
+        <span>Elfogadom az 
+            <a href="adatkezeles.html" target="_blank" rel="noopener noreferrer">
+                adatkezelési szabályzatot
+            </a>
+        </span>
+    </div>
 
     <button type="submit">Küldés</button>
 </form>

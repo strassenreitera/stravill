@@ -366,42 +366,6 @@ nav ul li a.active::after {
     opacity: 0.8;
 }
 
-/* ============================
-   KAPCSOLAT + GOOGLE MAPS BLOKK
-============================ */
-
-.contact-map-box {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    align-items: flex-start;
-    flex-wrap: wrap;
-}
-
-.contact-info {
-    flex: 1 1 300px;
-}
-
-.contact-map {
-    flex: 1 1 300px;
-}
-
-.contact-map iframe {
-    width: 100%;
-    height: 300px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-
-@media (max-width: 768px) {
-    .contact-map-box {
-        flex-direction: column;
-    }
-
-    .contact-map iframe {
-        height: 250px;
-    }
-}
 
 /* ============================
    KAPCSOLAT OLDAL – ÚJ, MODERN DESIGN
@@ -499,13 +463,14 @@ nav ul li a.active::after {
     background-color: #08306b;
 }
 
-/* GDPR sor – dinamikus törés */
+/* GDPR sor – Brave kompatibilis */
 .gdpr-box {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
+    margin-top: 10px;
     text-align: center;
 }
 
@@ -515,6 +480,13 @@ nav ul li a.active::after {
 
 .gdpr-box span {
     font-size: 0.95rem;
+    color: #333;
+}
+
+.gdpr-box a {
+    color: #0d47a1;
+    font-weight: 600;
+    text-decoration: underline;
 }
 
 /* Mobilon egymás alá csúszik */
