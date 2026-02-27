@@ -35,16 +35,25 @@
     <input type="tel" name="phone" placeholder="Telefonszám (nem kötelező)">
     <textarea name="message" placeholder="Üzenet" required></textarea>
 
-    <!-- 🔥 GDPR / Adatkezelés – Brave-kompatibilis verzió -->
+    <!-- 🔥 GDPR / Adatkezelés – kötelező hozzájárulás -->
     <div class="privacy-row">
         <input type="checkbox" id="accept" required>
         <span class="privacy-text">
             Elfogadom az 
-            <a href="adatkezeles.html" target="_blank">adatkezelési szabályzatot</a>.
+            <a href="#" onclick="loadPage('adatkezeles.html'); return false;">adatkezelési tájékoztatót</a>.
         </span>
     </div>
 
     <button type="submit">Küldés</button>
 </form>
+
+<!-- 🔥 Külön adatkezelési link – középre betöltve -->
+<p style="text-align:center; margin-top:15px; font-size:0.9rem;">
+    Az üzenet elküldésével elfogadod az 
+    <a href="#" onclick="loadPage('adatkezeles.html'); return false;" style="color:#0d47a1; font-weight:600;">
+        adatkezelési tájékoztatóban
+    </a>
+    foglaltakat.
+</p>
 
 <div id="status" class="status-box"></div>
