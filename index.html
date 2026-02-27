@@ -1,59 +1,114 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y6NQ4G486W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Y6NQ4G486W');
+</script>
 
-    <!-- SEO -->
-    <title>StraVill – Villanyszerelő Orosházán | Strassenreiter Attila</title>
-    <meta name="description" content="StraVill – Strassenreiter Attila villanyszerelő Orosházán. Gyors kiszállás, precíz munka, korrekt árak. Villanyszerelés, hibajavítás, lámpa- és konnektorszerelés, hálózatfelújítás.">
-    <meta name="keywords" content="villanyszerelő Orosháza, StraVill, Strassenreiter Attila, villanyszerelés, konnektor csere, lámpa felszerelés, hibakeresés">
-    <meta name="author" content="Strassenreiter Attila E.V.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Facebook / Messenger / Instagram megosztás -->
-    <meta property="og:title" content="StraVill – Villanyszerelő Orosházán">
-    <meta property="og:description" content="Gyors kiszállás, precíz munka, korrekt árak. Villanyszerelés Orosházán és környékén.">
-    <meta property="og:image" content="icons/hero-bg.jpg">
-    <meta property="og:url" content="https://www.stra-vill.hu">
-    <meta property="og:type" content="website">
+<title>StraVill – Villanyszerelő Orosházán | Strassenreiter Attila</title>
+<meta name="description" content="StraVill – Strassenreiter Attila villanyszerelő Orosházán. Gyors kiszállás, precíz munka, korrekt árak. Villanyszerelés, hibajavítás, lámpa- és konnektorszerelés, hálózatfelújítás.">
+<meta name="keywords" content="villanyszerelő Orosháza, StraVill, Strassenreiter Attila, villanyszerelés, konnektor csere, lámpa felszerelés, hibakeresés">
+<meta name="author" content="Strassenreiter Attila E.V.">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+<meta property="og:title" content="StraVill – Villanyszerelő Orosházán">
+<meta property="og:description" content="Gyors kiszállás, precíz munka, korrekt árak. Villanyszerelés Orosházán és környékén.">
+<meta property="og:image" content="icons/hero-bg.jpg">
+<meta property="og:url" content="https://www.stra-vill.hu">
+<meta property="og:type" content="website">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+<link rel="stylesheet" href="style.css">
 
-    <!-- Betöltőmotor -->
-    <script>
-        function loadPage(page, linkElement) {
-            fetch(page)
-                .then(response => {
-                    if (!response.ok) throw new Error("Hiba: " + response.status);
-                    return response.text();
-                })
-                .then(data => {
-                    document.getElementById("content-box").innerHTML = data;
+<script>
+function loadPage(page, linkElement) {
+    fetch(page)
+        .then(response => {
+            if (!response.ok) throw new Error("Hiba: " + response.status);
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById("content-box").innerHTML = data;
 
-                    // Menü aktív elem
-                    document.querySelectorAll("nav ul li a").forEach(a => a.classList.remove("active"));
-                    if (linkElement) linkElement.classList.add("active");
+            // 🔥 GDPR + kapcsolat űrlap inicializálása AJAX betöltés után
+            if (page === "kapcsolat.html") {
 
-                    // Hamburger bezárása mobilon
-                    const toggle = document.getElementById("menu-toggle");
-                    if (toggle) toggle.checked = false;
-                })
-                .catch(err => {
-                    document.getElementById("content-box").innerHTML =
-                        "<p style='text-align:center;color:red;'>Nem sikerült betölteni az oldalt.</p>";
-                    console.error(err);
-                });
+                // GDPR szöveg beszúrása
+                const gdprText = document.querySelector(".gdpr-text");
+                if (gdprText) {
+                    gdprText.innerHTML =
+                        `Elfogadom az <a href="adatkezeles.html" target="_blank">adatkezelési szabályzatot</a>`;
+                }
+
+                // Kapcsolat űrlap inicializálása
+                initContactForm();
+            }
+
+            // Menü aktív elem
+            document.querySelectorAll("nav ul li a").forEach(a => a.classList.remove("active"));
+            if (linkElement) linkElement.classList.add("active");
+        })
+        .catch(err => {
+            document.getElementById("content-box").innerHTML =
+                "<p style='text-align:center;color:red;'>Nem sikerült betölteni az oldalt.</p>";
+            console.error(err);
+        });
+}
+
+window.addEventListener("DOMContentLoaded", function () {
+    const defaultLink = document.querySelector('a[data-page="rolam.html"]');
+    loadPage("rolam.html", defaultLink);
+});
+
+// Kapcsolat űrlap JS
+function initContactForm() {
+    const form = document.getElementById("contactForm");
+    if (!form) return;
+
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const gdpr = document.getElementById("gdpr");
+        const status = document.getElementById("status");
+
+        if (!gdpr.checked) {
+            status.innerText = "Kérjük, fogadd el az adatkezelési szabályzatot.";
+            return;
         }
 
-        window.addEventListener("DOMContentLoaded", function () {
-            const defaultLink = document.querySelector('a[data-page="rolam.html"]');
-            loadPage("rolam.html", defaultLink);
+        const formData = new FormData();
+        formData.append("name", this.name.value);
+        formData.append("email", this.email.value);
+        formData.append("phone", this.phone.value || "Nincs megadva");
+        formData.append("message", this.message.value);
+
+        fetch("https://script.google.com/macros/s/AKfycbxQpEr7w9WMgfBHwFB5qQ6gqe8hMQOKTFrE9sKku_11Iz5l3KYULNMLG8oGBmzDEThr/exec", {
+            method: "POST",
+            body: formData
+        })
+        .then(r => r.text())
+        .then(text => {
+            if (text === "OK") {
+                status.innerText = "Üzenet elküldve!";
+                form.reset();
+            } else {
+                status.innerText = "Hiba történt.";
+            }
+        })
+        .catch(() => {
+            status.innerText = "Hiba történt.";
         });
-    </script>
+    });
+}
+</script>
+
 </head>
 
 <body>
@@ -61,8 +116,6 @@
 
 <header class="fixed-header">
     <nav>
-
-        <!-- BAL OLDAL: LOGÓ + NÉV (Facebook új lapon) -->
         <div class="nav-left">
             <a href="https://www.facebook.com/profile.php?id=61578948980529"
                target="_blank"
@@ -72,7 +125,6 @@
             </a>
         </div>
 
-        <!-- MENÜ -->
         <ul>
             <li><a href="#" data-page="rolam.html" onclick="loadPage('rolam.html', this); return false;">Főoldal</a></li>
             <li><a href="#" data-page="szolgaltatasok.html" onclick="loadPage('szolgaltatasok.html', this); return false;">Szolgáltatások</a></li>
@@ -80,7 +132,6 @@
             <li><a href="#" data-page="galeria.html" onclick="loadPage('galeria.html', this); return false;">Galéria</a></li>
             <li><a href="#" data-page="kapcsolat.html" onclick="loadPage('kapcsolat.html', this); return false;">Kapcsolat</a></li>
         </ul>
-
     </nav>
 </header>
 
@@ -97,39 +148,19 @@
     </div>
 </section>
 
-<!-- IDE TÖLTŐDIK BE MINDEN OLDAL -->
 <section id="content-box" class="content-box"></section>
 
-<!-- KÖZÖSSÉGI MÉDIA IKONOK -->
+<!-- 🌐 KÖZÖSSÉGI MÉDIA -->
 <div class="service-box">
     <p class="service-title">🌐 Közösségi média</p>
 
     <div class="social-icons">
-
-        <a href="https://www.facebook.com/16rfCArxpN/" target="_blank">
-            <img src="icons/facebook.png" alt="Facebook">
-        </a>
-
-        <a href="https://www.instagram.com/stra_vill/" target="_blank">
-            <img src="icons/instagram.png" alt="Instagram">
-        </a>
-
-        <a href="https://youtube.com/@stra_vill" target="_blank">
-            <img src="icons/youtube.png" alt="YouTube">
-        </a>
-
-        <a href="https://tiktok.com/@stra_vill" target="_blank">
-            <img src="icons/tiktok.png" alt="TikTok">
-        </a>
-
+        <a href="https://www.facebook.com/16rfCArxpN/" target="_blank"><img src="icons/facebook.png" alt="Facebook"></a>
+        <a href="https://www.instagram.com/stra_vill/" target="_blank"><img src="icons/instagram.png" alt="Instagram"></a>
+        <a href="https://youtube.com/@stra_vill" target="_blank"><img src="icons/youtube.png" alt="YouTube"></a>
+        <a href="https://tiktok.com/@stra_vill" target="_blank"><img src="icons/tiktok.png" alt="TikTok"></a>
     </div>
 </div>
-
-<section class="reviews-box">
-    <h2>Vélemények</h2>
-    <script src="https://elfsightcdn.com/platform.js" async></script>
-    <div class="elfsight-app-ca6328f3-93a6-4f54-98d7-35aaf91aaba7" data-elfsight-app-lazy></div>
-</section>
 
 <div class="bottom-info-box">
     <h2>Villanyszerelő – Orosháza és környéke</h2>
