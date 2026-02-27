@@ -145,80 +145,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </div>
 
-<!-- 🔥 GOOGLE APPS SCRIPT EMAILKÜLDŐ FUNKCIÓ -->
-<script>
-function initContactForm() {
-    const form = document.getElementById("contactForm");
-    const statusBox = document.getElementById("status");
-
-    if (!form) return;
-
-    form.addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        statusBox.textContent = "Küldés...";
-        statusBox.style.color = "blue";
-        statusBox.classList.add("show");
-
-        const data = {
-            name: form.name.value,
-            email: form.email.value,
-            message: form.message.value
-        };
-
-        fetch("https://script.google.com/macros/s/AKfycbxQpEr7w9WMgfBHwFB5qQ6gqe8hMQOKTFrE9sKku_11Iz5l3KYULNMLG8oGBmzDEThr/exec", {
-            method: "POST",
-            body: JSON.stringify(data)
-        })
-        .then(r => r.text())
-        .then(res => {
-            if (res === "OK") {
-                statusBox.textContent = "Üzenet elküldve!";
-                statusBox.style.color = "green";
-                statusBox.classList.add("show");
-                form.reset();
-            } else {
-                statusBox.textContent = "Hiba történt: " + res;
-                statusBox.style.color = "red";
-                statusBox.classList.add("show");
-            }
-        })
-        .catch(() => {
-            statusBox.textContent = "Hálózati hiba történt.";
-            statusBox.style.color = "red";
-            statusBox.classList.add("show");
-        });
-    });
-}
-</script>
-
-<!-- 🍪 COOKIE BANNER – HIBAMENTES VERZIÓ -->
+<!-- 🍪 COOKIE BANNER – MINDIG MEGJELENIK -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const banner = document.getElementById("cookie-banner");
     const accept = document.getElementById("cookie-accept");
     const decline = document.getElementById("cookie-decline");
 
+    // Mindig jelenjen meg
     setTimeout(() => {
-        if (!localStorage.getItem("cookie-consent")) {
-            banner.style.display = "block";
-        }
+        banner.style.display = "block";
     }, 150);
 
     accept.onclick = function() {
-        localStorage.setItem("cookie-consent", "accepted");
         banner.style.display = "none";
         loadAnalytics();
     };
 
     decline.onclick = function() {
-        localStorage.setItem("cookie-consent", "declined");
         banner.style.display = "none";
     };
-
-    if (localStorage.getItem("cookie-consent") === "accepted") {
-        loadAnalytics();
-    }
 });
 
 function loadAnalytics() {
