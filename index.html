@@ -11,65 +11,61 @@
   gtag('config', 'G-Y6NQ4G486W');
 </script>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- SEO -->
-    <title>StraVill – Villanyszerelő Orosházán | Strassenreiter Attila</title>
-    <meta name="description" content="StraVill – Strassenreiter Attila villanyszerelő Orosházán. Gyors kiszállás, precíz munka, korrekt árak. Villanyszerelés, hibajavítás, lámpa- és konnektorszerelés, hálózatfelújítás.">
-    <meta name="keywords" content="villanyszerelő Orosháza, StraVill, Strassenreiter Attila, villanyszerelés, konnektor csere, lámpa felszerelés, hibakeresés">
-    <meta name="author" content="Strassenreiter Attila E.V.">
+<title>StraVill – Villanyszerelő Orosházán | Strassenreiter Attila</title>
+<meta name="description" content="StraVill – Strassenreiter Attila villanyszerelő Orosházán. Gyors kiszállás, precíz munka, korrekt árak. Villanyszerelés, hibajavítás, lámpa- és konnektorszerelés, hálózatfelújítás.">
+<meta name="keywords" content="villanyszerelő Orosháza, StraVill, Strassenreiter Attila, villanyszerelés, konnektor csere, lámpa felszerelés, hibakeresés">
+<meta name="author" content="Strassenreiter Attila E.V.">
 
-    <!-- Facebook / Messenger / Instagram megosztás -->
-    <meta property="og:title" content="StraVill – Villanyszerelő Orosházán">
-    <meta property="og:description" content="Gyors kiszállás, precíz munka, korrekt árak. Villanyszerelés Orosházán és környékén.">
-    <meta property="og:image" content="icons/hero-bg.jpg">
-    <meta property="og:url" content="https://www.stra-vill.hu">
-    <meta property="og:type" content="website">
+<meta property="og:title" content="StraVill – Villanyszerelő Orosházán">
+<meta property="og:description" content="Gyors kiszállás, precíz munka, korrekt árak. Villanyszerelés Orosházán és környékén.">
+<meta property="og:image" content="icons/hero-bg.jpg">
+<meta property="og:url" content="https://www.stra-vill.hu">
+<meta property="og:type" content="website">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+<link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+<link rel="stylesheet" href="style.css">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+<!-- OLDALBETÖLTŐ MOTOR -->
+<script>
+function loadPage(page, linkElement) {
+    fetch(page)
+        .then(response => {
+            if (!response.ok) throw new Error("Hiba: " + response.status);
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById("content-box").innerHTML = data;
 
-    <!-- Betöltőmotor -->
-    <script>
-        function loadPage(page, linkElement) {
-            fetch(page)
-                .then(response => {
-                    if (!response.ok) throw new Error("Hiba: " + response.status);
-                    return response.text();
-                })
-                .then(data => {
-                    document.getElementById("content-box").innerHTML = data;
+            /* GDPR beszúrás */
+            if (page === "kapcsolat.html") {
+                const gdprText = document.querySelector(".gdpr-text");
+                if (gdprText) {
+                    gdprText.innerHTML =
+                        `Elfogadom az <a href="adatkezeles.html" target="_blank">adatkezelési szabályzatot</a>`;
+                }
+                initContactForm(); /* <-- MOST MÁR LÉTEZIK */
+            }
 
-                    /* 🔥 GDPR BESZÚRÁSA – Brave kompatibilis */
-                    if (page === "kapcsolat.html") {
-                        const gdprText = document.querySelector(".gdpr-text");
-                        if (gdprText) {
-                            gdprText.innerHTML =
-                                `Elfogadom az <a href="adatkezeles.html" target="_blank">adatkezelési szabályzatot</a>`;
-                        }
-                        initContactForm();
-                    }
-
-                    /* Menü aktív elem */
-                    document.querySelectorAll("nav ul li a").forEach(a => a.classList.remove("active"));
-                    if (linkElement) linkElement.classList.add("active");
-                })
-                .catch(err => {
-                    document.getElementById("content-box").innerHTML =
-                        "<p style='text-align:center;color:red;'>Nem sikerült betölteni az oldalt.</p>";
-                    console.error(err);
-                });
-        }
-
-        window.addEventListener("DOMContentLoaded", function () {
-            const defaultLink = document.querySelector('a[data-page="rolam.html"]');
-            loadPage("rolam.html", defaultLink);
+            /* Menü aktív elem */
+            document.querySelectorAll("nav ul li a").forEach(a => a.classList.remove("active"));
+            if (linkElement) linkElement.classList.add("active");
+        })
+        .catch(err => {
+            document.getElementById("content-box").innerHTML =
+                "<p style='text-align:center;color:red;'>Nem sikerült betölteni az oldalt.</p>";
+            console.error(err);
         });
-    </script>
+}
+
+window.addEventListener("DOMContentLoaded", function () {
+    const defaultLink = document.querySelector('a[data-page="rolam.html"]');
+    loadPage("rolam.html", defaultLink);
+});
+</script>
+
 </head>
 
 <body>
@@ -78,7 +74,6 @@
 <header class="fixed-header">
     <nav>
 
-        <!-- BAL OLDAL: LOGÓ + NÉV (Facebook új lapon) -->
         <div class="nav-left">
             <a href="https://www.facebook.com/profile.php?id=61578948980529"
                target="_blank"
@@ -88,7 +83,6 @@
             </a>
         </div>
 
-        <!-- MENÜ -->
         <ul>
             <li><a href="#" data-page="rolam.html" onclick="loadPage('rolam.html', this); return false;">Főoldal</a></li>
             <li><a href="#" data-page="szolgaltatasok.html" onclick="loadPage('szolgaltatasok.html', this); return false;">Szolgáltatások</a></li>
@@ -113,35 +107,19 @@
     </div>
 </section>
 
-<!-- IDE TÖLTŐDIK BE MINDEN OLDAL -->
 <section id="content-box" class="content-box"></section>
 
-<!-- KÖZÖSSÉGI MÉDIA IKONOK -->
 <div class="service-box social-box">
     <p class="service-title">🌐 Közösségi média</p>
 
     <div class="social-icons">
-
-        <a href="https://www.facebook.com/16rfCArxpN/" target="_blank">
-            <img src="icons/facebook.png" alt="Facebook">
-        </a>
-
-        <a href="https://www.instagram.com/stra_vill/" target="_blank">
-            <img src="icons/instagram.png" alt="Instagram">
-        </a>
-
-        <a href="https://youtube.com/@stra_vill" target="_blank">
-            <img src="icons/youtube.png" alt="YouTube">
-        </a>
-
-        <a href="https://tiktok.com/@stra_vill" target="_blank">
-            <img src="icons/tiktok.png" alt="TikTok">
-        </a>
-
+        <a href="https://www.facebook.com/16rfCArxpN/" target="_blank"><img src="icons/facebook.png"></a>
+        <a href="https://www.instagram.com/stra_vill/" target="_blank"><img src="icons/instagram.png"></a>
+        <a href="https://youtube.com/@stra_vill" target="_blank"><img src="icons/youtube.png"></a>
+        <a href="https://tiktok.com/@stra_vill" target="_blank"><img src="icons/tiktok.png"></a>
     </div>
 </div>
 
-<!-- VÉLEMÉNYEK -->
 <section class="reviews-box">
     <h2>Vélemények</h2>
     <script src="https://elfsightcdn.com/platform.js" async></script>
@@ -160,7 +138,7 @@
 
 </div>
 
-<!-- Email küldő -->
+<!-- 🔥 MŰKÖDŐ EMAIL KÜLDŐ JAVASCRIPT -->
 <script>
 function initContactForm() {
     const form = document.getElementById("contactForm");
@@ -198,7 +176,6 @@ function initContactForm() {
     });
 }
 </script>
-
 
 </body>
 </html>
