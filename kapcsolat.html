@@ -54,12 +54,35 @@
 <!-- ÜZENETKÜLDŐ ŰRLAP -->
 <h3 style="text-align:center; margin-top:2rem;">📨 Üzenet küldése</h3>
 
-<form action="sendmail.php" method="POST" class="contact-form">
-    <input type="text" name="name" placeholder="Név" required>
-    <input type="email" name="email" placeholder="E-mail cím" required>
-    <input type="text" name="phone" placeholder="Telefonszám (nem kötelező)">
-    <textarea name="message" placeholder="Üzenet" required></textarea>
-    <button type="submit">Üzenet küldése</button>
+<form id="contactForm">
+  <input type="text" name="name" placeholder="Név" required>
+  <input type="email" name="email" placeholder="E-mail" required>
+  <textarea name="message" placeholder="Üzenet" required></textarea>
+  <button type="submit">Küldés</button>
 </form>
+
+<div id="status" style="margin-top:10px; font-weight:bold;"></div>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  fetch("https://script.google.com/macros/s/AKfycbxQpEr7w9WMgfBHwFB5qQ6gqe8hMQOKTFrE9sKku_11Iz5l3KYULNMLG8oGBmzDEThr/exec", {
+    method: "POST",
+    body: JSON.stringify({
+      name: this.name.value,
+      email: this.email.value,
+      message: this.message.value
+    })
+  })
+  .then(() => {
+    document.getElementById("status").innerText = "Üzenet elküldve!";
+    this.reset();
+  })
+  .catch(() => {
+    document.getElementById("status").innerText = "Hiba történt az üzenet küldése közben.";
+  });
+});
+</script>
 
 <p style="text-align:center; margin-top:1rem;"><strong>Gyors válasz, korrekt árak, garanciális munkavégzés.</strong></p>
