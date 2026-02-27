@@ -57,7 +57,10 @@
 <form id="contactForm">
   <input type="text" name="name" placeholder="Név" required>
   <input type="email" name="email" placeholder="E-mail" required>
-  <input type="tel" name="phone" placeholder="Telefonszám(nem kötelező)" required>
+
+  <!-- NEM kötelező -->
+  <input type="tel" name="phone" placeholder="Telefonszám(nem kötelező)">
+
   <textarea name="message" placeholder="Üzenet" required></textarea>
 
   <label style="display:flex; align-items:center; gap:8px; margin:10px 0;">
@@ -80,18 +83,16 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
     return;
   }
 
+  const formData = new FormData();
+  formData.append("name", this.name.value);
+  formData.append("email", this.email.value);
+  formData.append("phone", this.phone.value || "Nincs megadva");
+  formData.append("message", this.message.value);
+  formData.append("gdpr", this.gdpr.checked ? "Elfogadva" : "Nincs elfogadva");
+
   fetch("https://script.google.com/macros/s/AKfycbxQpEr7w9WMgfBHwFB5qQ6gqe8hMQOKTFrE9sKku_11Iz5l3KYULNMLG8oGBmzDEThr/exec", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      name: this.name.value,
-      email: this.email.value,
-      phone: this.phone.value,
-      message: this.message.value,
-      gdpr: this.gdpr.checked ? "Elfogadva" : "Nincs elfogadva"
-    })
+    body: formData
   })
   .then(r => r.text())
   .then(text => {
