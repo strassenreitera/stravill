@@ -181,7 +181,7 @@ nav ul li a.active::after {
 ============================ */
 
 .content-box {
-    background: #fff;
+    background: #fafbfc; /* világosított */
     padding: 1.5rem;
     margin: 1rem;
     border-radius: 10px;
@@ -208,7 +208,7 @@ nav ul li a.active::after {
 ============================ */
 
 .service-box {
-    background: #ffffff;
+    background: #fafbfc; /* világosított */
     padding: 1.5rem;
     margin: 1rem;
     border-radius: 12px;
@@ -274,7 +274,7 @@ img {
 ============================ */
 
 .reviews-box {
-    background: #fff;
+    background: #fafbfc; /* világosított */
     padding: 1.5rem;
     margin: 1rem;
     border-radius: 12px;
@@ -300,17 +300,10 @@ img {
 }
 
 .contact-card {
-    flex: 1;
-    background: #ffffff;
+    background: #fafbfc; /* világosított */
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-
-.contact-card h3 {
-    color: #0d47a1;
-    margin-bottom: 10px;
-    text-align: center;
 }
 
 /* ============================
@@ -318,7 +311,7 @@ img {
 ============================ */
 
 .bottom-info-box {
-    background: #ffffff;
+    background: #fafbfc; /* világosított */
     padding: 1.5rem;
     margin: 1rem;
     border-radius: 12px;
