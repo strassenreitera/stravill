@@ -465,26 +465,22 @@ nav ul li a.active::after {
 
 /* GDPR sor – Brave kompatibilis */
 .gdpr-row {
-    display: block;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
     margin-top: 10px;
+    text-align: center;
 }
 
 .gdpr-row input {
-    margin-right: 6px;
     transform: scale(1.2);
 }
 
 .gdpr-text {
-    display: inline-block;
     font-size: 0.95rem;
     color: #333;
-}
-
-.gdpr-text a {
-    color: #0d47a1;
-    font-weight: 600;
-    text-decoration: underline;
 }
 
 /* Mobilon egymás alá csúszik */

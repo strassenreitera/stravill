@@ -171,5 +171,15 @@ function initContactForm() {
 }
 </script>
 
+<!-- KAPCSOLAT ŰRLAP JAVASCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const gdprText = document.querySelector(".gdpr-text");
+    if (gdprText) {
+        gdprText.innerHTML = `Elfogadom az <a href="adatkezeles.html" target="_blank">adatkezelési szabályzatot</a>`;
+    }
+});
+</script>
+
 </body>
 </html>
