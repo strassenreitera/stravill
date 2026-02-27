@@ -2,7 +2,7 @@
 <html lang="hu">
 <head>
 
-<!-- Google tag (gtag.js) -->
+<!-- 🔹 Google Analytics követőkód -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y6NQ4G486W"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -11,56 +11,67 @@
   gtag('config', 'G-Y6NQ4G486W');
 </script>
 
+<!-- 🔹 Karakterkódolás és mobilbarát nézet -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- 🔹 SEO beállítások -->
 <title>StraVill – Villanyszerelő Orosházán | Strassenreiter Attila</title>
-<meta name="description" content="StraVill – Strassenreiter Attila villanyszerelő Orosházán. Gyors kiszállás, precíz munka, korrekt árak. Villanyszerelés, hibajavítás, lámpa- és konnektorszerelés, hálózatfelújítás.">
-<meta name="keywords" content="villanyszerelő Orosháza, StraVill, Strassenreiter Attila, villanyszerelés, konnektor csere, lámpa felszerelés, hibakeresés">
+<meta name="description" content="StraVill – Strassenreiter Attila villanyszerelő Orosházán. Gyors kiszállás, precíz munka, korrekt árak.">
+<meta name="keywords" content="villanyszerelő Orosháza, StraVill, Strassenreiter Attila, villanyszerelés">
 <meta name="author" content="Strassenreiter Attila E.V.">
 
+<!-- 🔹 Facebook / Messenger megosztási adatok -->
 <meta property="og:title" content="StraVill – Villanyszerelő Orosházán">
-<meta property="og:description" content="Gyors kiszállás, precíz munka, korrekt árak. Villanyszerelés Orosházán és környékén.">
+<meta property="og:description" content="Gyors kiszállás, precíz munka, korrekt árak.">
 <meta property="og:image" content="icons/hero-bg.jpg">
 <meta property="og:url" content="https://www.stra-vill.hu">
 <meta property="og:type" content="website">
 
+<!-- 🔹 Favicon és stíluslap -->
 <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
 <link rel="stylesheet" href="style.css">
 
-<!-- OLDALBETÖLTŐ MOTOR -->
+<!-- 🔥 DINAMIKUS OLDALBETÖLTŐ MOTOR -->
 <script>
+/*
+    loadPage():
+    - Betölti az adott HTML fájlt AJAX-szal
+    - Lecseréli a #content-box tartalmát
+    - Kapcsolat oldalon aktiválja az emailküldő űrlapot
+    - Kezeli a menü aktív elemét
+*/
 function loadPage(page, linkElement) {
     fetch(page)
-        .then(response => {
-            if (!response.ok) throw new Error("Hiba: " + response.status);
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById("content-box").innerHTML = data;
+        .then(res => res.ok ? res.text() : Promise.reject(res.status))
+        .then(html => {
+            // Betöltött aloldal tartalma
+            document.getElementById("content-box").innerHTML = html;
 
-            /* GDPR beszúrás */
+            // Ha a kapcsolat oldal töltődik be → GDPR + emailküldő aktiválása
             if (page === "kapcsolat.html") {
-                const gdprText = document.querySelector(".gdpr-text");
-                if (gdprText) {
-                    gdprText.innerHTML =
-                        `Elfogadom az <a href="adatkezeles.html" target="_blank">adatkezelési szabályzatot</a>`;
+                const gdpr = document.querySelector(".gdpr-text");
+                if (gdpr) {
+                    gdpr.innerHTML = `Elfogadom az <a href="adatkezeles.html" target="_blank">adatkezelési szabályzatot</a>`;
                 }
-                initContactForm(); /* <-- MOST MÁR LÉTEZIK */
+                initContactForm(); // Emailküldő JS aktiválása
             }
 
-            /* Menü aktív elem */
+            // Menü aktív elemének beállítása
             document.querySelectorAll("nav ul li a").forEach(a => a.classList.remove("active"));
             if (linkElement) linkElement.classList.add("active");
         })
-        .catch(err => {
+        .catch(() => {
+            // Hiba esetén
             document.getElementById("content-box").innerHTML =
                 "<p style='text-align:center;color:red;'>Nem sikerült betölteni az oldalt.</p>";
-            console.error(err);
         });
 }
 
-window.addEventListener("DOMContentLoaded", function () {
+/*
+    Oldal betöltésekor automatikusan a Főoldal (rolam.html) jelenjen meg
+*/
+document.addEventListener("DOMContentLoaded", () => {
     const defaultLink = document.querySelector('a[data-page="rolam.html"]');
     loadPage("rolam.html", defaultLink);
 });
@@ -71,18 +82,19 @@ window.addEventListener("DOMContentLoaded", function () {
 <body>
 <div class="wrapper">
 
+<!-- 🔹 Felső fix menüsor -->
 <header class="fixed-header">
     <nav>
 
+        <!-- Bal oldali logó + cégnév -->
         <div class="nav-left">
-            <a href="https://www.facebook.com/profile.php?id=61578948980529"
-               target="_blank"
-               class="nav-left-link">
+            <a href="https://www.facebook.com/profile.php?id=61578948980529" target="_blank" class="nav-left-link">
                 <img src="icons/logo.png" alt="StraVill villanyszerelő Orosháza" class="header-logo">
                 <span class="nav-title">StraVill – Strassenreiter Attila E.V.</span>
             </a>
         </div>
 
+        <!-- Jobb oldali menü -->
         <ul>
             <li><a href="#" data-page="rolam.html" onclick="loadPage('rolam.html', this); return false;">Főoldal</a></li>
             <li><a href="#" data-page="szolgaltatasok.html" onclick="loadPage('szolgaltatasok.html', this); return false;">Szolgáltatások</a></li>
@@ -94,6 +106,7 @@ window.addEventListener("DOMContentLoaded", function () {
     </nav>
 </header>
 
+<!-- 🔹 Hero szekció (nyitókép + CTA gombok) -->
 <section class="hero">
     <div class="hero-text">
         <h1>⚡ StraVill - Villanyszerelés Orosházán és környékén ⚡</h1>
@@ -107,8 +120,10 @@ window.addEventListener("DOMContentLoaded", function () {
     </div>
 </section>
 
+<!-- 🔹 Ide töltődnek be az aloldalak -->
 <section id="content-box" class="content-box"></section>
 
+<!-- 🔹 Közösségi média ikonok -->
 <div class="service-box social-box">
     <p class="service-title">🌐 Közösségi média</p>
 
@@ -120,57 +135,72 @@ window.addEventListener("DOMContentLoaded", function () {
     </div>
 </div>
 
+<!-- 🔹 Elfsight vélemény widget -->
 <section class="reviews-box">
     <h2>Vélemények</h2>
     <script src="https://elfsightcdn.com/platform.js" async></script>
     <div class="elfsight-app-ca6328f3-93a6-4f54-98d7-35aaf91aaba7" data-elfsight-app-lazy></div>
 </section>
 
+<!-- 🔹 Alsó információs blokk -->
 <div class="bottom-info-box">
     <h2>Villanyszerelő – Orosháza és környéke</h2>
     <p>Gyors kiszállás • Hétvégi elérhetőség • Garanciális munkavégzés</p>
     <a href="tel:+36304938929" class="bottom-phone">📞 06 30 493 8929</a>
 </div>
 
+<!-- 🔹 Lábléc -->
 <footer>
     <p>© 2026 StraVill – Strassenreiter Attila. Minden jog fenntartva.</p>
 </footer>
 
 </div>
 
-<!-- 🔥 MŰKÖDŐ EMAIL KÜLDŐ JAVASCRIPT -->
+<!-- 🔥 GOOGLE APPS SCRIPT EMAILKÜLDŐ FUNKCIÓ -->
 <script>
+/*
+    initContactForm():
+    - Kapcsolat oldalon aktiválódik
+    - Beküldi az adatokat a Google Apps Script API-nak
+    - Visszajelzést ír ki a felhasználónak
+*/
 function initContactForm() {
     const form = document.getElementById("contactForm");
     const statusBox = document.getElementById("status");
 
-    if (!form) return;
+    if (!form) return; // Ha nem a kapcsolat oldalon vagyunk
 
     form.addEventListener("submit", function(e) {
         e.preventDefault();
 
-        statusBox.innerHTML = "Küldés folyamatban...";
+        statusBox.textContent = "Küldés...";
         statusBox.style.color = "blue";
 
-        const formData = new FormData(form);
+        // Az űrlap adatai
+        const data = {
+            name: form.name.value,
+            email: form.email.value,
+            message: form.message.value
+        };
 
-        fetch("send_email.php", {
+        // 🔹 IDE KELL A GOOGLE SCRIPT URL
+        fetch("https://script.google.com/macros/s/AKfycbxQpEr7w9WMgfBHwFB5qQ6gqe8hMQOKTFrE9sKku_11Iz5l3KYULNMLG8oGBmzDEThr/exec", {
             method: "POST",
-            body: formData
+            body: JSON.stringify(data)
         })
-        .then(response => response.text())
-        .then(result => {
-            if (result.trim() === "OK") {
-                statusBox.innerHTML = "Üzenet sikeresen elküldve!";
+        .then(r => r.text())
+        .then(res => {
+            if (res === "OK") {
+                statusBox.textContent = "Üzenet elküldve!";
                 statusBox.style.color = "green";
                 form.reset();
             } else {
-                statusBox.innerHTML = "Hiba történt: " + result;
+                statusBox.textContent = "Hiba: " + res;
                 statusBox.style.color = "red";
             }
         })
-        .catch(error => {
-            statusBox.innerHTML = "Hálózati hiba történt.";
+        .catch(() => {
+            statusBox.textContent = "Hálózati hiba történt.";
             statusBox.style.color = "red";
         });
     });
