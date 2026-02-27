@@ -730,3 +730,99 @@ footer {
     margin-bottom: 6px;
     line-height: 1.6;
 }
+/* Téma módok */
+body.light {
+    background: #ffffff;
+    color: #000000;
+}
+
+body.dark {
+    background: #111827;
+    color: #f9fafb;
+}
+
+body {
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* 🌙 TELJES SÖTÉT MÓD – minden fehér rész eltűnik */
+body.dark,
+body.dark .wrapper,
+body.dark section,
+body.dark .hero,
+body.dark .content-box,
+body.dark .service-box,
+body.dark .reviews-box,
+body.dark .bottom-info-box,
+body.dark .contact-wrapper,
+body.dark .contact-card,
+body.dark .contact-map,
+body.dark .contact-form,
+body.dark footer {
+    background: #0d1117 !important;
+    color: #e6edf3 !important;
+}
+
+/* Boxok belseje */
+body.dark .service-box,
+body.dark .reviews-box,
+body.dark .bottom-info-box,
+body.dark .contact-card,
+body.dark .contact-form {
+    border: 1px solid #30363d !important;
+    background: #161b22 !important;
+}
+
+/* Inputok */
+body.dark input,
+body.dark textarea {
+    background: #0d1117 !important;
+    color: #e6edf3 !important;
+    border: 1px solid #30363d !important;
+}
+
+/* Gombok */
+body.dark button,
+body.dark .btn {
+    background: #21262d !important;
+    color: #e6edf3 !important;
+    border: 1px solid #30363d !important;
+}
+
+/* Linkek */
+body.dark a {
+    color: #58a6ff !important;
+}
+
+/* Cookie banner */
+body.dark #cookie-banner {
+    background: #161b22 !important;
+    color: #e6edf3 !important;
+    border: 1px solid #30363d !important;
+}
+
+body.dark #cookie-banner button {
+    background: #21262d !important;
+    color: #e6edf3 !important;
+    border: 1px solid #30363d !important;
+}
+
+/* Navigáció */
+body.dark nav {
+    background: #161b22 !important;
+    border-bottom: 1px solid #30363d !important;
+}
+
+body.dark nav a {
+    color: #e6edf3 !important;
+}
+
+body.dark nav a.active {
+    color: #58a6ff !important;
+}
+
+/* Lebegő téma váltó */
+body.dark .theme-toggle {
+    background: #30363d !important;
+    color: #fff !important;
+}
