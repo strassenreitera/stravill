@@ -172,8 +172,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <section class="reviews-box">
     <h2>Vélemények</h2>
-    <script src="https://elfsightcdn.com/platform.js" async></script>
-    <div class="elfsight-app-ca6328f3-93a6-4f54-98d7-35aaf91aaba7" data-elfsight-app-lazy></div>
+
+    <div id="wpac-google-review"></div>
+
+    <script type="text/javascript">
+      wpac_init = window.wpac_init || [];
+      wpac_init.push({
+        widget: "GoogleReview",
+        id: 15072895939917854541,
+        place_id: "ChIJz3fZItIiQUcR7zs7s-_tL9A",
+        lang: "hu",
+        limit: 10,
+        view_mode: "list"
+      });
+
+      (function() {
+        var s = document.createElement("script");
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://wpac.io/js/wpac.js";
+        var ss = document.getElementsByTagName("script")[0];
+        ss.parentNode.insertBefore(s, ss);
+      })();
+    </script>
 </section>
 
 <div class="bottom-info-box">
