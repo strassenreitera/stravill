@@ -859,39 +859,34 @@ body.dark footer a::after {
    LOCALIMPACT WIDGET – TÉMAKÖVETÉS
 ============================ */
 
-/* 🌞 Világos mód */
-body.light .romw-widget,
-body.light .romw-widget * {
+body.light .romw-container,
+body.light .romw-container * {
     background-color: var(--card-light) !important;
     color: var(--text-light) !important;
     border-color: #d0d0d0 !important;
 }
 
-/* 🌙 Sötét mód */
-body.dark .romw-widget,
-body.dark .romw-widget * {
+body.dark .romw-container,
+body.dark .romw-container * {
     background-color: var(--card-dark) !important;
     color: var(--text-dark) !important;
     border-color: var(--border-dark) !important;
 }
 
-/* Kártyák */
 .romw-review {
     border-radius: var(--radius-md) !important;
     padding: 15px !important;
 }
 
-/* Csillag ikonok */
 body.light .romw-stars svg,
 body.dark .romw-stars svg {
     fill: #ffca28 !important;
 }
 
-/* Linkek */
-body.light .romw-widget a {
+body.light .romw-container a {
     color: var(--primary) !important;
 }
 
-body.dark .romw-widget a {
+body.dark .romw-container a {
     color: var(--primary-dark) !important;
 }
