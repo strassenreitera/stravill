@@ -370,7 +370,7 @@ img {
 }
 
 /* ============================
-   CONTACT FORM (VISSZATÉVE)
+   CONTACT FORM
 ============================ */
 
 .contact-form {
@@ -439,7 +439,7 @@ img {
 }
 
 /* ============================
-   BOTTOM INFO BOX (VISSZATÉVE)
+   BOTTOM INFO BOX
 ============================ */
 
 .bottom-info-box {
@@ -469,7 +469,7 @@ img {
 }
 
 /* ============================
-   COOKIE BANNER (VISSZATÉVE)
+   COOKIE BANNER
 ============================ */
 
 .cookie-banner {
@@ -532,20 +532,45 @@ footer a {
     text-decoration: none;
 }
 
-footer a:hover {
-    text-decoration: underline;
-    text-decoration-color: #ffca28;
+/* ============================
+   FOOTER – AKTÍV MENÜ UGYANÚGY, MINT FELÜL
+============================ */
+
+footer a {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 3px;
+}
+
+footer a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ffca28;
+    transition: width 0.15s ease;
+}
+
+footer a:hover::after {
+    width: 100%;
 }
 
 footer a.active-footer {
     color: #ffca28 !important;
-    text-decoration: underline !important;
-    text-decoration-color: #ffca28 !important;
 }
 
-.footer-links span {
-    color: #fff;
-    font-size: clamp(0.55rem, 2vw, 0.95rem);
+footer a.active-footer::after {
+    width: 100%;
+}
+
+body.dark footer a.active-footer {
+    color: #ffca28 !important;
+}
+
+body.dark footer a.active-footer::after {
+    background-color: #ffca28 !important;
 }
 
 /* ============================
@@ -640,7 +665,6 @@ body.dark .privacy-row .privacy-text {
     color: white !important;
 }
 
-/* DARK MODE STATUS */
 body.dark #status[style*="green"] {
     background: #2E7D32 !important;
 }
