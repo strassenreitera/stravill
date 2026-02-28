@@ -15,8 +15,8 @@ html, body {
 
 body {
     font-family: "Segoe UI", Roboto, Arial, sans-serif;
-    background-color: #f4f6f9;
-    color: #222;
+    background-color: #F0F2F5; /* Facebook Light háttér */
+    color: #1C1E21; /* Facebook szöveg */
     line-height: 1.6;
     display: flex;
     justify-content: center;
@@ -26,7 +26,7 @@ body {
 .wrapper {
     width: 100%;
     max-width: 1200px;
-    background: #f4f6f9;
+    background: #F0F2F5;
     min-height: 100vh;
     padding-top: 90px;
     margin: 0 auto;
@@ -43,7 +43,7 @@ body {
     transform: translateX(-50%);
     width: 100%;
     max-width: 1200px;
-    background-color: #0d47a1;
+    background-color: #1877F2; /* Facebook Blue */
     z-index: 999;
     border-radius: 0 0 20px 20px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
@@ -84,7 +84,7 @@ nav ul {
 }
 
 nav ul li a {
-    color: #fff;
+    color: #fff; /* fehér menüszöveg */
     text-decoration: none;
     font-size: 1rem;
     font-weight: 600;
@@ -181,7 +181,7 @@ nav ul li a.active::after {
 ============================ */
 
 .content-box {
-    background: #fefefe; /* világosabb */
+    background: #FFFFFF; /* Facebook card */
     padding: 1.5rem;
     margin: 1rem;
     border-radius: 10px;
@@ -192,7 +192,7 @@ nav ul li a.active::after {
 .content-box h2,
 .content-box h3,
 .content-box h4 {
-    color: #0d47a1;
+    color: #1877F2; /* Facebook Blue */
     text-align: center;
     margin-bottom: 1rem;
 }
@@ -208,7 +208,7 @@ nav ul li a.active::after {
 ============================ */
 
 .service-box {
-    background: #fefefe; /* világosabb */
+    background: #FFFFFF;
     padding: 1.5rem;
     margin: 1rem;
     border-radius: 12px;
@@ -218,7 +218,7 @@ nav ul li a.active::after {
 .service-title {
     font-size: 1.4rem;
     font-weight: 700;
-    color: #0d47a1;
+    color: #1877F2;
     margin-bottom: 1rem;
     text-align: center;
 }
@@ -274,7 +274,7 @@ img {
 ============================ */
 
 .reviews-box {
-    background: #fefefe; /* világosabb */
+    background: #FFFFFF;
     padding: 1.5rem;
     margin: 1rem;
     border-radius: 12px;
@@ -283,7 +283,7 @@ img {
 }
 
 .reviews-box h2 {
-    color: #0d47a1;
+    color: #1877F2;
     margin-bottom: 1rem;
 }
 
@@ -300,15 +300,14 @@ img {
 }
 
 .contact-card {
-    background: #fefefe; /* világosabb */
+    background: #FFFFFF;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-/* Kapcsolat űrlap – egységes box stílus */
 .contact-form {
-    background: #fefefe;
+    background: #FFFFFF;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
@@ -319,7 +318,7 @@ img {
 ============================ */
 
 .bottom-info-box {
-    background: #fefefe; /* világosabb */
+    background: #FFFFFF;
     padding: 1.5rem;
     margin: 1rem;
     border-radius: 12px;
@@ -329,7 +328,7 @@ img {
 
 .bottom-info-box h2 {
     font-size: 1.4rem;
-    color: #0d47a1;
+    color: #1877F2;
 }
 
 .bottom-info-box p {
@@ -340,7 +339,7 @@ img {
 .bottom-info-box .bottom-phone {
     font-size: 1.2rem;
     font-weight: 700;
-    color: #0d47a1;
+    color: #1877F2;
     text-decoration: none;
 }
 
@@ -349,7 +348,7 @@ img {
 ============================ */
 
 footer {
-    background-color: #0d47a1;
+    background-color: #1877F2; /* Facebook Blue */
     color: #fff;
     text-align: center;
     padding: 1.2rem;
@@ -421,39 +420,30 @@ footer {
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    background: #0d47a1;
+    background: #1877F2;
     color: #fff;
 }
 
 /* ============================
-   DARK MODE
+   DARK MODE – FACEBOOK DARK
 ============================ */
 
-body.light {
-    background: #ffffff;
-    color: #000000;
-}
-
 body.dark {
-    background: #111827;
-    color: #f9fafb;
+    background: #18191A !important;
+    color: #E4E6EB !important;
 }
 
-body.dark,
 body.dark .wrapper,
 body.dark section,
-body.dark .hero,
 body.dark .content-box,
 body.dark .service-box,
 body.dark .reviews-box,
 body.dark .bottom-info-box,
-body.dark .contact-wrapper,
 body.dark .contact-card,
-body.dark .contact-map,
 body.dark .contact-form,
 body.dark footer {
-    background: #0d1117 !important;
-    color: #e6edf3 !important;
+    background: #242526 !important;
+    color: #E4E6EB !important;
 }
 
 body.dark .service-box,
@@ -461,55 +451,54 @@ body.dark .reviews-box,
 body.dark .bottom-info-box,
 body.dark .contact-card,
 body.dark .contact-form {
-    border: 1px solid #30363d !important;
-    background: #161b22 !important;
+    border: 1px solid #3A3B3C !important;
 }
 
 body.dark input,
 body.dark textarea {
-    background: #0d1117 !important;
-    color: #e6edf3 !important;
-    border: 1px solid #30363d !important;
+    background: #18191A !important;
+    color: #E4E6EB !important;
+    border: 1px solid #3A3B3C !important;
 }
 
 body.dark button,
 body.dark .btn {
-    background: #21262d !important;
-    color: #e6edf3 !important;
-    border: 1px solid #30363d !important;
+    background: #3A3B3C !important;
+    color: #E4E6EB !important;
+    border: 1px solid #3A3B3C !important;
 }
 
 body.dark a {
-    color: #58a6ff !important;
+    color: #4599FF !important;
 }
 
 body.dark #cookie-banner {
-    background: #161b22 !important;
-    color: #e6edf3 !important;
-    border: 1px solid #30363d !important;
+    background: #242526 !important;
+    color: #E4E6EB !important;
+    border: 1px solid #3A3B3C !important;
 }
 
 body.dark #cookie-banner button {
-    background: #21262d !important;
-    color: #e6edf3 !important;
-    border: 1px solid #30363d !important;
+    background: #3A3B3C !important;
+    color: #E4E6EB !important;
+    border: 1px solid #3A3B3C !important;
 }
 
 body.dark nav {
-    background: #161b22 !important;
-    border-bottom: 1px solid #30363d !important;
+    background: #242526 !important;
+    border-bottom: 1px solid #3A3B3C !important;
 }
 
 body.dark nav a {
-    color: #e6edf3 !important;
+    color: #E4E6EB !important;
 }
 
 body.dark nav a.active {
-    color: #58a6ff !important;
+    color: #4599FF !important;
 }
 
 body.dark .theme-toggle {
-    background: #30363d !important;
+    background: #3A3B3C !important;
     color: #fff !important;
 }
 
@@ -518,7 +507,7 @@ body.dark .bottom-info-box p {
 }
 
 /* ============================
-   🌙 HERO JAVÍTÁS – háttérkép megjelenítése
+   HERO DARK FIX
 ============================ */
 
 body.dark .hero {
@@ -546,7 +535,7 @@ body.dark .hero-text {
 }
 
 /* ============================
-   🌙 FEJLÉC LEKEREKÍTÉS JAVÍTÁS
+   HEADER RADIUS FIX DARK MODE
 ============================ */
 
 body.dark .fixed-header {
