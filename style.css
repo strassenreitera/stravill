@@ -78,7 +78,7 @@ nav {
     font-weight: 600;
 }
 
-/* NAV – MENÜ ELRENDEZÉS (SOHA NE TÖRJÖN CSÚNYÁN) */
+/* NAV – MENÜ */
 
 nav ul {
     list-style: none;
@@ -95,23 +95,18 @@ nav ul li {
     list-style: none;
 }
 
-/* FELSŐ MENÜ – VÉGLEGES, FIX SÁRGA CSÍK (FOOTER STÍLUS) */
-
 nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: clamp(0.55rem, 1.2vw, 1rem);
-    font-weight: 600;
-    padding: 6px 0;
-    border-radius: 6px;
     position: relative;
-    transition: 0.2s ease;
-    text-align: center;
-    line-height: 1.2;
     display: inline-block;
+    padding: 6px 0;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: clamp(0.55rem, 1.2vw, 1rem);
+    transition: 0.2s ease;
 }
 
-/* alap: nincs csík */
+/* Hover aláhúzás */
 nav ul li a::after {
     content: "";
     position: absolute;
@@ -123,17 +118,20 @@ nav ul li a::after {
     transition: width 0.15s ease;
 }
 
-/* hover: fix sárga csík a szöveg alatt */
 nav ul li a:hover::after {
     width: 100%;
 }
 
-/* aktív menüpont: mindig sárga csík */
-nav ul li a.active-menu::after {
+/* Aktív menü */
+nav ul li a.active {
+    color: #ffca28 !important;
+}
+
+nav ul li a.active::after {
     width: 100%;
 }
 
-/* NAV – RESPONSIVE KÖZÉPRE IGAZÍTÁS */
+/* NAV – RESPONSIVE */
 
 @media (max-width: 1100px) {
     .nav-left-link {
@@ -339,27 +337,41 @@ img {
 
 .contact-wrapper {
     display: flex;
-    gap: 20px;
-    align-items: flex-start;
+    gap: 30px;
     justify-content: center;
-    margin-top: 20px;
+    align-items: flex-start;
+    margin: 40px auto;
+    max-width: 1100px;
     flex-wrap: wrap;
 }
 
-.contact-card,
-.contact-form {
-    width: 100%;
-    max-width: 500px;
-}
-
 .contact-card {
-    background: #FFFFFF;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    flex: 1 1 350px;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
 
-/* KAPCSOLAT – ÜZENETKÜLDŐ BOX (ÚJ, SZÉP) – EGY PÉLDÁNYBAN */
+.contact-map iframe {
+    width: 100%;
+    height: 350px;
+    border-radius: 14px;
+    border: none;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+@media (max-width: 768px) {
+    .contact-wrapper {
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 15px;
+    }
+}
+
+/* ============================
+   CONTACT FORM (VISSZATÉVE)
+============================ */
 
 .contact-form {
     width: 100%;
@@ -427,7 +439,7 @@ img {
 }
 
 /* ============================
-   ALSÓ INFÓ BOX
+   BOTTOM INFO BOX (VISSZATÉVE)
 ============================ */
 
 .bottom-info-box {
@@ -457,58 +469,7 @@ img {
 }
 
 /* ============================
-   LÁBLÉC
-============================ */
-
-footer {
-    background-color: #1877F2;
-    color: #fff;
-    text-align: center;
-    padding: 1.2rem;
-    margin-top: 1rem;
-    border-radius: 20px 20px 0 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    font-size: clamp(0.55rem, 1.6vw, 0.9rem);
-    white-space: nowrap;
-}
-
-.footer-links {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: clamp(6px, 2vw, 14px);
-    flex-wrap: nowrap;
-    white-space: nowrap;
-}
-
-/* Footer linkek – világos mód */
-
-footer a {
-    color: #ffffff;
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
-    text-decoration-color: #ffca28;
-}
-
-footer a.active-footer {
-    color: #ffca28 !important;
-    text-decoration: underline !important;
-    text-decoration-color: #ffca28 !important;
-}
-
-.footer-links span {
-    color: #fff;
-    font-size: clamp(0.55rem, 2vw, 0.95rem);
-}
-
-/* ============================
-   COOKIE BANNER
+   COOKIE BANNER (VISSZATÉVE)
 ============================ */
 
 .cookie-banner {
@@ -536,6 +497,156 @@ footer a.active-footer {
     cursor: pointer;
     background: #1877F2;
     color: #fff;
+}
+
+/* ============================
+   FOOTER
+============================ */
+
+footer {
+    background-color: #1877F2;
+    color: #fff;
+    text-align: center;
+    padding: 1.2rem;
+    margin-top: 1rem;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: clamp(0.55rem, 1.6vw, 0.9rem);
+    white-space: nowrap;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(6px, 2vw, 14px);
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+footer a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    text-decoration-color: #ffca28;
+}
+
+footer a.active-footer {
+    color: #ffca28 !important;
+    text-decoration: underline !important;
+    text-decoration-color: #ffca28 !important;
+}
+
+.footer-links span {
+    color: #fff;
+    font-size: clamp(0.55rem, 2vw, 0.95rem);
+}
+
+/* ============================
+   GDPR CHECKBOX – ANIMÁLT
+============================ */
+
+.privacy-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+.privacy-row input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #1877F2;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    transition: 0.2s ease;
+    background: #fff;
+    flex-shrink: 0;
+}
+
+.privacy-row input[type="checkbox"]:checked {
+    background: #1877F2;
+    border-color: #1877F2;
+}
+
+.privacy-row input[type="checkbox"]:checked::after {
+    content: "✔";
+    position: absolute;
+    top: -2px;
+    left: 3px;
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+    animation: checkboxPop 0.25s ease;
+}
+
+.privacy-row .privacy-text {
+    white-space: nowrap;
+    font-size: 0.95rem;
+}
+
+/* DARK MODE CHECKBOX */
+body.dark .privacy-row input[type="checkbox"] {
+    background: #18191A !important;
+    border-color: #4599FF !important;
+}
+
+body.dark .privacy-row input[type="checkbox"]:checked {
+    background: #4599FF !important;
+    border-color: #4599FF !important;
+}
+
+body.dark .privacy-row .privacy-text {
+    color: #E4E6EB !important;
+}
+
+/* ============================
+   ANIMÁLT SIKER / HIBA ÜZENET
+============================ */
+
+#status {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 600;
+    padding: 12px 18px;
+    border-radius: 8px;
+    display: block;
+    min-height: 20px;
+}
+
+#status:not(:empty) {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#status[style*="green"] {
+    background: #4CAF50;
+    color: white !important;
+}
+
+#status[style*="red"] {
+    background: #E53935;
+    color: white !important;
+}
+
+/* DARK MODE STATUS */
+body.dark #status[style*="green"] {
+    background: #2E7D32 !important;
+}
+
+body.dark #status[style*="red"] {
+    background: #B71C1C !important;
 }
 
 /* ============================
@@ -586,63 +697,21 @@ body.dark a {
     color: #4599FF !important;
 }
 
-body.dark #cookie-banner {
-    background: #242526 !important;
-    color: #E4E6EB !important;
-    border: 1px solid #3A3B3C !important;
-}
-
-body.dark #cookie-banner button {
-    background: #3A3B3C !important;
-    color: #E4E6EB !important;
-    border: 1px solid #3A3B3C !important;
-}
-
 body.dark nav {
     background: #242526 !important;
     border-bottom: 1px solid #3A3B3C !important;
     border-radius: 0 0 20px 20px !important;
 }
 
-body.dark nav a {
-    color: #E4E6EB !important;
+body.dark nav ul li a.active {
+    color: #ffca28 !important;
 }
 
-/* dark menü csík – ugyanaz a sárga */
-
-body.dark nav ul li a::after {
+body.dark nav ul li a.active::after {
     background-color: #ffca28 !important;
 }
 
-body.dark .theme-toggle {
-    background: #3A3B3C !important;
-    color: #fff !important;
-}
-
-body.dark .bottom-info-box p {
-    color: #ffffff !important;
-}
-
-/* Footer linkek – sötét mód (egységesítve) */
-
-body.dark footer a {
-    color: #ffffff !important;
-}
-
-body.dark footer a:hover {
-    text-decoration: underline;
-    text-decoration-color: #ffca28;
-}
-
-body.dark footer a.active-footer {
-    color: #ffca28 !important;
-    text-decoration: underline !important;
-    text-decoration-color: #ffca28 !important;
-}
-
-/* ============================
-   HERO DARK FIX
-============================ */
+/* HERO DARK FIX */
 
 body.dark .hero {
     background:
@@ -668,419 +737,20 @@ body.dark .hero-text {
     z-index: 2;
 }
 
-/* ============================
-   HEADER RADIUS FIX DARK MODE
-============================ */
+/* HEADER RADIUS FIX DARK MODE */
 
 body.dark .fixed-header {
     border-radius: 0 0 20px 20px !important;
 }
 
-/* ============================
-   KAPCSOLAT – DARK MODE
-============================ */
-
-body.dark .contact-form {
-    background: #242526 !important;
-    border: 1px solid #3A3B3C !important;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
-}
-
-body.dark .contact-form h2 {
-    color: #4599FF !important;
-}
-
-body.dark .contact-form label {
-    color: #E4E6EB !important;
-}
-
-body.dark .contact-form input,
-body.dark .contact-form textarea {
-    background: #18191A !important;
-    color: #E4E6EB !important;
-    border: 1px solid #3A3B3C !important;
-}
-
-body.dark .contact-form input:focus,
-body.dark .contact-form textarea:focus {
-    border-color: #4599FF !important;
-    box-shadow: 0 0 0 2px rgba(69,153,255,0.25);
-}
-
-body.dark .contact-form button {
-    background: #3A3B3C !important;
-    color: #fff !important;
-}
-
-body.dark .contact-form button:hover {
-    background: #4a4b4d !important;
-}
-
-/* ============================
-   CONTENT-BOX KERET – DARK MODE
-============================ */
+/* CONTENT-BOX KERET – DARK MODE */
 
 body.dark .content-box {
     border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    border-radius: 8px;
 }
 
-/* ============================
-   FOOTER KERET – DARK MODE
-============================ */
+/* FOOTER KERET – DARK MODE */
 
 body.dark footer {
     border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
-}
-/* ============================
-   GDPR CHECKBOX + SZÖVEG EGY SORBAN (HTML MÓDOSÍTÁS NÉLKÜL)
-============================ */
-
-.privacy-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: nowrap;
-}
-
-.privacy-row input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-    cursor: pointer;
-}
-
-.privacy-row .privacy-text {
-    white-space: nowrap;        /* <<< nem törhet több sorba */
-    display: inline-block;
-    line-height: 1.4;
-    font-size: 0.95rem;
-}
-
-.privacy-row a {
-    color: #1877F2;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.privacy-row a:hover {
-    text-decoration: underline;
-}
-
-/* DARK MODE */
-body.dark .privacy-row .privacy-text {
-    color: #E4E6EB !important;
-}
-
-body.dark .privacy-row a {
-    color: #4599FF !important;
-}
-/* ============================
-   ANIMÁLT CHECKBOX (HTML NÉLKÜL)
-============================ */
-
-.privacy-row input[type="checkbox"] {
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #1877F2;
-    border-radius: 4px;
-    cursor: pointer;
-    position: relative;
-    transition: 0.2s ease;
-    background: #fff;
-}
-
-.privacy-row input[type="checkbox"]:checked {
-    background: #1877F2;
-    border-color: #1877F2;
-}
-
-.privacy-row input[type="checkbox"]:checked::after {
-    content: "✔";
-    position: absolute;
-    top: -2px;
-    left: 3px;
-    font-size: 16px;
-    color: white;
-    font-weight: bold;
-    animation: checkboxPop 0.25s ease;
-}
-
-@keyframes checkboxPop {
-    0% { transform: scale(0); opacity: 0; }
-    70% { transform: scale(1.3); opacity: 1; }
-    100% { transform: scale(1); }
-}
-
-/* DARK MODE */
-body.dark .privacy-row input[type="checkbox"] {
-    background: #18191A !important;
-    border-color: #4599FF !important;
-}
-
-body.dark .privacy-row input[type="checkbox"]:checked {
-    background: #4599FF !important;
-    border-color: #4599FF !important;
-}
-/* ============================
-   ANIMÁLT SIKER / HIBA ÜZENET
-============================ */
-
-.status-box {
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.4s ease;
-    text-align: center;
-    margin-top: 20px;
-    font-weight: 600;
-    padding: 12px 18px;
-    border-radius: 8px;
-    display: none;
-}
-
-.status-box.show {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.status-box.success {
-    background: #4CAF50;
-    color: white;
-}
-
-.status-box.error {
-    background: #E53935;
-    color: white;
-}
-
-/* DARK MODE */
-body.dark .status-box.success {
-    background: #2E7D32 !important;
-}
-
-body.dark .status-box.error {
-    background: #B71C1C !important;
-}
-/* ============================
-   FELSŐ MENÜ – AKTÍV KIEMELÉS (HTML MÓDOSÍTÁS NÉLKÜL)
-============================ */
-
-/* alap link */
-nav ul li a {
-    position: relative;
-    display: inline-block;
-    padding: 6px 0;
-    text-decoration: none;
-    color: #fff;
-    font-weight: 600;
-}
-
-/* hover aláhúzás */
-nav ul li a:hover::after {
-    width: 100%;
-}
-
-/* aláhúzás elem */
-nav ul li a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    height: 2px;
-    background-color: #ffca28;
-    transition: width 0.15s ease;
-}
-
-/* 🔥 AKTÍV MENÜ – EZ LESZ SÁRGA + ALÁHÚZOTT */
-nav ul li a.active {
-    color: #ffca28 !important;
-}
-
-nav ul li a.active::after {
-    width: 100%;
-}
-
-/* DARK MODE */
-body.dark nav ul li a.active {
-    color: #ffca28 !important;
-}
-
-body.dark nav ul li a.active::after {
-    background-color: #ffca28 !important;
-}/* ============================
-   KAPCSOLAT – KÉT OSZLOPOS ELRENDEZÉS
-============================ */
-
-.contact-wrapper {
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    align-items: flex-start;
-    margin: 40px auto;
-    max-width: 1100px;
-    flex-wrap: wrap;
-}
-
-.contact-card {
-    flex: 1 1 350px;
-    background: #ffffff;
-    padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-}
-
-.contact-map iframe {
-    width: 100%;
-    height: 350px;
-    border-radius: 14px;
-    border: none;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-}
-
-@media (max-width: 768px) {
-    .contact-wrapper {
-        flex-direction: column;
-        gap: 20px;
-        padding: 0 15px;
-    }
-}
-
-/* ============================
-   GDPR CHECKBOX – ANIMÁLT, EGY SORBAN
-============================ */
-
-.privacy-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: nowrap;
-}
-
-.privacy-row input[type="checkbox"] {
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #1877F2;
-    border-radius: 4px;
-    cursor: pointer;
-    position: relative;
-    transition: 0.2s ease;
-    background: #fff;
-    flex-shrink: 0;
-}
-
-.privacy-row input[type="checkbox"]:checked {
-    background: #1877F2;
-    border-color: #1877F2;
-}
-
-.privacy-row input[type="checkbox"]:checked::after {
-    content: "✔";
-    position: absolute;
-    top: -2px;
-    left: 3px;
-    font-size: 16px;
-    color: white;
-    font-weight: bold;
-    animation: checkboxPop 0.25s ease;
-}
-
-@keyframes checkboxPop {
-    0% { transform: scale(0); opacity: 0; }
-    70% { transform: scale(1.3); opacity: 1; }
-    100% { transform: scale(1); }
-}
-
-.privacy-row .privacy-text {
-    white-space: nowrap;
-    font-size: 0.95rem;
-}
-
-/* DARK MODE CHECKBOX */
-body.dark .privacy-row input[type="checkbox"] {
-    background: #18191A !important;
-    border-color: #4599FF !important;
-}
-
-body.dark .privacy-row input[type="checkbox"]:checked {
-    background: #4599FF !important;
-    border-color: #4599FF !important;
-}
-
-body.dark .privacy-row .privacy-text {
-    color: #E4E6EB !important;
-}
-
-/* ============================
-   ANIMÁLT SIKER / HIBA ÜZENET
-============================ */
-
-#status {
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.4s ease;
-    text-align: center;
-    margin-top: 20px;
-    font-weight: 600;
-    padding: 12px 18px;
-    border-radius: 8px;
-    display: block;
-    min-height: 20px;
-}
-
-/* Ha a JS beír valamit → animált megjelenés */
-#status:not(:empty) {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* DARK MODE STATUS */
-body.dark #status {
-    color: #fff !important;
-}
-/* ============================
-   ANIMÁLT SIKER / HIBA ÜZENET – CSAK CSS
-============================ */
-
-#status {
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.4s ease;
-    text-align: center;
-    margin-top: 20px;
-    font-weight: 600;
-    padding: 12px 18px;
-    border-radius: 8px;
-    display: block;
-    min-height: 20px;
-}
-
-/* Ha a JS beír valamit → animált megjelenés */
-#status:not(:empty) {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* 🔥 SIKER – a JS zöld színt állít → mi adunk hozzá zöld hátteret */
-#status[style*="green"] {
-    background: #4CAF50;
-    color: white !important;
-}
-
-/* 🔥 HIBA – a JS piros színt állít → mi adunk hozzá piros hátteret */
-#status[style*="red"] {
-    background: #E53935;
-    color: white !important;
-}
-
-/* DARK MODE */
-body.dark #status[style*="green"] {
-    background: #2E7D32 !important;
-}
-
-body.dark #status[style*="red"] {
-    background: #B71C1C !important;
 }
