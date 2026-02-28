@@ -324,7 +324,9 @@ img {
     width: 100%;
     max-width: 1200px;
     padding: 0 10px;
+    justify-items: center;
 }
+
 
 .grid-3x3 img {
     width: 100%;
