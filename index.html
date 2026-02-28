@@ -210,16 +210,16 @@ function initContactForm() {
         statusBox.textContent = "Küldés...";
         statusBox.style.color = "blue";
 
-        const data = {
-            name: form.name.value,
-            email: form.email.value,
-            phone: form.phone.value,
-            message: form.message.value
-        };
+        const formData = new FormData();
+        formData.append("name", form.name.value);
+        formData.append("email", form.email.value);
+        formData.append("phone", form.phone.value);
+        formData.append("message", form.message.value);
+        formData.append("policy", form.policy.checked ? "Elfogadva" : "Nincs elfogadva");
 
         fetch("https://script.google.com/macros/s/AKfycbxQpEr7w9WMgfBHwFB5qQ6gqe8hMQOKTFrE9sKku_11Iz5l3KYULNMLG8oGBmzDEThr/exec", {
             method: "POST",
-            body: JSON.stringify(data)
+            body: formData
         })
         .then(r => r.text())
         .then(res => {
