@@ -412,18 +412,6 @@ body.dark .grid-3x3 img:hover {
         padding: 0 15px;
     }
 }
-@media (max-width: 600px) {
-    .privacy-row {
-        flex-wrap: wrap;
-        justify-content: center;
-        text-align: center;
-    }
-
-    .privacy-row .privacy-text {
-        white-space: normal;
-        text-align: center;
-    }
-}
 
 
 /* ============================
@@ -650,7 +638,8 @@ body.dark footer a::after {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .privacy-row input[type="checkbox"] {
@@ -683,8 +672,11 @@ body.dark footer a::after {
 }
 
 .privacy-row .privacy-text {
-    white-space: nowrap;
+    white-space: normal;
     font-size: 0.95rem;
+    text-align: center;
+    display: block;
+    width: 100%;
 }
 
 /* DARK MODE CHECKBOX */
