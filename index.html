@@ -73,16 +73,25 @@ function loadPage(page, linkElement) {
     fetch(page)
         .then(res => res.ok ? res.text() : Promise.reject(res.status))
         .then(html => {
-            document.getElementById("content-box").innerHTML = html;
 
-            // Tartalomhoz görgetés
             const box = document.getElementById("content-box");
-            box.scrollIntoView({ behavior: "smooth" });
+            const header = document.querySelector(".fixed-header");
 
-            // Kicsit feljebb húzzuk (80px)
-            setTimeout(() => {
-                window.scrollBy({ top: -80, behavior: "smooth" });
-            }, 300);
+            box.innerHTML = html;
+
+            // A content-box pozíciója
+            const boxTop = box.getBoundingClientRect().top;
+            const headerHeight = header.offsetHeight;
+
+            // Csak akkor görgetünk, ha a content-box teteje NINCS a látható tartományban
+            if (boxTop < 0 || boxTop > window.innerHeight) {
+                const absoluteTop = box.getBoundingClientRect().top + window.scrollY;
+
+                window.scrollTo({
+                    top: absoluteTop - headerHeight - 10,
+                    behavior: "smooth"
+                });
+            }
 
             if (page === "kapcsolat.html") {
                 initContactForm();
@@ -110,7 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
     loadPage("rolam.html", defaultLink);
 });
 </script>
-
 
 </head>
 
