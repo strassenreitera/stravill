@@ -306,6 +306,14 @@ img {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
+/* Kapcsolat űrlap – egységes box stílus */
+.contact-form {
+    background: #fefefe;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
 /* ============================
    ALSÓ INFÓ BOX
 ============================ */
