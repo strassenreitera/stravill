@@ -855,38 +855,3 @@ body.dark footer a.active-footer {
 body.dark footer a::after {
     background-color: var(--accent) !important;
 }
-/* ============================
-   LOCALIMPACT WIDGET – TÉMAKÖVETÉS
-============================ */
-
-body.light .romw-container,
-body.light .romw-container * {
-    background-color: var(--card-light) !important;
-    color: var(--text-light) !important;
-    border-color: #d0d0d0 !important;
-}
-
-body.dark .romw-container,
-body.dark .romw-container * {
-    background-color: var(--card-dark) !important;
-    color: var(--text-dark) !important;
-    border-color: var(--border-dark) !important;
-}
-
-.romw-review {
-    border-radius: var(--radius-md) !important;
-    padding: 15px !important;
-}
-
-body.light .romw-stars svg,
-body.dark .romw-stars svg {
-    fill: #ffca28 !important;
-}
-
-body.light .romw-container a {
-    color: var(--primary) !important;
-}
-
-body.dark .romw-container a {
-    color: var(--primary-dark) !important;
-}

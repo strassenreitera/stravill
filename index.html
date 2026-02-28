@@ -174,39 +174,13 @@ document.addEventListener("DOMContentLoaded", () => {
     <h2>Vélemények</h2>
 
     <!-- LOCALIMPACT WIDGET -->
-    <div 
-      data-romw-token="VnDD3R62HnpTNSKxzJmVNJ5p2ohFYWndHoVyl3lChqbhSO0XQI"
-      data-romw-lazy
-      data-romw-theme="light">
-    </div>
+ <section class="reviews-box">
+    <h2>Vélemények</h2>
 
-    <!-- LOCALIMPACT SCRIPT -->
-    <script src="https://localimpact.com/js/v2/embed.js?id=b8f5b4fd2464663219f4d9b7ec62f159" defer></script>
-
-    <!-- TÉMA SZINKRON SCRIPT -->
-    <script>
-    function updateLocalImpactTheme() {
-        const widget = document.querySelector('[data-romw-token]');
-        if (!widget) return;
-
-        if (document.body.classList.contains("dark")) {
-            widget.setAttribute("data-romw-theme", "dark");
-        } else {
-            widget.setAttribute("data-romw-theme", "light");
-        }
-    }
-
-    // Betöltéskor
-    document.addEventListener("DOMContentLoaded", () => {
-        updateLocalImpactTheme();
-    });
-
-    // Témaváltó gomb esemény
-    document.getElementById("themeToggle").addEventListener("click", () => {
-        setTimeout(updateLocalImpactTheme, 50);
-    });
-    </script>
-
+<div data-romw-token="VnDD3R62HnpTNSKxzJmVNJ5p2ohFYWndHoVyl3lChqbhSO0XQI" data-romw-lazy></div>
+    
+        <script src="https://localimpact.com/js/v2/embed.js?id=b8f5b4fd2464663219f4d9b7ec62f159" type="text/javascript" defer></script>
+  
 </section>
 
 <div class="bottom-info-box">
