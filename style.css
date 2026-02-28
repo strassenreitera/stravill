@@ -297,13 +297,13 @@ img {
     align-items: flex-start;
     justify-content: center;
     margin-top: 20px;
-    flex-wrap: wrap; /* <<< szétesés javítva */
+    flex-wrap: wrap; /* szétesés javítva */
 }
 
 .contact-card,
 .contact-form {
     width: 100%;
-    max-width: 500px; /* <<< szétesés javítva */
+    max-width: 500px; /* szétesés javítva */
 }
 
 .contact-card {
@@ -319,7 +319,6 @@ img {
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-
 /* ============================
    ALSÓ INFÓ BOX
 ============================ */
@@ -378,23 +377,27 @@ footer {
     white-space: nowrap;
 }
 
+/* Footer linkek – világos mód */
 footer a {
+    color: #ffffff;
     text-decoration: none;
 }
 
 footer a:hover {
     text-decoration: underline;
-    text-decoration-color: #ffca28; /* sárga aláhúzás hoverkor */
+    text-decoration-color: #ffca28;
+}
+
+/* Aktív oldal – világos mód */
+footer a.active-footer {
+    color: #ffca28 !important;
+    text-decoration: underline !important;
+    text-decoration-color: #ffca28 !important;
 }
 
 .footer-links span {
     color: #fff;
     font-size: clamp(0.55rem, 2vw, 0.95rem);
-}
-
-.footer-links a.active-footer {
-    text-decoration: underline;
-    color: #fff;
 }
 
 /* ============================
@@ -508,6 +511,22 @@ body.dark .theme-toggle {
 
 body.dark .bottom-info-box p {
     color: #ffffff !important;
+}
+
+/* Footer linkek – sötét mód */
+body.dark footer a {
+    color: #ffffff;
+}
+
+body.dark footer a:hover {
+    text-decoration: underline;
+    text-decoration-color: #ffca28;
+}
+
+body.dark footer a.active-footer {
+    color: #ffca28 !important;
+    text-decoration: underline !important;
+    text-decoration-color: #ffca28 !important;
 }
 
 /* ============================
