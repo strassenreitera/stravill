@@ -87,7 +87,7 @@ nav ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: clamp(0.6rem, 1.6vw, 1.6rem);
+    gap: clamp(0.8rem, 1.6vw, 1.6rem);
     white-space: nowrap;
 }
 
@@ -149,13 +149,13 @@ nav ul li a.active::after {
 /* Mobil optimalizálás */
 @media (max-width: 900px) {
     nav ul li a {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 }
 
 @media (max-width: 600px) {
     nav ul li a {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
     }
 }
 
