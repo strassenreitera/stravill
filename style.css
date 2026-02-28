@@ -683,3 +683,104 @@ body.dark .contact-form button {
 body.dark .contact-form button:hover {
     background: #4a4b4d !important;
 }
+/* ============================
+   MENÜ – VÉGLEGES, SOHA NEM TÖRŐ MENÜ
+============================ */
+
+/* NAV: alapból egy sor, ha nem fér el → két soros elrendezés */
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; /* csak a NAV törhet, a MENÜ NEM */
+    width: 100%;
+    row-gap: 10px;
+}
+
+/* Bal oldali cím: alapból balra */
+.nav-left-link {
+    white-space: nowrap;
+    flex: 0 1 auto;
+}
+
+/* Ha már nem fér el → cím középre ugrik */
+@media (max-width: 1100px) {
+    .nav-left-link {
+        flex: 1 1 100%;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/* MENÜ: mindig EGY sorban marad */
+nav ul {
+    display: flex;
+    flex-wrap: nowrap; /* <<< SOHA NEM TÖRHET */
+    white-space: nowrap; /* <<< SOHA NEM TÖRHET */
+    justify-content: center;
+    gap: clamp(0.3rem, 1vw, 1.2rem);
+    overflow: hidden; /* <<< biztos ami biztos */
+    flex: 0 1 auto;
+}
+
+/* Menüpontok: addig zsugorodnak, amíg EGY sorban elférnek */
+nav ul li a {
+    font-size: clamp(0.55rem, 1.2vw, 1rem); /* <<< zsugorodás */
+    white-space: nowrap; /* <<< nem törhet */
+    text-align: center;
+    line-height: 1.2;
+}
+/* Ha a NAV két soros lesz → a menü is középre kerül */
+@media (max-width: 1100px) {
+    nav ul {
+        justify-content: center;   /* <<< EZ TESZI KÖZÉPRE */
+        width: 100%;               /* <<< így tud középre állni */
+    }
+}
+/* Ha a NAV két soros lesz → MINDEN középre kerül */
+@media (max-width: 1100px) {
+    nav {
+        justify-content: center;   /* <<< EZ TESZI KÖZÉPRE A FELSŐ SORT IS */
+        text-align: center;        /* <<< biztosítja a teljes középre igazítást */
+    }
+
+    .nav-left-link {
+        flex: 1 1 100%;
+        justify-content: center;
+    }
+
+    nav ul {
+        justify-content: center;
+        width: 100%;
+    }
+}
+/* ============================
+   FOOTER LINK FIX – DARK MODE
+============================ */
+
+body.dark footer a {
+    color: #ffffff !important;   /* <<< fehér linkek */
+}
+
+body.dark footer a:hover {
+    color: #ffca28 !important;   /* <<< hover marad sárga */
+}
+
+body.dark footer a.active-footer {
+    color: #ffca28 !important;   /* <<< aktív is sárga */
+}
+/* ============================
+   CONTENT-BOX KERET – DARK MODE
+============================ */
+
+body.dark .content-box {
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 8px; /* ha a vélemény box is kerekített */
+}
+/* ============================
+   FOOTER KERET – DARK MODE
+============================ */
+
+body.dark footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
