@@ -10,83 +10,48 @@
 <meta name="description" content="Villanyszerelő Orosháza – StraVill: gyors hibaelhárítás, lakossági villanyszerelés, új építésű és felújított ingatlanok. Precíz munka, korrekt árak. Hívjon most!">
 <meta name="author" content="Strassenreiter Attila E.V.">
 
+<!-- Open Graph -->
 <meta property="og:title" content="Villanyszerelő Orosháza – StraVill">
 <meta property="og:description" content="Gyors, precíz villanyszerelés Orosházán – hívjon most!">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.stravill.hu">
 <meta property="og:image" content="https://www.stravill.hu/images/logo.png">
 
+<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Villanyszerelő Orosháza – StraVill">
 <meta name="twitter:description" content="Gyors, precíz villanyszerelés Orosházán – hívjon most!">
 <meta name="twitter:image" content="https://www.stravill.hu/images/logo.png">
 
 <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+
+<!-- FŐ CSS -->
 <link rel="stylesheet" href="style.css">
 
+<!-- FOOTER ACTIVE LINK FIX (marad!) -->
 <style>
 .footer-links a.active-footer {
     text-decoration: underline;
     color: #fff;
 }
-
-/* 🌗 Téma módok */
-body.light {
-    background: #ffffff;
-    color: #000000;
-}
-
-body.dark {
-    background: #111827;
-    color: #f9fafb;
-}
-
-body {
-    transition: background 0.4s ease, color 0.4s ease;
-}
-
-/* 🌗 Lebegő téma váltó */
-.theme-toggle {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background: #222;
-    color: #fff;
-    padding: 12px 14px;
-    border-radius: 50%;
-    font-size: 22px;
-    cursor: pointer;
-    z-index: 9999;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    user-select: none;
-    transition: background 0.3s;
-}
-
-.theme-toggle:hover {
-    background: #444;
-}
 </style>
 
-<!-- 🔥 DINAMIKUS OLDALBETÖLTŐ MOTOR -->
+<!-- DINAMIKUS OLDALBETÖLTŐ -->
 <script>
 function loadPage(page, linkElement) {
     fetch(page)
         .then(res => res.ok ? res.text() : Promise.reject(res.status))
         .then(html => {
-
             const box = document.getElementById("content-box");
             const header = document.querySelector(".fixed-header");
 
             box.innerHTML = html;
 
-            // A content-box pozíciója
             const boxTop = box.getBoundingClientRect().top;
             const headerHeight = header.offsetHeight;
 
-            // Csak akkor görgetünk, ha a content-box teteje NINCS a látható tartományban
             if (boxTop < 0 || boxTop > window.innerHeight) {
                 const absoluteTop = box.getBoundingClientRect().top + window.scrollY;
-
                 window.scrollTo({
                     top: absoluteTop - headerHeight - 10,
                     behavior: "smooth"
@@ -101,11 +66,7 @@ function loadPage(page, linkElement) {
             if (linkElement) linkElement.classList.add("active");
 
             document.querySelectorAll(".footer-links a").forEach(a => {
-                if (a.getAttribute("data-page") === page) {
-                    a.classList.add("active-footer");
-                } else {
-                    a.classList.remove("active-footer");
-                }
+                a.classList.toggle("active-footer", a.getAttribute("data-page") === page);
             });
         })
         .catch(() => {
@@ -121,15 +82,18 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 </head>
-
 <body>
 <div class="wrapper">
 
 <header class="fixed-header">
     <nav>
         <div class="nav-left">
-            <a href="https://www.facebook.com/profile.php?id=61578948980529" target="_blank" class="nav-left-link">
-                <img src="icons/logo.png" alt="StraVill villanyszerelő Orosháza" class="header-logo">
+            <a href="https://www.facebook.com/profile.php?id=61578948980529" 
+               target="_blank" 
+               class="nav-left-link">
+                <img src="icons/logo.png" 
+                     alt="StraVill villanyszerelő Orosháza" 
+                     class="header-logo">
                 <span class="nav-title">StraVill – Strassenreiter Attila E.V.</span>
             </a>
         </div>
@@ -163,21 +127,18 @@ document.addEventListener("DOMContentLoaded", () => {
     <p class="service-title">🌐 Közösségi média</p>
 
     <div class="social-icons">
-        <a href="https://www.facebook.com/16rfCArxpN/" target="_blank"><img src="icons/facebook.png"></a>
-        <a href="https://www.instagram.com/stra_vill/" target="_blank"><img src="icons/instagram.png"></a>
-        <a href="https://youtube.com/@stra_vill" target="_blank"><img src="icons/youtube.png"></a>
-        <a href="https://tiktok.com/@stra_vill" target="_blank"><img src="icons/tiktok.png"></a>
+        <a href="https://www.facebook.com/16rfCArxpN/" target="_blank"><img src="icons/facebook.png" alt="Facebook"></a>
+        <a href="https://www.instagram.com/stra_vill/" target="_blank"><img src="icons/instagram.png" alt="Instagram"></a>
+        <a href="https://youtube.com/@stra_vill" target="_blank"><img src="icons/youtube.png" alt="YouTube"></a>
+        <a href="https://tiktok.com/@stra_vill" target="_blank"><img src="icons/tiktok.png" alt="TikTok"></a>
     </div>
 </div>
 
 <section class="reviews-box">
     <h2>Vélemények</h2>
 
-    <!-- LOCALIMPACT WIDGET -->
-<div data-romw-token="VnDD3R62HnpTNSKxzJmVNJ5p2ohFYWndHoVyl3lChqbhSO0XQI" data-romw-lazy></div>
-    
-        <script src="https://localimpact.com/js/v2/embed.js?id=b8f5b4fd2464663219f4d9b7ec62f159" type="text/javascript" defer></script>
-  
+    <div data-romw-token="VnDD3R62HnpTNSKxzJmVNJ5p2ohFYWndHoVyl3lChqbhSO0XQI" data-romw-lazy></div>
+    <script src="https://localimpact.com/js/v2/embed.js?id=b8f5b4fd2464663219f4d9b7ec62f159" defer></script>
 </section>
 
 <div class="bottom-info-box">
@@ -197,28 +158,19 @@ document.addEventListener("DOMContentLoaded", () => {
         <a href="#" data-page="cookie.html" onclick="loadPage('cookie.html', this); return false;">Cookie tájékoztató</a>
     </div>
 </footer>
-
-</div>
-
 <!-- 🔥 KAPCSOLAT OLDAL FORM KEZELŐ -->
 <script>
 function initContactForm() {
     const form = document.getElementById("contactForm");
     const statusBox = document.getElementById("status");
-
     if (!form) return;
 
-    form.addEventListener("submit", function(e) {
+    form.addEventListener("submit", e => {
         e.preventDefault();
-
         statusBox.textContent = "Küldés...";
         statusBox.style.color = "blue";
 
-        const formData = new FormData();
-        formData.append("name", form.name.value);
-        formData.append("email", form.email.value);
-        formData.append("phone", form.phone.value);
-        formData.append("message", form.message.value);
+        const formData = new FormData(form);
         formData.append("policy", form.policy.checked ? "Elfogadva" : "Nincs elfogadva");
 
         fetch("https://script.google.com/macros/s/AKfycbxQpEr7w9WMgfBHwFB5qQ6gqe8hMQOKTFrE9sKku_11Iz5l3KYULNMLG8oGBmzDEThr/exec", {
@@ -244,9 +196,9 @@ function initContactForm() {
 }
 </script>
 
-<!-- 🍪 COOKIE BANNER – NORMÁL MŰKÖDÉS -->
+<!-- 🍪 COOKIE BANNER -->
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
     const banner = document.getElementById("cookie-banner");
     const accept = document.getElementById("cookie-accept");
     const decline = document.getElementById("cookie-decline");
@@ -257,13 +209,13 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }, 150);
 
-    accept.onclick = function() {
+    accept.onclick = () => {
         localStorage.setItem("cookie-consent", "accepted");
         banner.style.display = "none";
         loadAnalytics();
     };
 
-    decline.onclick = function() {
+    decline.onclick = () => {
         localStorage.setItem("cookie-consent", "declined");
         banner.style.display = "none";
     };
@@ -280,39 +232,38 @@ function loadAnalytics() {
     document.head.appendChild(script);
 
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
-    gtag('config', 'G-Y6NQ4G486W', { 'anonymize_ip': true });
+    gtag('config', 'G-Y6NQ4G486W', { anonymize_ip: true });
 }
 </script>
 
 <!-- 🌗 TÉMA VÁLTÓ SCRIPT -->
 <script>
 function applyTheme(mode) {
+    const body = document.body;
+    const toggle = document.getElementById("themeToggle");
+
     if (mode === "light") {
-        document.body.classList.remove("dark");
-        document.body.classList.add("light");
-        document.getElementById("themeToggle").textContent = "🌙";
+        body.classList.remove("dark");
+        body.classList.add("light");
+        toggle.textContent = "🌙";
         return;
     }
 
     if (mode === "dark") {
-        document.body.classList.remove("light");
-        document.body.classList.add("dark");
-        document.getElementById("themeToggle").textContent = "☀️";
+        body.classList.remove("light");
+        body.classList.add("dark");
+        toggle.textContent = "☀️";
         return;
     }
 
     const hour = new Date().getHours();
-    if (hour >= 6 && hour < 18) {
-        document.body.classList.remove("dark");
-        document.body.classList.add("light");
-        document.getElementById("themeToggle").textContent = "🌙";
-    } else {
-        document.body.classList.remove("light");
-        document.body.classList.add("dark");
-        document.getElementById("themeToggle").textContent = "☀️";
-    }
+    const isDay = hour >= 6 && hour < 18;
+
+    body.classList.toggle("light", isDay);
+    body.classList.toggle("dark", !isDay);
+    toggle.textContent = isDay ? "🌙" : "☀️";
 }
 
 function setTheme(mode) {
@@ -326,7 +277,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("themeToggle").onclick = () => {
         const current = localStorage.getItem("theme-mode") || "auto";
-
         if (current === "auto") setTheme("light");
         else if (current === "light") setTheme("dark");
         else setTheme("auto");
@@ -351,5 +301,6 @@ document.addEventListener("DOMContentLoaded", () => {
     <button id="cookie-decline">Elutasítom</button>
 </div>
 
+</div> <!-- wrapper END -->
 </body>
 </html>
