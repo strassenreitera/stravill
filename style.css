@@ -1041,3 +1041,46 @@ body.dark .privacy-row .privacy-text {
 body.dark #status {
     color: #fff !important;
 }
+/* ============================
+   ANIMÁLT SIKER / HIBA ÜZENET – CSAK CSS
+============================ */
+
+#status {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 600;
+    padding: 12px 18px;
+    border-radius: 8px;
+    display: block;
+    min-height: 20px;
+}
+
+/* Ha a JS beír valamit → animált megjelenés */
+#status:not(:empty) {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 🔥 SIKER – a JS zöld színt állít → mi adunk hozzá zöld hátteret */
+#status[style*="green"] {
+    background: #4CAF50;
+    color: white !important;
+}
+
+/* 🔥 HIBA – a JS piros színt állít → mi adunk hozzá piros hátteret */
+#status[style*="red"] {
+    background: #E53935;
+    color: white !important;
+}
+
+/* DARK MODE */
+body.dark #status[style*="green"] {
+    background: #2E7D32 !important;
+}
+
+body.dark #status[style*="red"] {
+    background: #B71C1C !important;
+}
