@@ -87,7 +87,7 @@ nav ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: clamp(0.8rem, 1.6vw, 1.6rem);
+    gap: clamp(0.6rem, 1.6vw, 1.6rem);
     white-space: nowrap;
 }
 
@@ -548,9 +548,10 @@ footer {
     flex-direction: column;
     align-items: center;
     gap: 6px;
-    font-size: clamp(0.55rem, 1.6vw, 0.9rem);
+    font-size: clamp(0.7rem, 1.6vw, 1rem);
     white-space: nowrap;
 }
+
 
 .footer-links {
     display: flex;
@@ -567,15 +568,19 @@ footer a {
 }
 
 /* ============================
-   FOOTER – AKTÍV MENÜ UGYANÚGY, MINT FELÜL
+   FOOTER LINK – TISZTA, JAVÍTOTT
 ============================ */
 
 footer a {
     position: relative;
     display: inline-block;
     padding-bottom: 3px;
+    color: #ffffff;
+    text-decoration: none !important; /* Soha ne legyen aláhúzott a szöveg */
+    font-weight: 600;
 }
 
+/* Animált aláhúzás */
 footer a::after {
     content: "";
     position: absolute;
@@ -584,13 +589,15 @@ footer a::after {
     width: 0;
     height: 2px;
     background-color: #ffca28;
-    transition: width 0.15s ease;
+    transition: width 0.2s ease;
 }
 
+/* Hover */
 footer a:hover::after {
     width: 100%;
 }
 
+/* Aktív link */
 footer a.active-footer {
     color: #ffca28 !important;
 }
@@ -599,11 +606,16 @@ footer a.active-footer::after {
     width: 100%;
 }
 
+/* DARK MODE FIX */
+body.dark footer a {
+    color: #E4E6EB !important;
+}
+
 body.dark footer a.active-footer {
     color: #ffca28 !important;
 }
 
-body.dark footer a.active-footer::after {
+body.dark footer a::after {
     background-color: #ffca28 !important;
 }
 
