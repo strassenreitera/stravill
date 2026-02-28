@@ -297,6 +297,13 @@ img {
     align-items: flex-start;
     justify-content: center;
     margin-top: 20px;
+    flex-wrap: wrap; /* <<< szétesés javítva */
+}
+
+.contact-card,
+.contact-form {
+    width: 100%;
+    max-width: 500px; /* <<< szétesés javítva */
 }
 
 .contact-card {
@@ -371,16 +378,13 @@ footer {
     white-space: nowrap;
 }
 
-.footer-links a {
-    color: #ffca28;
+footer a {
     text-decoration: none;
-    font-weight: 600;
-    font-size: clamp(0.55rem, 2vw, 0.95rem);
-    transition: 0.2s ease;
 }
 
-.footer-links a:hover {
-    color: #fff;
+footer a:hover {
+    text-decoration: underline;
+    text-decoration-color: #ffca28; /* sárga aláhúzás hoverkor */
 }
 
 .footer-links span {
@@ -544,4 +548,14 @@ body.dark .fixed-header {
 
 body.dark nav {
     border-radius: 0 0 20px 20px !important;
+}
+
+/* ============================
+   TÁJÉKOZTATÓK – LISTA FIX
+============================ */
+
+.content-box ul,
+.content-box ol {
+    text-align: left !important;
+    margin-left: 20px;
 }
