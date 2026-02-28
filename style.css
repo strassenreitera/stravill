@@ -784,3 +784,34 @@ body.dark .content-box {
 body.dark footer {
     border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
+/* ============================
+   MENÜ – HOVER ÉS AKTÍV SÁRGA CSÍK
+============================ */
+
+/* Alap: nincs aláhúzás */
+nav ul li a {
+    position: relative;
+    text-decoration: none;
+}
+
+/* Hover: sárga csík jelenik meg */
+nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px; /* mennyire legyen lent */
+    width: 0%;
+    height: 3px;
+    background-color: #ffca28; /* sárga */
+    transition: width 0.25s ease;
+}
+
+/* Egér fölé → csík nő */
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* AKTÍV menüpont → mindig legyen sárga csík */
+nav ul li a.active-menu::after {
+    width: 100%;
+}
