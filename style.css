@@ -1,4 +1,29 @@
 /* ============================
+   CSS VÁLTOZÓK
+============================ */
+
+:root {
+    --bg-light: #F0F2F5;
+    --bg-dark: #18191A;
+
+    --card-light: #FFFFFF;
+    --card-dark: #242526;
+
+    --text-light: #1C1E21;
+    --text-dark: #E4E6EB;
+
+    --primary: #1877F2;
+    --primary-dark: #4599FF;
+
+    --accent: #ffca28;
+    --border-dark: #3A3B3C;
+
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 10px;
+}
+
+/* ============================
    ALAP BEÁLLÍTÁSOK
 ============================ */
 
@@ -15,8 +40,8 @@ html, body {
 
 body {
     font-family: "Segoe UI", Roboto, Arial, sans-serif;
-    background-color: #F0F2F5;
-    color: #1C1E21;
+    background-color: var(--bg-light);
+    color: var(--text-light);
     line-height: 1.6;
     display: flex;
     justify-content: center;
@@ -26,7 +51,7 @@ body {
 .wrapper {
     width: 100%;
     max-width: 1200px;
-    background: #F0F2F5;
+    background: var(--bg-light);
     min-height: 100vh;
     padding-top: 90px;
     margin: 0 auto;
@@ -43,9 +68,9 @@ body {
     transform: translateX(-50%);
     width: 100%;
     max-width: 1200px;
-    background-color: #1877F2;
+    background-color: var(--primary);
     z-index: 999;
-    border-radius: 0 0 20px 20px;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
@@ -79,7 +104,7 @@ nav {
 }
 
 /* ============================
-   NAV – MENÜ (TISZTA, JAVÍTOTT)
+   NAV – MENÜ
 ============================ */
 
 nav ul {
@@ -110,7 +135,7 @@ nav ul li a::after {
     bottom: 0;
     width: 0;
     height: 2px;
-    background-color: #ffca28;
+    background-color: var(--accent);
     transition: width 0.15s ease;
 }
 
@@ -120,7 +145,7 @@ nav ul li a:hover::after {
 
 /* Aktív menü */
 nav ul li a.active {
-    color: #ffca28 !important;
+    color: var(--accent) !important;
 }
 
 nav ul li a.active::after {
@@ -159,7 +184,6 @@ nav ul li a.active::after {
     }
 }
 
-
 /* ============================
    HERO
 ============================ */
@@ -174,7 +198,7 @@ nav ul li a.active::after {
     color: #fff;
     padding: 3rem 1rem;
     text-align: center;
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     margin: 1rem;
 }
 
@@ -214,7 +238,7 @@ nav ul li a.active::after {
 }
 
 .yellow-btn {
-    background-color: #ffca28;
+    background-color: var(--accent);
     color: #000;
 }
 
@@ -228,10 +252,10 @@ nav ul li a.active::after {
 ============================ */
 
 .content-box {
-    background: #FFFFFF;
+    background: var(--card-light);
     padding: 1.5rem;
     margin: 1rem;
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
@@ -239,7 +263,7 @@ nav ul li a.active::after {
 .content-box h2,
 .content-box h3,
 .content-box h4 {
-    color: #1877F2;
+    color: var(--primary);
     text-align: center;
     margin-bottom: 1rem;
 }
@@ -258,13 +282,12 @@ nav ul li a.active::after {
     padding-left: 0 !important;
 }
 
-
 /* ============================
    SERVICE BOX
 ============================ */
 
 .service-box {
-    background: #FFFFFF;
+    background: var(--card-light);
     padding: 1.5rem;
     margin: 1rem;
     border-radius: 12px;
@@ -274,7 +297,7 @@ nav ul li a.active::after {
 .service-title {
     font-size: 1.4rem;
     font-weight: 700;
-    color: #1877F2;
+    color: var(--primary);
     margin-bottom: 1rem;
     text-align: center;
 }
@@ -318,16 +341,6 @@ img {
     box-shadow: 0 4px 14px rgba(0,0,0,0.2);
 }
 
-/* DARK MODE FIX A GALÉRIÁHOZ */
-body.dark .grid-3x3 img {
-    box-shadow: 0 2px 8px rgba(255,255,255,0.08);
-}
-
-body.dark .grid-3x3 img:hover {
-    box-shadow: 0 4px 14px rgba(255,255,255,0.15);
-}
-
-
 /* ============================
    KÖZÖSSÉGI MÉDIA
 ============================ */
@@ -355,7 +368,7 @@ body.dark .grid-3x3 img:hover {
 ============================ */
 
 .reviews-box {
-    background: #FFFFFF;
+    background: var(--card-light);
     padding: 1.5rem;
     margin: 1rem;
     border-radius: 12px;
@@ -364,7 +377,7 @@ body.dark .grid-3x3 img:hover {
 }
 
 .reviews-box h2 {
-    color: #1877F2;
+    color: var(--primary);
     margin-bottom: 1rem;
 }
 
@@ -391,9 +404,9 @@ body.dark .grid-3x3 img:hover {
 
 /* A térkép is kapjon saját dobozt */
 .contact-map {
-    background: #ffffff;
+    background: var(--card-light);
     padding: 25px;
-    border-radius: 14px;
+    border-radius: var(--radius-md);
     box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
 
@@ -413,7 +426,6 @@ body.dark .grid-3x3 img:hover {
     }
 }
 
-
 /* ============================
    CONTACT FORM
 ============================ */
@@ -422,9 +434,9 @@ body.dark .grid-3x3 img:hover {
     width: 100%;
     max-width: 550px;
     margin: 0 auto;
-    background: #ffffff;
+    background: var(--card-light);
     padding: 30px;
-    border-radius: 14px;
+    border-radius: var(--radius-md);
     box-shadow: 0 4px 14px rgba(0,0,0,0.12);
     display: flex;
     flex-direction: column;
@@ -433,14 +445,14 @@ body.dark .grid-3x3 img:hover {
 
 .contact-form h2 {
     text-align: center;
-    color: #1877F2;
+    color: var(--primary);
     font-size: 1.6rem;
     margin-bottom: 10px;
 }
 
 .contact-form label {
     font-weight: 600;
-    color: #1C1E21;
+    color: var(--text-light);
 }
 
 .contact-form input,
@@ -456,7 +468,7 @@ body.dark .grid-3x3 img:hover {
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-    border-color: #1877F2;
+    border-color: var(--primary);
     box-shadow: 0 0 0 2px rgba(24,119,242,0.25);
     outline: none;
 }
@@ -467,7 +479,7 @@ body.dark .grid-3x3 img:hover {
 }
 
 .contact-form button {
-    background: #1877F2;
+    background: var(--primary);
     color: #fff;
     padding: 12px 18px;
     border: none;
@@ -488,7 +500,7 @@ body.dark .grid-3x3 img:hover {
 ============================ */
 
 .bottom-info-box {
-    background: #FFFFFF;
+    background: var(--card-light);
     padding: 1.5rem;
     margin: 1rem;
     border-radius: 12px;
@@ -498,7 +510,7 @@ body.dark .grid-3x3 img:hover {
 
 .bottom-info-box h2 {
     font-size: 1.4rem;
-    color: #1877F2;
+    color: var(--primary);
 }
 
 .bottom-info-box p {
@@ -509,7 +521,7 @@ body.dark .grid-3x3 img:hover {
 .bottom-info-box .bottom-phone {
     font-size: 1.2rem;
     font-weight: 700;
-    color: #1877F2;
+    color: var(--primary);
     text-decoration: none;
 }
 
@@ -540,7 +552,7 @@ body.dark .grid-3x3 img:hover {
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    background: #1877F2;
+    background: var(--primary);
     color: #fff;
 }
 
@@ -549,12 +561,12 @@ body.dark .grid-3x3 img:hover {
 ============================ */
 
 footer {
-    background-color: #1877F2;
+    background-color: var(--primary);
     color: #fff;
     text-align: center;
     padding: 1.2rem;
     margin-top: 1rem;
-    border-radius: 20px 20px 0 0;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -562,7 +574,6 @@ footer {
     font-size: clamp(0.6rem, 1.2vw, 0.9rem);
     white-space: nowrap;
 }
-
 
 .footer-links {
     display: flex;
@@ -573,16 +584,14 @@ footer {
     white-space: nowrap;
 }
 
-/* ============================
-   FOOTER LINK – TISZTA, JAVÍTOTT
-============================ */
+/* FOOTER LINK – TISZTA, JAVÍTOTT */
 
 footer a {
     position: relative;
     display: inline-block;
     padding-bottom: 3px;
     color: #ffffff;
-    text-decoration: none !important; /* Soha ne legyen aláhúzott a szöveg */
+    text-decoration: none !important;
     font-weight: 600;
 }
 
@@ -594,7 +603,7 @@ footer a::after {
     bottom: 0;
     width: 0;
     height: 2px;
-    background-color: #ffca28;
+    background-color: var(--accent);
     transition: width 0.2s ease;
 }
 
@@ -605,24 +614,11 @@ footer a:hover::after {
 
 /* Aktív link */
 footer a.active-footer {
-    color: #ffca28 !important;
+    color: var(--accent) !important;
 }
 
 footer a.active-footer::after {
     width: 100%;
-}
-
-/* DARK MODE FIX */
-body.dark footer a {
-    color: #E4E6EB !important;
-}
-
-body.dark footer a.active-footer {
-    color: #ffca28 !important;
-}
-
-body.dark footer a::after {
-    background-color: #ffca28 !important;
 }
 
 /* ============================
@@ -631,17 +627,18 @@ body.dark footer a::after {
 
 .privacy-row {
     display: flex;
-    align-items: center;
     gap: 10px;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .privacy-row input[type="checkbox"] {
     appearance: none;
     width: 20px;
     height: 20px;
-    border: 2px solid #1877F2;
+    border: 2px solid var(--primary);
     border-radius: 4px;
     cursor: pointer;
     position: relative;
@@ -651,8 +648,8 @@ body.dark footer a::after {
 }
 
 .privacy-row input[type="checkbox"]:checked {
-    background: #1877F2;
-    border-color: #1877F2;
+    background: var(--primary);
+    border-color: var(--primary);
 }
 
 .privacy-row input[type="checkbox"]:checked::after {
@@ -670,36 +667,35 @@ body.dark footer a::after {
     white-space: normal;
     font-size: 0.95rem;
     text-align: center;
-    display: inline;
-    width: auto;
 }
+
+/* Mobil: checkbox fölött/alatt, szöveg teljes szélességen */
+
 @media (max-width: 480px) {
     .privacy-row {
         flex-direction: column;
         align-items: center;
-        text-align: center;
     }
 
     .privacy-row .privacy-text {
-        display: block;
         width: 100%;
-        text-align: center;
     }
 }
 
 /* DARK MODE CHECKBOX */
+
 body.dark .privacy-row input[type="checkbox"] {
-    background: #18191A !important;
-    border-color: #4599FF !important;
+    background: var(--bg-dark) !important;
+    border-color: var(--primary-dark) !important;
 }
 
 body.dark .privacy-row input[type="checkbox"]:checked {
-    background: #4599FF !important;
-    border-color: #4599FF !important;
+    background: var(--primary-dark) !important;
+    border-color: var(--primary-dark) !important;
 }
 
 body.dark .privacy-row .privacy-text {
-    color: #E4E6EB !important;
+    color: var(--text-dark) !important;
 }
 
 /* ============================
@@ -734,27 +730,16 @@ body.dark .privacy-row .privacy-text {
     color: white !important;
 }
 
-body.dark #status[style*="green"] {
-    background: #2E7D32 !important;
-}
-
-body.dark #status[style*="red"] {
-    background: #B71C1C !important;
-}
-
 /* ============================
-   DARK MODE – FACEBOOK DARK
+   DARK MODE – ÖSSZEVONT
 ============================ */
 
-/* BOTTOM INFO BOX – DARK MODE FIX */
-body.dark .bottom-info-box p {
-    color: #ffffff !important;
+body.dark {
+    background: var(--bg-dark) !important;
+    color: var(--text-dark) !important;
 }
 
-body.dark {
-    background: #18191A !important;
-    color: #E4E6EB !important;
-}
+/* Kártyák, dobozok, wrapper, footer, nav */
 
 body.dark .wrapper,
 body.dark section,
@@ -765,8 +750,8 @@ body.dark .bottom-info-box,
 body.dark .contact-card,
 body.dark .contact-form,
 body.dark footer {
-    background: #242526 !important;
-    color: #E4E6EB !important;
+    background: var(--card-dark) !important;
+    color: var(--text-dark) !important;
 }
 
 body.dark .service-box,
@@ -774,39 +759,45 @@ body.dark .reviews-box,
 body.dark .bottom-info-box,
 body.dark .contact-card,
 body.dark .contact-form {
-    border: 1px solid #3A3B3C !important;
+    border: 1px solid var(--border-dark) !important;
+}
+
+body.dark .bottom-info-box p {
+    color: #ffffff !important;
 }
 
 body.dark input,
 body.dark textarea {
-    background: #18191A !important;
-    color: #E4E6EB !important;
-    border: 1px solid #3A3B3C !important;
+    background: var(--bg-dark) !important;
+    color: var(--text-dark) !important;
+    border: 1px solid var(--border-dark) !important;
 }
 
 body.dark button,
 body.dark .btn {
     background: #3A3B3C !important;
-    color: #E4E6EB !important;
+    color: var(--text-dark) !important;
     border: 1px solid #3A3B3C !important;
 }
 
 body.dark a {
-    color: #4599FF !important;
+    color: var(--primary-dark) !important;
 }
 
+/* NAV DARK */
+
 body.dark nav {
-    background: #242526 !important;
-    border-bottom: 1px solid #3A3B3C !important;
-    border-radius: 0 0 20px 20px !important;
+    background: var(--card-dark) !important;
+    border-bottom: 1px solid var(--border-dark) !important;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg) !important;
 }
 
 body.dark nav ul li a.active {
-    color: #ffca28 !important;
+    color: var(--accent) !important;
 }
 
 body.dark nav ul li a.active::after {
-    background-color: #ffca28 !important;
+    background-color: var(--accent) !important;
 }
 
 /* HERO DARK FIX */
@@ -838,7 +829,7 @@ body.dark .hero-text {
 /* HEADER RADIUS FIX DARK MODE */
 
 body.dark .fixed-header {
-    border-radius: 0 0 20px 20px !important;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg) !important;
 }
 
 /* CONTENT-BOX KERET – DARK MODE */
@@ -851,4 +842,16 @@ body.dark .content-box {
 
 body.dark footer {
     border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+body.dark footer a {
+    color: var(--text-dark) !important;
+}
+
+body.dark footer a.active-footer {
+    color: var(--accent) !important;
+}
+
+body.dark footer a::after {
+    background-color: var(--accent) !important;
 }
