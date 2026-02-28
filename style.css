@@ -851,3 +851,20 @@ body.dark footer a::after {
 .theme-toggle:hover {
     background: #444;
 }
+
+/* ============================
+MOBIL OPTIMALIZÁLT GALÉRIA
+============================ */
+
+@media (max-width: 600px) {
+    .grid-3x3 {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        padding: 0;
+    }
+
+    .grid-3x3 img {
+        width: 90%;
+        max-width: 350px;
+    }
+}
