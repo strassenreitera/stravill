@@ -412,7 +412,7 @@ body.dark .grid-3x3 img:hover {
         padding: 0 15px;
     }
 }
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     .privacy-row {
         flex-wrap: wrap;
         justify-content: center;
@@ -421,8 +421,10 @@ body.dark .grid-3x3 img:hover {
 
     .privacy-row .privacy-text {
         white-space: normal;
+        text-align: center;
     }
 }
+
 
 /* ============================
    CONTACT FORM
