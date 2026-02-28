@@ -578,3 +578,108 @@ body.dark nav {
     text-align: left !important;
     margin-left: 20px;
 }
+/* ============================
+   KAPCSOLAT – ÜZENETKÜLDŐ BOX (ÚJ, SZÉP)
+============================ */
+
+.contact-form {
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto; /* <<< középre igazítás */
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.contact-form h2 {
+    text-align: center;
+    color: #1877F2;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.contact-form label {
+    font-weight: 600;
+    color: #1C1E21;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid #d0d0d0;
+    font-size: 1rem;
+    background: #ffffff;
+    transition: 0.2s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #1877F2;
+    box-shadow: 0 0 0 2px rgba(24,119,242,0.25);
+    outline: none;
+}
+
+.contact-form textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.contact-form button {
+    background: #1877F2;
+    color: #fff;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.contact-form button:hover {
+    background: #0f5fcc;
+    transform: translateY(-2px);
+}
+
+/* DARK MODE */
+body.dark .contact-form {
+    background: #242526 !important;
+    border: 1px solid #3A3B3C !important;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+}
+
+body.dark .contact-form h2 {
+    color: #4599FF !important;
+}
+
+body.dark .contact-form label {
+    color: #E4E6EB !important;
+}
+
+body.dark .contact-form input,
+body.dark .contact-form textarea {
+    background: #18191A !important;
+    color: #E4E6EB !important;
+    border: 1px solid #3A3B3C !important;
+}
+
+body.dark .contact-form input:focus,
+body.dark .contact-form textarea:focus {
+    border-color: #4599FF !important;
+    box-shadow: 0 0 0 2px rgba(69,153,255,0.25);
+}
+
+body.dark .contact-form button {
+    background: #3A3B3C !important;
+    color: #fff !important;
+}
+
+body.dark .contact-form button:hover {
+    background: #4a4b4d !important;
+}
