@@ -15,8 +15,8 @@ html, body {
 
 body {
     font-family: "Segoe UI", Roboto, Arial, sans-serif;
-    background-color: #F0F2F5; /* Facebook Light háttér */
-    color: #1C1E21; /* Facebook szöveg */
+    background-color: #F0F2F5;
+    color: #1C1E21;
     line-height: 1.6;
     display: flex;
     justify-content: center;
@@ -43,7 +43,7 @@ body {
     transform: translateX(-50%);
     width: 100%;
     max-width: 1200px;
-    background-color: #1877F2; /* Facebook Blue */
+    background-color: #1877F2;
     z-index: 999;
     border-radius: 0 0 20px 20px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
@@ -55,6 +55,8 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 10px;
 }
 
 .nav-left-link {
@@ -63,6 +65,7 @@ nav {
     gap: 10px;
     text-decoration: none;
     white-space: nowrap;
+    flex: 0 1 auto;
 }
 
 .header-logo {
@@ -75,41 +78,79 @@ nav {
     font-weight: 600;
 }
 
+/* NAV – MENÜ ELRENDEZÉS (SOHA NE TÖRJÖN CSÚNYÁN) */
+
 nav ul {
     list-style: none;
     display: flex;
-    gap: 1.6rem;
+    flex-wrap: nowrap;
     white-space: nowrap;
-    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(0.3rem, 1vw, 1.2rem);
+    overflow: hidden;
+    flex: 0 1 auto;
 }
 
+nav ul li {
+    list-style: none;
+}
+
+/* FELSŐ MENÜ – VÉGLEGES, FIX SÁRGA CSÍK (FOOTER STÍLUS) */
+
 nav ul li a {
-    color: #fff; /* fehér menüszöveg */
+    color: #fff;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: clamp(0.55rem, 1.2vw, 1rem);
     font-weight: 600;
-    padding: 6px 12px;
+    padding: 6px 0;
     border-radius: 6px;
     position: relative;
     transition: 0.2s ease;
+    text-align: center;
+    line-height: 1.2;
+    display: inline-block;
 }
 
+/* alap: nincs csík */
 nav ul li a::after {
     content: "";
     position: absolute;
-    left: 50%;
-    bottom: -3px;
-    width: 0%;
-    height: 3px;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
     background-color: #ffca28;
-    transition: all 0.25s ease;
-    transform: translateX(-50%);
-    border-radius: 2px;
+    transition: width 0.15s ease;
 }
 
-nav ul li a:hover::after,
-nav ul li a.active::after {
-    width: 60%;
+/* hover: fix sárga csík a szöveg alatt */
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* aktív menüpont: mindig sárga csík */
+nav ul li a.active-menu::after {
+    width: 100%;
+}
+
+/* NAV – RESPONSIVE KÖZÉPRE IGAZÍTÁS */
+
+@media (max-width: 1100px) {
+    .nav-left-link {
+        flex: 1 1 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    nav {
+        justify-content: center;
+        text-align: center;
+    }
+
+    nav ul {
+        justify-content: center;
+        width: 100%;
+    }
 }
 
 /* ============================
@@ -123,7 +164,6 @@ nav ul li a.active::after {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
     color: #fff;
     padding: 3rem 1rem;
     text-align: center;
@@ -181,7 +221,7 @@ nav ul li a.active::after {
 ============================ */
 
 .content-box {
-    background: #FFFFFF; /* Facebook card */
+    background: #FFFFFF;
     padding: 1.5rem;
     margin: 1rem;
     border-radius: 10px;
@@ -192,7 +232,7 @@ nav ul li a.active::after {
 .content-box h2,
 .content-box h3,
 .content-box h4 {
-    color: #1877F2; /* Facebook Blue */
+    color: #1877F2;
     text-align: center;
     margin-bottom: 1rem;
 }
@@ -201,6 +241,12 @@ nav ul li a.active::after {
     margin-bottom: 1rem;
     line-height: 1.7;
     text-align: center;
+}
+
+.content-box ul,
+.content-box ol {
+    text-align: left !important;
+    margin-left: 20px;
 }
 
 /* ============================
@@ -297,13 +343,13 @@ img {
     align-items: flex-start;
     justify-content: center;
     margin-top: 20px;
-    flex-wrap: wrap; /* szétesés javítva */
+    flex-wrap: wrap;
 }
 
 .contact-card,
 .contact-form {
     width: 100%;
-    max-width: 500px; /* szétesés javítva */
+    max-width: 500px;
 }
 
 .contact-card {
@@ -313,12 +359,73 @@ img {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
+/* KAPCSOLAT – ÜZENETKÜLDŐ BOX (ÚJ, SZÉP) – EGY PÉLDÁNYBAN */
+
 .contact-form {
-    background: #FFFFFF;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
+
+.contact-form h2 {
+    text-align: center;
+    color: #1877F2;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.contact-form label {
+    font-weight: 600;
+    color: #1C1E21;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid #d0d0d0;
+    font-size: 1rem;
+    background: #ffffff;
+    transition: 0.2s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #1877F2;
+    box-shadow: 0 0 0 2px rgba(24,119,242,0.25);
+    outline: none;
+}
+
+.contact-form textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.contact-form button {
+    background: #1877F2;
+    color: #fff;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.contact-form button:hover {
+    background: #0f5fcc;
+    transform: translateY(-2px);
+}
+
 /* ============================
    ALSÓ INFÓ BOX
 ============================ */
@@ -354,7 +461,7 @@ img {
 ============================ */
 
 footer {
-    background-color: #1877F2; /* Facebook Blue */
+    background-color: #1877F2;
     color: #fff;
     text-align: center;
     padding: 1.2rem;
@@ -378,6 +485,7 @@ footer {
 }
 
 /* Footer linkek – világos mód */
+
 footer a {
     color: #ffffff;
     text-decoration: none;
@@ -388,7 +496,6 @@ footer a:hover {
     text-decoration-color: #ffca28;
 }
 
-/* Aktív oldal – világos mód */
 footer a.active-footer {
     color: #ffca28 !important;
     text-decoration: underline !important;
@@ -494,14 +601,17 @@ body.dark #cookie-banner button {
 body.dark nav {
     background: #242526 !important;
     border-bottom: 1px solid #3A3B3C !important;
+    border-radius: 0 0 20px 20px !important;
 }
 
 body.dark nav a {
     color: #E4E6EB !important;
 }
 
-body.dark nav a.active {
-    color: #4599FF !important;
+/* dark menü csík – ugyanaz a sárga */
+
+body.dark nav ul li a::after {
+    background-color: #ffca28 !important;
 }
 
 body.dark .theme-toggle {
@@ -513,9 +623,10 @@ body.dark .bottom-info-box p {
     color: #ffffff !important;
 }
 
-/* Footer linkek – sötét mód */
+/* Footer linkek – sötét mód (egységesítve) */
+
 body.dark footer a {
-    color: #ffffff;
+    color: #ffffff !important;
 }
 
 body.dark footer a:hover {
@@ -565,89 +676,10 @@ body.dark .fixed-header {
     border-radius: 0 0 20px 20px !important;
 }
 
-body.dark nav {
-    border-radius: 0 0 20px 20px !important;
-}
-
 /* ============================
-   TÁJÉKOZTATÓK – LISTA FIX
+   KAPCSOLAT – DARK MODE
 ============================ */
 
-.content-box ul,
-.content-box ol {
-    text-align: left !important;
-    margin-left: 20px;
-}
-/* ============================
-   KAPCSOLAT – ÜZENETKÜLDŐ BOX (ÚJ, SZÉP)
-============================ */
-
-.contact-form {
-    width: 100%;
-    max-width: 550px;
-    margin: 0 auto; /* <<< középre igazítás */
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 14px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-
-.contact-form h2 {
-    text-align: center;
-    color: #1877F2;
-    font-size: 1.6rem;
-    margin-bottom: 10px;
-}
-
-.contact-form label {
-    font-weight: 600;
-    color: #1C1E21;
-}
-
-.contact-form input,
-.contact-form textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 8px;
-    border: 1px solid #d0d0d0;
-    font-size: 1rem;
-    background: #ffffff;
-    transition: 0.2s ease;
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-    border-color: #1877F2;
-    box-shadow: 0 0 0 2px rgba(24,119,242,0.25);
-    outline: none;
-}
-
-.contact-form textarea {
-    min-height: 140px;
-    resize: vertical;
-}
-
-.contact-form button {
-    background: #1877F2;
-    color: #fff;
-    padding: 12px 18px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s ease;
-}
-
-.contact-form button:hover {
-    background: #0f5fcc;
-    transform: translateY(-2px);
-}
-
-/* DARK MODE */
 body.dark .contact-form {
     background: #242526 !important;
     border: 1px solid #3A3B3C !important;
@@ -683,135 +715,20 @@ body.dark .contact-form button {
 body.dark .contact-form button:hover {
     background: #4a4b4d !important;
 }
-/* ============================
-   MENÜ – VÉGLEGES, SOHA NEM TÖRŐ MENÜ
-============================ */
 
-/* NAV: alapból egy sor, ha nem fér el → két soros elrendezés */
-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap; /* csak a NAV törhet, a MENÜ NEM */
-    width: 100%;
-    row-gap: 10px;
-}
-
-/* Bal oldali cím: alapból balra */
-.nav-left-link {
-    white-space: nowrap;
-    flex: 0 1 auto;
-}
-
-/* Ha már nem fér el → cím középre ugrik */
-@media (max-width: 1100px) {
-    .nav-left-link {
-        flex: 1 1 100%;
-        display: flex;
-        justify-content: center;
-    }
-}
-
-/* MENÜ: mindig EGY sorban marad */
-nav ul {
-    display: flex;
-    flex-wrap: nowrap; /* <<< SOHA NEM TÖRHET */
-    white-space: nowrap; /* <<< SOHA NEM TÖRHET */
-    justify-content: center;
-    gap: clamp(0.3rem, 1vw, 1.2rem);
-    overflow: hidden; /* <<< biztos ami biztos */
-    flex: 0 1 auto;
-}
-
-/* Menüpontok: addig zsugorodnak, amíg EGY sorban elférnek */
-nav ul li a {
-    font-size: clamp(0.55rem, 1.2vw, 1rem); /* <<< zsugorodás */
-    white-space: nowrap; /* <<< nem törhet */
-    text-align: center;
-    line-height: 1.2;
-}
-/* Ha a NAV két soros lesz → a menü is középre kerül */
-@media (max-width: 1100px) {
-    nav ul {
-        justify-content: center;   /* <<< EZ TESZI KÖZÉPRE */
-        width: 100%;               /* <<< így tud középre állni */
-    }
-}
-/* Ha a NAV két soros lesz → MINDEN középre kerül */
-@media (max-width: 1100px) {
-    nav {
-        justify-content: center;   /* <<< EZ TESZI KÖZÉPRE A FELSŐ SORT IS */
-        text-align: center;        /* <<< biztosítja a teljes középre igazítást */
-    }
-
-    .nav-left-link {
-        flex: 1 1 100%;
-        justify-content: center;
-    }
-
-    nav ul {
-        justify-content: center;
-        width: 100%;
-    }
-}
-/* ============================
-   FOOTER LINK FIX – DARK MODE
-============================ */
-
-body.dark footer a {
-    color: #ffffff !important;   /* <<< fehér linkek */
-}
-
-body.dark footer a:hover {
-    color: #ffca28 !important;   /* <<< hover marad sárga */
-}
-
-body.dark footer a.active-footer {
-    color: #ffca28 !important;   /* <<< aktív is sárga */
-}
 /* ============================
    CONTENT-BOX KERET – DARK MODE
 ============================ */
 
 body.dark .content-box {
     border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    border-radius: 8px; /* ha a vélemény box is kerekített */
+    border-radius: 8px;
 }
+
 /* ============================
    FOOTER KERET – DARK MODE
 ============================ */
 
 body.dark footer {
     border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
-}
-/* ============================
-   MENÜ – HOVER ÉS AKTÍV SÁRGA CSÍK
-============================ */
-
-/* Alap: nincs aláhúzás */
-nav ul li a {
-    position: relative;
-    text-decoration: none;
-}
-
-/* Hover: sárga csík jelenik meg */
-nav ul li a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -4px; /* mennyire legyen lent */
-    width: 0%;
-    height: 3px;
-    background-color: #ffca28; /* sárga */
-    transition: width 0.25s ease;
-}
-
-/* Egér fölé → csík nő */
-nav ul li a:hover::after {
-    width: 100%;
-}
-
-/* AKTÍV menüpont → mindig legyen sárga csík */
-nav ul li a.active-menu::after {
-    width: 100%;
 }
