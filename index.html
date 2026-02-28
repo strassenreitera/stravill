@@ -192,14 +192,12 @@ function initContactForm() {
         statusBox.textContent = "Küldés...";
         statusBox.style.color = "blue";
 
-       const data = {
-    name: form.querySelector('[name="name"]').value,
-    email: form.querySelector('[name="email"]').value,
-    phone: form.querySelector('[name="phone"]').value,
-    message: form.querySelector('[name="message"]').value,
-    gdpr: document.getElementById("privacy-accept").checked
-};
-
+        const data = {
+            name: form.name.value,
+            email: form.email.value,
+            phone: form.phone.value,
+            message: form.message.value
+        };
 
         fetch("https://script.google.com/macros/s/AKfycbxQpEr7w9WMgfBHwFB5qQ6gqe8hMQOKTFrE9sKku_11Iz5l3KYULNMLG8oGBmzDEThr/exec", {
             method: "POST",
