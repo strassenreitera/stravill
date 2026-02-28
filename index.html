@@ -15,20 +15,20 @@
 <meta property="og:description" content="Gyors, precíz villanyszerelés Orosházán – hívjon most!">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.stravill.hu">
-<meta property="og:image" content="https://www.stravill.hu/images/logo.png">
+<meta property="og:image" content="https://www.stravill.hu/icons/logo.png">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Villanyszerelő Orosháza – StraVill">
 <meta name="twitter:description" content="Gyors, precíz villanyszerelés Orosházán – hívjon most!">
-<meta name="twitter:image" content="https://www.stravill.hu/images/logo.png">
+<meta name="twitter:image" content="https://www.stravill.hu/icons/logo.png">
 
 <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
 
 <!-- FŐ CSS -->
 <link rel="stylesheet" href="style.css">
 
-<!-- FOOTER ACTIVE LINK FIX (marad!) -->
+<!-- FOOTER ACTIVE LINK FIX -->
 <style>
 .footer-links a.active-footer {
     text-decoration: underline;
@@ -36,64 +36,16 @@
 }
 </style>
 
-<!-- DINAMIKUS OLDALBETÖLTŐ -->
-<script>
-function loadPage(page, linkElement) {
-    fetch(page)
-        .then(res => res.ok ? res.text() : Promise.reject(res.status))
-        .then(html => {
-            const box = document.getElementById("content-box");
-            const header = document.querySelector(".fixed-header");
-
-            box.innerHTML = html;
-
-            const boxTop = box.getBoundingClientRect().top;
-            const headerHeight = header.offsetHeight;
-
-            if (boxTop < 0 || boxTop > window.innerHeight) {
-                const absoluteTop = box.getBoundingClientRect().top + window.scrollY;
-                window.scrollTo({
-                    top: absoluteTop - headerHeight - 10,
-                    behavior: "smooth"
-                });
-            }
-
-            if (page === "kapcsolat.html") {
-                initContactForm();
-            }
-
-            document.querySelectorAll("nav ul li a").forEach(a => a.classList.remove("active"));
-            if (linkElement) linkElement.classList.add("active");
-
-            document.querySelectorAll(".footer-links a").forEach(a => {
-                a.classList.toggle("active-footer", a.getAttribute("data-page") === page);
-            });
-        })
-        .catch(() => {
-            document.getElementById("content-box").innerHTML =
-                "<p style='text-align:center;color:red;'>Nem sikerült betölteni az oldalt.</p>";
-        });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    const defaultLink = document.querySelector('a[data-page="rolam.html"]');
-    loadPage("rolam.html", defaultLink);
-});
-</script>
-
 </head>
 <body>
+
 <div class="wrapper">
 
 <header class="fixed-header">
     <nav>
         <div class="nav-left">
-            <a href="https://www.facebook.com/profile.php?id=61578948980529" 
-               target="_blank" 
-               class="nav-left-link">
-                <img src="icons/logo.png" 
-                     alt="StraVill villanyszerelő Orosháza" 
-                     class="header-logo">
+            <a href="https://www.facebook.com/profile.php?id=61578948980529" target="_blank" class="nav-left-link">
+                <img src="icons/logo.png" alt="StraVill villanyszerelő Orosháza" class="header-logo">
                 <span class="nav-title">StraVill – Strassenreiter Attila E.V.</span>
             </a>
         </div>
@@ -158,143 +110,18 @@ document.addEventListener("DOMContentLoaded", () => {
         <a href="#" data-page="cookie.html" onclick="loadPage('cookie.html', this); return false;">Cookie tájékoztató</a>
     </div>
 </footer>
-<!-- 🔥 KAPCSOLAT OLDAL FORM KEZELŐ -->
-<script>
-function initContactForm() {
-    const form = document.getElementById("contactForm");
-    const statusBox = document.getElementById("status");
-    if (!form) return;
 
-    form.addEventListener("submit", e => {
-        e.preventDefault();
-        statusBox.textContent = "Küldés...";
-        statusBox.style.color = "blue";
-
-        const formData = new FormData(form);
-        formData.append("policy", form.policy.checked ? "Elfogadva" : "Nincs elfogadva");
-
-        fetch("https://script.google.com/macros/s/AKfycbxQpEr7w9WMgfBHwFB5qQ6gqe8hMQOKTFrE9sKku_11Iz5l3KYULNMLG8oGBmzDEThr/exec", {
-            method: "POST",
-            body: formData
-        })
-        .then(r => r.text())
-        .then(res => {
-            if (res === "OK") {
-                statusBox.textContent = "Üzenet elküldve!";
-                statusBox.style.color = "green";
-                form.reset();
-            } else {
-                statusBox.textContent = "Hiba történt: " + res;
-                statusBox.style.color = "red";
-            }
-        })
-        .catch(() => {
-            statusBox.textContent = "Hálózati hiba történt.";
-            statusBox.style.color = "red";
-        });
-    });
-}
-</script>
-
-<!-- 🍪 COOKIE BANNER -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const banner = document.getElementById("cookie-banner");
-    const accept = document.getElementById("cookie-accept");
-    const decline = document.getElementById("cookie-decline");
-
-    setTimeout(() => {
-        if (!localStorage.getItem("cookie-consent")) {
-            banner.style.display = "block";
-        }
-    }, 150);
-
-    accept.onclick = () => {
-        localStorage.setItem("cookie-consent", "accepted");
-        banner.style.display = "none";
-        loadAnalytics();
-    };
-
-    decline.onclick = () => {
-        localStorage.setItem("cookie-consent", "declined");
-        banner.style.display = "none";
-    };
-
-    if (localStorage.getItem("cookie-consent") === "accepted") {
-        loadAnalytics();
-    }
-});
-
-function loadAnalytics() {
-    const script = document.createElement("script");
-    script.src = "https://www.googletagmanager.com/gtag/js?id=G-Y6NQ4G486W";
-    script.async = true;
-    document.head.appendChild(script);
-
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-Y6NQ4G486W', { anonymize_ip: true });
-}
-</script>
-
-<!-- 🌗 TÉMA VÁLTÓ SCRIPT -->
-<script>
-function applyTheme(mode) {
-    const body = document.body;
-    const toggle = document.getElementById("themeToggle");
-
-    if (mode === "light") {
-        body.classList.remove("dark");
-        body.classList.add("light");
-        toggle.textContent = "🌙";
-        return;
-    }
-
-    if (mode === "dark") {
-        body.classList.remove("light");
-        body.classList.add("dark");
-        toggle.textContent = "☀️";
-        return;
-    }
-
-    const hour = new Date().getHours();
-    const isDay = hour >= 6 && hour < 18;
-
-    body.classList.toggle("light", isDay);
-    body.classList.toggle("dark", !isDay);
-    toggle.textContent = isDay ? "🌙" : "☀️";
-}
-
-function setTheme(mode) {
-    localStorage.setItem("theme-mode", mode);
-    applyTheme(mode);
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    const saved = localStorage.getItem("theme-mode") || "auto";
-    applyTheme(saved);
-
-    document.getElementById("themeToggle").onclick = () => {
-        const current = localStorage.getItem("theme-mode") || "auto";
-        if (current === "auto") setTheme("light");
-        else if (current === "light") setTheme("dark");
-        else setTheme("auto");
-    };
-});
-</script>
-
-<!-- 🌗 LEBEGŐ TÉMA VÁLTÓ GOMB -->
+<!-- TÉMA VÁLTÓ GOMB -->
 <div class="theme-toggle" id="themeToggle">🌙</div>
 
-<!-- 🍪 COOKIE BANNER -->
+<!-- COOKIE BANNER -->
 <div id="cookie-banner" class="cookie-banner">
     <p>
         Ez a weboldal statisztikai célú sütiket (Google Analytics 4) használ a látogatottság mérésére.
         A sütik csak az Ön hozzájárulása után aktiválódnak.
         <br>
-        <a href="/adatkezeles.html">Adatkezelési tájékoztató</a> |
-        <a href="/cookie.html">Cookie tájékoztató</a>
+        <a href="#" onclick="loadPage('adatkezeles.html'); return false;">Adatkezelési tájékoztató</a> |
+        <a href="#" onclick="loadPage('cookie.html'); return false;">Cookie tájékoztató</a>
     </p>
 
     <button id="cookie-accept">Elfogadom</button>
@@ -302,5 +129,9 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
 
 </div> <!-- wrapper END -->
+
+<!-- KÜLSŐ JAVASCRIPT -->
+<script src="script.js"></script>
+
 </body>
 </html>
