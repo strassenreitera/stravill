@@ -173,29 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <section class="reviews-box">
     <h2>Vélemények</h2>
 
- <script>
-fetch("reviews.json")
-  .then(response => response.json())
-  .then(reviews => {
-    const box = document.getElementById("reviews-list");
 
-    reviews.forEach(r => {
-      const item = document.createElement("div");
-      item.className = "review-item";
-
-      item.innerHTML = `
-        <div class="review-header">
-          <strong>${r.author}</strong>
-          <span class="stars">${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</span>
-        </div>
-        <p class="review-text">${r.text}</p>
-        <div class="review-date">${r.time}</div>
-      `;
-
-      box.appendChild(item);
-    });
-  });
-</script>
 
 </section>
 
