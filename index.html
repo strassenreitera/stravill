@@ -75,6 +75,15 @@ function loadPage(page, linkElement) {
         .then(html => {
             document.getElementById("content-box").innerHTML = html;
 
+            // Tartalomhoz görgetés
+            const box = document.getElementById("content-box");
+            box.scrollIntoView({ behavior: "smooth" });
+
+            // Kicsit feljebb húzzuk (80px)
+            setTimeout(() => {
+                window.scrollBy({ top: -80, behavior: "smooth" });
+            }, 300);
+
             if (page === "kapcsolat.html") {
                 initContactForm();
             }
@@ -101,6 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadPage("rolam.html", defaultLink);
 });
 </script>
+
 
 </head>
 
