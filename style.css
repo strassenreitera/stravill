@@ -863,3 +863,51 @@ body.dark .status-box.success {
 body.dark .status-box.error {
     background: #B71C1C !important;
 }
+/* ============================
+   FELSŐ MENÜ – AKTÍV KIEMELÉS (HTML MÓDOSÍTÁS NÉLKÜL)
+============================ */
+
+/* alap link */
+nav ul li a {
+    position: relative;
+    display: inline-block;
+    padding: 6px 0;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* hover aláhúzás */
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* aláhúzás elem */
+nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ffca28;
+    transition: width 0.15s ease;
+}
+
+/* 🔥 AKTÍV MENÜ – EZ LESZ SÁRGA + ALÁHÚZOTT */
+nav ul li a.active {
+    color: #ffca28 !important;
+}
+
+nav ul li a.active::after {
+    width: 100%;
+}
+
+/* DARK MODE */
+body.dark nav ul li a.active {
+    color: #ffca28 !important;
+}
+
+body.dark nav ul li a.active::after {
+    background-color: #ffca28 !important;
+}
