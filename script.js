@@ -46,6 +46,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 /* ============================
+   HERO GOMB → KAPCSOLAT ŰRLAPRA GÖRGETÉS
+============================ */
+
+function goToContact() {
+    const link = document.querySelector('a[data-page="kapcsolat.html"]');
+
+    // Betöltjük a kapcsolat oldalt
+    loadPage("kapcsolat.html", link);
+
+    // Várunk, amíg a DOM tényleg betöltődik
+    setTimeout(() => {
+        const target = document.getElementById("uzenetkuldes");
+        if (target) {
+            const headerHeight = document.querySelector(".fixed-header").offsetHeight;
+            const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 10;
+
+            window.scrollTo({
+                top: top,
+                behavior: "smooth"
+            });
+        }
+    }, 350);
+}
+
+
+/* ============================
    KAPCSOLAT OLDAL – FORM KEZELŐ
 ============================ */
 
@@ -61,11 +87,9 @@ function initContactForm() {
 
         const formData = new FormData(form);
 
-// GDPR helyes kezelése
+        // GDPR helyes kezelése
         const policyAccepted = document.getElementById("policy").checked;
         formData.set("policy", policyAccepted ? "Elfogadva" : "Nincs elfogadva");
-
-
 
         fetch("https://script.google.com/macros/s/AKfycbx_FI6eN8AONYMFqtBFF792ymRvmFdZSrfkMICwKbgvp2ExavZWIAK72P5Vdsy8FSQrGA/exec", {
             method: "POST",
