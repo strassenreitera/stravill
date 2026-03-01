@@ -60,7 +60,12 @@ function initContactForm() {
         statusBox.style.color = "blue";
 
         const formData = new FormData(form);
-        formData.append("policy", form.policy.checked ? "Elfogadva" : "Nincs elfogadva");
+
+// GDPR helyes kezelése
+        const policyAccepted = document.getElementById("policy").checked;
+        formData.set("policy", policyAccepted ? "Elfogadva" : "Nincs elfogadva");
+
+
 
         fetch("https://script.google.com/macros/s/AKfycbx_FI6eN8AONYMFqtBFF792ymRvmFdZSrfkMICwKbgvp2ExavZWIAK72P5Vdsy8FSQrGA/exec", {
             method: "POST",
