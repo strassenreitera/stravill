@@ -22,9 +22,8 @@ function loadPage(page, linkElement) {
                 });
             }
 
-            if (page === "kapcsolat.html") {
-                initContactForm();
-            }
+            if (page === "kapcsolat.html") initContactForm();
+            if (page === "kalkulator.html") initCalculator();
 
             document.querySelectorAll("nav ul li a").forEach(a => a.classList.remove("active"));
             if (linkElement) linkElement.classList.add("active");
@@ -52,10 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
 function goToContact() {
     const link = document.querySelector('a[data-page="kapcsolat.html"]');
 
-    // Betöltjük a kapcsolat oldalt
     loadPage("kapcsolat.html", link);
 
-    // Várunk, amíg a DOM tényleg betöltődik
     setTimeout(() => {
         const target = document.getElementById("uzenetkuldes");
         if (target) {
@@ -87,7 +84,6 @@ function initContactForm() {
 
         const formData = new FormData(form);
 
-        // GDPR helyes kezelése
         const policyAccepted = document.getElementById("policy").checked;
         formData.set("policy", policyAccepted ? "Elfogadva" : "Nincs elfogadva");
 
@@ -111,6 +107,142 @@ function initContactForm() {
             statusBox.style.color = "red";
         });
     });
+}
+
+
+/* ============================
+   KALKULÁTOR – INIT (KÁRTYÁS VERZIÓ)
+============================ */
+
+function initCalculator() {
+    const tables = document.querySelectorAll(".calc-table");
+    const form = document.getElementById("calcContactForm");
+    const statusBox = document.getElementById("calc-status");
+
+    // Ha nincs egyetlen kalkulátor tábla sem → kilép
+    if (!tables.length) return;
+
+    // Minden input figyelése
+    document.querySelectorAll(".calc-table input[type='number']").forEach(input => {
+        input.addEventListener("input", updateCalc);
+    });
+
+    updateCalc();
+
+    /* SOR RESET GOMBOK */
+    document.querySelectorAll(".row-reset").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const row = btn.closest("tr");
+            const input = row.querySelector("input");
+            const sum = row.querySelector(".sum");
+
+            if (input) input.value = "";
+            if (sum) sum.textContent = "";
+
+            updateCalc();
+        });
+    });
+
+    /* NAGY RESET GOMB */
+    const resetBtn = document.getElementById("calcReset");
+    if (resetBtn) {
+        resetBtn.addEventListener("click", () => {
+
+            document.querySelectorAll(".calc-table input[type='number']").forEach(input => {
+                input.value = "";
+            });
+
+            document.querySelectorAll(".calc-table .sum").forEach(sum => {
+                sum.textContent = "";
+            });
+
+            const totalBox = document.getElementById("total");
+            if (totalBox) totalBox.textContent = "0 Ft";
+        });
+    }
+
+    /* AJÁNLATKÉRÉS */
+    if (form) {
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+
+            statusBox.textContent = "Küldés...";
+            statusBox.style.color = "blue";
+
+            let text = "Kalkulátor ajánlatkérés:\n\n";
+            let total = document.getElementById("total")?.textContent || "0 Ft";
+
+            document.querySelectorAll(".calc-table tr").forEach(row => {
+                const name = row.children[0].textContent;
+                const unit = row.children[1].textContent;
+                const qty = row.querySelector("input")?.value || 0;
+                const sum = row.querySelector(".sum")?.textContent || "";
+
+                if (qty > 0) {
+                    text += `${name} – ${qty} ${unit} – ${sum}\n`;
+                }
+            });
+
+            text += `\nVégösszeg: ${total}\n`;
+
+            const msg = document.getElementById("calcMessage");
+            if (msg) {
+                msg.value = msg.value + "\n\n" + text;
+            }
+
+            const formData = new FormData(form);
+
+            const policyAccepted = document.getElementById("policy2").checked;
+            formData.set("policy", policyAccepted ? "Elfogadva" : "Nincs elfogadva");
+
+            fetch("https://script.google.com/macros/s/AKfycbx_FI6eN8AONYMFqtBFF792ymRvmFdZSrfkMICwKbgvp2ExavZWIAK72P5Vdsy8FSQrGA/exec", {
+                method: "POST",
+                body: formData
+            })
+            .then(r => r.text())
+            .then(res => {
+                if (res === "OK") {
+                    statusBox.textContent = "Ajánlatkérés elküldve!";
+                    statusBox.style.color = "green";
+                    form.reset();
+                } else {
+                    statusBox.textContent = "Hiba történt: " + res;
+                    statusBox.style.color = "red";
+                }
+            })
+            .catch(() => {
+                statusBox.textContent = "Hálózati hiba történt.";
+                statusBox.style.color = "red";
+            });
+        });
+    }
+}
+
+
+/* ============================
+   KALKULÁTOR – SZÁMOLÓ FUNKCIÓ (KÁRTYÁS VERZIÓ)
+============================ */
+
+function updateCalc() {
+    let total = 0;
+
+    document.querySelectorAll(".calc-table tr").forEach(row => {
+        const price = Number(row.children[2]?.textContent || 0);
+        const qty = Number(row.querySelector("input")?.value || 0);
+        const sumCell = row.querySelector(".sum");
+
+        const sum = price * qty;
+        if (sumCell) {
+            sumCell.textContent = sum ? sum.toLocaleString("hu-HU") + " Ft" : "";
+        }
+
+        total += sum;
+    });
+
+    const totalBox = document.getElementById("total");
+    if (totalBox) {
+        totalBox.textContent = total.toLocaleString("hu-HU") + " Ft";
+    }
 }
 
 
@@ -179,7 +311,7 @@ function applyTheme(mode) {
 
     if (mode === "dark") {
         body.classList.remove("light");
-        body.classList.add("dark");
+        body.classclassList.add("dark");
         toggle.textContent = "☀️";
         return;
     }

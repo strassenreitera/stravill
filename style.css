@@ -868,3 +868,95 @@ MOBIL OPTIMALIZÁLT GALÉRIA
         max-width: 350px;
     }
 }
+/* ============================
+   KALKULÁTOR – KÁRTYÁK
+============================ */
+
+.calc-card {
+    background: var(--card-light);
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    max-width: 900px;
+}
+
+.calc-card h2 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+/* DARK MODE */
+body.dark .calc-card {
+    background: var(--card-dark) !important;
+    border: 1px solid var(--border-dark) !important;
+}
+
+/* ============================
+   MINI TÁBLÁZATOK
+============================ */
+
+.calc-card .calc-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.calc-card .calc-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+body.dark .calc-card .calc-table td {
+    border-bottom: 1px solid var(--border-dark) !important;
+}
+
+/* ============================
+   SOR RESET GOMB
+============================ */
+
+.row-reset {
+    background: #ff4444;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: 0.2s ease;
+}
+
+.row-reset:hover {
+    background: #cc0000;
+    transform: scale(1.05);
+}
+
+body.dark .row-reset {
+    background: #aa3333 !important;
+    border: 1px solid #772222 !important;
+}
+
+/* ============================
+   MOBIL OPTIMALIZÁLÁS
+============================ */
+
+@media (max-width: 600px) {
+    .calc-card {
+        padding: 15px;
+    }
+
+    .calc-card .calc-table td {
+        font-size: 0.8rem;
+        padding: 6px;
+    }
+
+    .calc-card .calc-table input[type="number"] {
+        width: 60px;
+    }
+
+    .row-reset {
+        padding: 3px 6px;
+        font-size: 0.7rem;
+    }
+}
