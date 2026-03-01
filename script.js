@@ -62,7 +62,7 @@ function initContactForm() {
         const formData = new FormData(form);
         formData.append("policy", form.policy.checked ? "Elfogadva" : "Nincs elfogadva");
 
-        fetch("https://script.google.com/macros/s/AKfycbxQpEr7w9WMgfBHwFB5qQ6gqe8hMQOKTFrE9sKku_11Iz5l3KYULNMLG8oGBmzDEThr/exec", {
+        fetch("https://script.google.com/macros/s/AKfycbx_FI6eN8AONYMFqtBFF792ymRvmFdZSrfkMICwKbgvp2ExavZWIAK72P5Vdsy8FSQrGA/exec", {
             method: "POST",
             body: formData
         })
