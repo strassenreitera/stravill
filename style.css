@@ -938,25 +938,65 @@ body.dark .row-reset {
 }
 
 /* ============================
-   MOBIL OPTIMALIZÁLÁS
+   KALKULÁTOR – MOBIL FIX (PROFI)
 ============================ */
 
 @media (max-width: 600px) {
-    .calc-card {
-        padding: 15px;
+
+    /* A táblázat ne próbáljon egy sorban maradni */
+    .calc-table tr {
+        display: flex;
+        flex-direction: column;
+        padding: 8px 0;
+        border-bottom: 1px solid #ddd;
     }
 
-    .calc-card .calc-table td {
-        font-size: 0.8rem;
-        padding: 6px;
+    body.dark .calc-table tr {
+        border-bottom: 1px solid var(--border-dark) !important;
     }
 
-    .calc-card .calc-table input[type="number"] {
-        width: 60px;
+    /* A cellák teljes szélességet kapnak */
+    .calc-table td {
+        width: 100% !important;
+        text-align: center;
+        padding: 4px 0 !important;
+        border: none !important;
+        font-size: 0.9rem;
     }
 
+    /* A mennyiség + összeg + reset gomb egy sorba kerül */
+    .calc-table td:nth-child(4),
+    .calc-table td:nth-child(5),
+    .calc-table td:nth-child(6) {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        width: auto !important;
+    }
+
+    /* Input kisebb legyen */
+    .calc-table input[type="number"] {
+        width: 70px !important;
+        padding: 6px !important;
+        font-size: 0.9rem;
+    }
+
+    /* Reset gomb kisebb */
     .row-reset {
-        padding: 3px 6px;
-        font-size: 0.7rem;
+        padding: 3px 6px !important;
+        font-size: 0.75rem !important;
+    }
+
+    /* Kártyák középre igazítása */
+    .calc-card {
+        margin: 15px auto !important;
+        width: 95% !important;
+        padding: 15px !important;
+    }
+
+    /* Címek kisebbek */
+    .calc-card h2 {
+        font-size: 1.2rem !important;
     }
 }
