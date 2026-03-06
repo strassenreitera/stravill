@@ -554,7 +554,8 @@ img {
    ANIMÁLT SIKER / HIBA ÜZENET
 ============================ */
 
-#status {
+#status,
+#calc-status {
     opacity: 0;
     transform: translateY(-10px);
     transition: all 0.4s ease;
@@ -567,18 +568,27 @@ img {
     min-height: 20px;
 }
 
-#status:not(:empty) {
+#status:not(:empty),
+#calc-status:not(:empty) {
     opacity: 1;
     transform: translateY(0);
 }
 
-#status[style*="green"] {
+#status[style*="green"],
+#calc-status[style*="green"] {
     background: #4CAF50;
     color: white !important;
 }
 
-#status[style*="red"] {
+#status[style*="red"],
+#calc-status[style*="red"] {
     background: #E53935;
+    color: white !important;
+}
+
+#status[style*="blue"],
+#calc-status[style*="blue"] {
+    background: #1877F2;
     color: white !important;
 }
 
@@ -998,5 +1008,34 @@ body.dark .row-reset {
     /* Címek kisebbek */
     .calc-card h2 {
         font-size: 1.2rem !important;
+    }
+}
+/* ============================
+   KALKULÁTOR – PDF GOMB FIX
+============================ */
+
+.calc-pdf-btn {
+    white-space: nowrap;
+    font-size: clamp(0.75rem, 2.5vw, 1rem);
+    padding: 8px 14px;
+    line-height: 1.2;
+}
+
+.calc-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.calc-buttons button {
+    flex: 1;
+    min-width: 120px;
+}
+
+@media (max-width: 600px) {
+    .calc-pdf-btn {
+        font-size: clamp(0.65rem, 3vw, 0.9rem);
+        padding: 8px 10px;
     }
 }
