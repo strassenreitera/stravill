@@ -1016,93 +1016,58 @@ body.dark .row-reset {
 
 .calc-buttons {
     display: flex;
-    justify-content: center;
-    align-items: stretch;
-    flex-wrap: wrap;
-    gap: 12px;
+    flex-direction: column;   /* mindig egymás alatt */
+    align-items: center;
+    gap: 14px;                /* biztos távolság */
     width: 100%;
-    margin-top: 28px !important; /* biztos távolság a fenti rész és a gombok között */
-    padding-top: 8px;
-    clear: both;
+    margin-top: 24px;
 }
 
 .calc-buttons button {
-    flex: 0 1 220px;
-    min-width: 180px;
-    max-width: 100%;
-    padding: 10px 16px;
+    width: 100%;
+    max-width: 320px;         /* ne legyen túl széles */
+    min-width: 220px;
+    padding: 12px 16px;
     font-size: 0.95rem;
-}
-
-.calc-pdf-btn {
-    white-space: nowrap;
-    font-size: clamp(0.85rem, 2vw, 1rem);
     line-height: 1.2;
 }
 
-/* A kalkulátor táblázat / utolsó sor alatt is legyen hely */
-.calc-card .calc-table {
-    margin-bottom: 18px;
+/* PDF gomb */
+.calc-pdf-btn {
+    white-space: nowrap;      /* ne törje két sorba */
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.calc-card .calc-table tr:last-child td {
-    padding-bottom: 12px !important;
+/* legyen hely a kalkulátor tartalma és a gombok között */
+.calc-card .calc-table,
+.calc-card table {
+    margin-bottom: 20px;
 }
 
-/* ============================
-   SZŰK DESKTOP / TABLET FIX
-============================ */
-
-@media (max-width: 900px) {
-    .calc-buttons {
-        margin-top: 24px !important;
-        gap: 10px;
-    }
-
-    .calc-buttons button {
-        flex: 1 1 100%;
-        width: 100%;
-        min-width: 0;
-    }
-
-    .calc-pdf-btn {
-        white-space: normal;
-    }
+/* ha van külön reset gomb a táblázat alatt */
+.calc-card > button,
+.calc-card > .row-reset,
+.calc-card .row-reset:last-child {
+    margin-bottom: 14px;
 }
 
-/* ============================
-   MOBIL FINOMHANGOLÁS
-============================ */
-
+/* mobil finomhangolás */
 @media (max-width: 600px) {
-    .calc-card {
-        width: 95% !important;
-        padding: 15px 15px 25px 15px !important;
-    }
-
-    .calc-card .calc-table {
-        margin-bottom: 20px;
-    }
-
-    .calc-card .calc-table tr:last-child td {
-        padding-bottom: 14px !important;
-    }
-
     .calc-buttons {
-        flex-direction: column;
-        align-items: stretch;
-        margin-top: 24px !important;
-        gap: 10px;
+        margin-top: 20px;
+        gap: 12px;
     }
 
     .calc-buttons button {
         width: 100%;
+        max-width: 100%;
+        min-width: 0;
         font-size: 0.9rem;
-        padding: 10px;
+        padding: 10px 12px;
     }
 
     .calc-pdf-btn {
         font-size: 0.85rem;
-        padding: 10px;
     }
 }
