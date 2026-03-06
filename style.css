@@ -1014,28 +1014,95 @@ body.dark .row-reset {
    KALKULÁTOR – PDF GOMB FIX
 ============================ */
 
-.calc-pdf-btn {
-    white-space: nowrap;
-    font-size: clamp(0.75rem, 2.5vw, 1rem);
-    padding: 8px 14px;
-    line-height: 1.2;
-}
-
 .calc-buttons {
     display: flex;
-    gap: 10px;
     justify-content: center;
+    align-items: stretch;
     flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+    margin-top: 28px !important; /* biztos távolság a fenti rész és a gombok között */
+    padding-top: 8px;
+    clear: both;
 }
 
 .calc-buttons button {
-    flex: 1;
-    min-width: 120px;
+    flex: 0 1 220px;
+    min-width: 180px;
+    max-width: 100%;
+    padding: 10px 16px;
+    font-size: 0.95rem;
 }
 
-@media (max-width: 600px) {
+.calc-pdf-btn {
+    white-space: nowrap;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    line-height: 1.2;
+}
+
+/* A kalkulátor táblázat / utolsó sor alatt is legyen hely */
+.calc-card .calc-table {
+    margin-bottom: 18px;
+}
+
+.calc-card .calc-table tr:last-child td {
+    padding-bottom: 12px !important;
+}
+
+/* ============================
+   SZŰK DESKTOP / TABLET FIX
+============================ */
+
+@media (max-width: 900px) {
+    .calc-buttons {
+        margin-top: 24px !important;
+        gap: 10px;
+    }
+
+    .calc-buttons button {
+        flex: 1 1 100%;
+        width: 100%;
+        min-width: 0;
+    }
+
     .calc-pdf-btn {
-        font-size: clamp(0.65rem, 3vw, 0.9rem);
-        padding: 8px 10px;
+        white-space: normal;
+    }
+}
+
+/* ============================
+   MOBIL FINOMHANGOLÁS
+============================ */
+
+@media (max-width: 600px) {
+    .calc-card {
+        width: 95% !important;
+        padding: 15px 15px 25px 15px !important;
+    }
+
+    .calc-card .calc-table {
+        margin-bottom: 20px;
+    }
+
+    .calc-card .calc-table tr:last-child td {
+        padding-bottom: 14px !important;
+    }
+
+    .calc-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        margin-top: 24px !important;
+        gap: 10px;
+    }
+
+    .calc-buttons button {
+        width: 100%;
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .calc-pdf-btn {
+        font-size: 0.85rem;
+        padding: 10px;
     }
 }
