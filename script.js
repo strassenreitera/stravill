@@ -255,13 +255,45 @@ fetch("https://script.google.com/macros/s/AKfycbx_FI6eN8AONYMFqtBFF792ymRvmFdZSr
 
 function updateCalc() {
     let total = 0;
+    let specialInput = null;
+    let specialQty = 0;
 
-    document.querySelectorAll(".calc-table tr").forEach(row => {
+    const rows = document.querySelectorAll(".calc-table tr");
+
+    // megkeressük a "Teljes felújítás (anyaggal)" sort
+    rows.forEach(row => {
+        const name = row.children[0]?.textContent?.trim() || "";
+        const input = row.querySelector("input");
+
+        if (name === "Teljes felújítás (anyaggal)") {
+            specialInput = input;
+            specialQty = Number(input?.value || 0);
+        }
+    });
+
+    // először minden input legyen engedélyezve
+    document.querySelectorAll(".calc-table input[type='number']").forEach(input => {
+        input.disabled = false;
+    });
+
+    // ha a speciális sorba írtak, minden más törlődjön és tiltódjon le
+    if (specialInput && specialQty > 0) {
+        document.querySelectorAll(".calc-table input[type='number']").forEach(input => {
+            if (input !== specialInput) {
+                input.value = "";
+                input.disabled = true;
+            }
+        });
+    }
+
+    // újraszámolás már a törölt értékekkel
+    rows.forEach(row => {
         const price = Number(row.children[2]?.textContent || 0);
         const qty = Number(row.querySelector("input")?.value || 0);
         const sumCell = row.querySelector(".sum");
 
         const sum = price * qty;
+
         if (sumCell) {
             sumCell.textContent = sum ? sum.toLocaleString("hu-HU") + " Ft" : "";
         }
