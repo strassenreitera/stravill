@@ -34,22 +34,28 @@
 
 
     <form id="contactForm" class="contact-form">
-        <input type="text" name="name" placeholder="Név" required>
-        <input type="email" name="email" placeholder="E-mail" required>
-        <input type="tel" name="phone" placeholder="Telefonszám (nem kötelező)">
-        <textarea name="message" placeholder="Üzenet" required></textarea>
+    <input type="text" name="name" placeholder="Név" required>
+    <input type="email" name="email" placeholder="E-mail" required>
+    <input type="tel" name="phone" placeholder="Telefonszám (nem kötelező)">
+    <textarea name="message" placeholder="Üzenet" required></textarea>
 
-        <!-- GDPR / Adatkezelés -->
-        <div class="privacy-row">
-            <input type="checkbox" id="policy" name="policy" required>
-            <span class="privacy-text">
-                Elfogadom az 
-                <a href="#" onclick="loadPage('adatkezeles.html'); return false;">adatkezelési tájékoztatót</a>.
-            </span>
-        </div>
+    <div class="privacy-row">
+        <input type="checkbox" id="callbackReq" name="callbackReq">
+        <span class="privacy-text">Kérek visszahívást</span>
+    </div>
 
-        <button type="submit">Küldés</button>
-    </form>
+    <div class="privacy-row">
+        <input type="checkbox" id="policy" name="policy" required>
+        <span class="privacy-text">
+            Elfogadom az 
+            <a href="#" onclick="loadPage('adatkezeles.html'); return false;">
+                adatkezelési tájékoztatót
+            </a>.
+        </span>
+    </div>
+
+    <button type="submit">Küldés</button>
+</form>
 
     <p style="text-align:center; margin-top:15px; font-size:0.9rem;">
         Az üzenet elküldésével elfogadja az 

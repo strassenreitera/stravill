@@ -1,3 +1,6 @@
+let currentOfferId = "";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbx_FI6eN8AONYMFqtBFF792ymRvmFdZSrfkMICwKbgvp2ExavZWIAK72P5Vdsy8FSQrGA/exec";
+
 /* ============================
    DINAMIKUS OLDALBETÖLTÉS
 ============================ */
@@ -9,12 +12,11 @@ function loadPage(page, linkElement) {
             const box = document.getElementById("content-box");
             const header = document.querySelector(".fixed-header");
 
-
-            // reset per-page init flags
             if (box) {
                 delete box.dataset.calcInited;
                 delete box.dataset.pdfInited;
             }
+
             box.innerHTML = html;
 
             const boxTop = box.getBoundingClientRect().top;
@@ -54,6 +56,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 /* ============================
+   AJÁNLATSZÁM LEKÉRÉS
+============================ */
+
+async function fetchOfferId() {
+    const res = await fetch(`${GAS_URL}?action=getOfferId`, {
+        method: "GET"
+    });
+
+    const text = await res.text();
+
+    if (!res.ok) {
+        throw new Error("Nem sikerült ajánlatszámot kérni.");
+    }
+
+    if (text.startsWith("OK|")) {
+        return text.split("|")[1];
+    }
+
+    throw new Error(text || "Ismeretlen hiba az ajánlatszám lekérésekor.");
+}
+
+
+/* ============================
    HERO GOMB → KAPCSOLAT ŰRLAPRA GÖRGETÉS
 ============================ */
 
@@ -88,32 +113,34 @@ function initContactForm() {
 
     form.addEventListener("submit", async e => {
         e.preventDefault();
-        statusBox.textContent = "Küldés...";
-        statusBox.style.color = "blue";
 
-        const formData = new FormData(form);
+        try {
+            statusBox.textContent = "Küldés...";
+            statusBox.style.color = "blue";
 
-        const policyAccepted = document.getElementById("policy").checked;
-        formData.set("policy", policyAccepted ? "Elfogadva" : "Nincs elfogadva");
+            const formData = new FormData(form);
 
-                    // PDF generálás és csatolmány küldése emailhez
-            try {
-                const pdf = await generateCalculatorPdfBase64();
-                if (pdf?.base64) {
-                    formData.set("pdfBase64", pdf.base64);
-                    formData.set("pdfName", "stravill-arajanlat.pdf");
-                }
-            } catch (pdfErr) {
-                console.warn("PDF generálás sikertelen, csatolmány nélkül küldjük az ajánlatkérést.", pdfErr);
-            }
+            const policyAccepted = document.getElementById("policy")?.checked;
+            formData.set("policy", policyAccepted ? "Elfogadva" : "Nincs elfogadva");
 
-fetch("https://script.google.com/macros/s/AKfycbx_FI6eN8AONYMFqtBFF792ymRvmFdZSrfkMICwKbgvp2ExavZWIAK72P5Vdsy8FSQrGA/exec", {
-            method: "POST",
-            body: formData
-        })
-        .then(r => r.text())
-        .then(res => {
-            if (res === "OK") {
+            const offerId = await fetchOfferId();
+            currentOfferId = offerId;
+            formData.set("offerId", offerId);
+
+            const response = await fetch(GAS_URL, {
+                method: "POST",
+                body: formData
+            });
+
+            const res = await response.text();
+
+            if (res.startsWith("OK|")) {
+                const savedOfferId = res.split("|")[1];
+                currentOfferId = savedOfferId;
+                statusBox.textContent = "Üzenet elküldve! Azonosító: " + savedOfferId;
+                statusBox.style.color = "green";
+                form.reset();
+            } else if (res === "OK") {
                 statusBox.textContent = "Üzenet elküldve!";
                 statusBox.style.color = "green";
                 form.reset();
@@ -121,11 +148,10 @@ fetch("https://script.google.com/macros/s/AKfycbx_FI6eN8AONYMFqtBFF792ymRvmFdZSr
                 statusBox.textContent = "Hiba történt: " + res;
                 statusBox.style.color = "red";
             }
-        })
-        .catch(() => {
-            statusBox.textContent = "Hálózati hiba történt.";
+        } catch (err) {
+            statusBox.textContent = "Hiba történt: " + (err?.message || "Ismeretlen hiba");
             statusBox.style.color = "red";
-        });
+        }
     });
 }
 
@@ -165,6 +191,7 @@ function initCalculator() {
         resetBtn.addEventListener("click", () => {
             document.querySelectorAll(".calc-table input[type='number']").forEach(input => {
                 input.value = "";
+                input.disabled = false;
             });
 
             document.querySelectorAll(".calc-table .sum").forEach(sum => {
@@ -173,6 +200,8 @@ function initCalculator() {
 
             const totalBox = document.getElementById("total");
             if (totalBox) totalBox.textContent = "0 Ft";
+
+            currentOfferId = "";
         });
     }
 
@@ -180,70 +209,87 @@ function initCalculator() {
         form.addEventListener("submit", async e => {
             e.preventDefault();
 
-            statusBox.textContent = "Küldés...";
-            statusBox.style.color = "blue";
-
-            let text = "Kalkulátor ajánlatkérés:\n\n";
-            let total = document.getElementById("total")?.textContent || "0 Ft";
-
-            document.querySelectorAll(".calc-table tr").forEach(row => {
-                const name = row.children[0].textContent;
-                const unit = row.children[1].textContent;
-                const qty = row.querySelector("input")?.value || 0;
-                const sum = row.querySelector(".sum")?.textContent || "";
-
-                if (qty > 0) {
-                    text += `${name} – ${qty} ${unit} – ${sum}\n`;
-                }
-            });
-
-            text += `\nVégösszeg: ${total}\n`;
-
-            const msg = document.getElementById("calcMessage");
-            if (msg) {
-                msg.value = text;
-            }
-
-            const formData = new FormData(form);
-
-            const policyAccepted = document.getElementById("policy2").checked;
-            formData.set("policy", policyAccepted ? "Igen" : "Nem");
-            // kompatibilitás: ha a szerver oldalon policy2-t is néznék
-            formData.set("policy2", policyAccepted ? "Igen" : "Nem");
-
-            const callbackChecked = document.getElementById("callbackReq")?.checked;
-            formData.set("callbackReq", callbackChecked ? "Igen" : "Nem");
-
-                        // PDF generálás és csatolmány küldése emailhez
             try {
-                const pdf = await generateCalculatorPdfBase64();
+                statusBox.textContent = "Küldés...";
+                statusBox.style.color = "blue";
+
+                let text = "Kalkulátor ajánlatkérés:\n\n";
+                let total = document.getElementById("total")?.textContent || "0 Ft";
+
+                document.querySelectorAll(".calc-table tr").forEach(row => {
+                    const name = row.children[0]?.textContent?.trim() || "";
+                    const unit = row.children[1]?.textContent?.trim() || "";
+                    const qty = row.querySelector("input")?.value || 0;
+                    const sum = row.querySelector(".sum")?.textContent || "";
+
+                    if (Number(qty) > 0) {
+                        text += `${name} – ${qty} ${unit} – ${sum}\n`;
+                    }
+                });
+
+                text += `\nVégösszeg: ${total}\n`;
+
+                const msg = document.getElementById("calcMessage");
+                if (msg) {
+                    msg.value = text;
+                }
+
+                const formData = new FormData(form);
+
+                const policyAccepted = document.getElementById("policy2")?.checked;
+                formData.set("policy", policyAccepted ? "Igen" : "Nem");
+                formData.set("policy2", policyAccepted ? "Igen" : "Nem");
+
+                const callbackChecked = document.getElementById("callbackReq")?.checked;
+                formData.set("callbackReq", callbackChecked ? "Igen" : "Nem");
+
+                const offerId = await fetchOfferId();
+                currentOfferId = offerId;
+                formData.set("offerId", offerId);
+
+                const pdf = await generateCalculatorPdfBase64(offerId);
                 if (pdf?.base64) {
                     formData.set("pdfBase64", pdf.base64);
-                    formData.set("pdfName", "stravill-arajanlat.pdf");
+                    formData.set("pdfName", `stravill-arajanlat-${offerId}.pdf`);
                 }
-            } catch (pdfErr) {
-                console.warn("PDF generálás sikertelen, csatolmány nélkül küldjük az ajánlatkérést.", pdfErr);
-            }
 
-fetch("https://script.google.com/macros/s/AKfycbx_FI6eN8AONYMFqtBFF792ymRvmFdZSrfkMICwKbgvp2ExavZWIAK72P5Vdsy8FSQrGA/exec", {
-                method: "POST",
-                body: formData
-            })
-            .then(r => r.text())
-            .then(res => {
-                if (res === "OK") {
+                const response = await fetch(GAS_URL, {
+                    method: "POST",
+                    body: formData
+                });
+
+                const res = await response.text();
+
+                if (res.startsWith("OK|")) {
+                    const savedOfferId = res.split("|")[1];
+                    currentOfferId = savedOfferId;
+                    statusBox.textContent = "Ajánlatkérés elküldve! Azonosító: " + savedOfferId;
+                    statusBox.style.color = "green";
+                    form.reset();
+
+                    document.querySelectorAll(".calc-table input[type='number']").forEach(input => {
+                        input.disabled = false;
+                    });
+
+                    updateCalc();
+                } else if (res === "OK") {
                     statusBox.textContent = "Ajánlatkérés elküldve!";
                     statusBox.style.color = "green";
                     form.reset();
+
+                    document.querySelectorAll(".calc-table input[type='number']").forEach(input => {
+                        input.disabled = false;
+                    });
+
+                    updateCalc();
                 } else {
                     statusBox.textContent = "Hiba történt: " + res;
                     statusBox.style.color = "red";
                 }
-            })
-            .catch(() => {
-                statusBox.textContent = "Hálózati hiba történt.";
+            } catch (err) {
+                statusBox.textContent = "Hiba történt: " + (err?.message || "Ismeretlen hiba");
                 statusBox.style.color = "red";
-            });
+            }
         });
     }
 }
@@ -260,7 +306,6 @@ function updateCalc() {
 
     const rows = document.querySelectorAll(".calc-table tr");
 
-    // megkeressük a "Teljes felújítás (anyaggal)" sort
     rows.forEach(row => {
         const name = row.children[0]?.textContent?.trim() || "";
         const input = row.querySelector("input");
@@ -271,12 +316,10 @@ function updateCalc() {
         }
     });
 
-    // először minden input legyen engedélyezve
     document.querySelectorAll(".calc-table input[type='number']").forEach(input => {
         input.disabled = false;
     });
 
-    // ha a speciális sorba írtak, minden más törlődjön és tiltódjon le
     if (specialInput && specialQty > 0) {
         document.querySelectorAll(".calc-table input[type='number']").forEach(input => {
             if (input !== specialInput) {
@@ -286,7 +329,6 @@ function updateCalc() {
         });
     }
 
-    // újraszámolás már a törölt értékekkel
     rows.forEach(row => {
         const price = Number(row.children[2]?.textContent || 0);
         const qty = Number(row.querySelector("input")?.value || 0);
@@ -309,18 +351,14 @@ function updateCalc() {
 
 
 /* ============================
-   PDF LETÖLTÉS – UTF‑8 FONTOS VERZIÓ
+   PDF GENERÁLÁS – KÉZI LETÖLTÉS + EMAILHEZ
 ============================ */
 
-/* ============================
-   PDF GENERÁLÁS – KÖZÖS (letöltés + email csatolmány)
-============================ */
-
-async function generateCalculatorPdfBase64() {
-    // Ez a függvény a kalkulátor aktuális tételeiből PDF-et generál és visszaadja base64-ben (data: prefix nélkül).
+async function generateCalculatorPdfBase64(offerId = "") {
     if (!window.jspdf || !window.jspdf.jsPDF) {
         throw new Error("A PDF letöltéshez szükséges könyvtár nem töltődött be (jsPDF).");
     }
+
     if (typeof liberationBase64 === "undefined" || !liberationBase64) {
         throw new Error("A PDF-hez szükséges betűtípus nem töltődött be (dejavu.js / liberationBase64).");
     }
@@ -328,7 +366,6 @@ async function generateCalculatorPdfBase64() {
     const { jsPDF } = window.jspdf;
     let doc = new jsPDF({ unit: "mm", format: "a4" });
 
-    // AutoTable plugin betöltése, ha hiányzik
     async function loadScript(srcUrl) {
         await new Promise((resolve, reject) => {
             const s = document.createElement("script");
@@ -338,16 +375,17 @@ async function generateCalculatorPdfBase64() {
             document.head.appendChild(s);
         });
     }
+
     if (typeof doc.autoTable !== "function") {
         window.jsPDF = jsPDF;
         await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/5.0.2/jspdf.plugin.autotable.min.js");
         doc = new jsPDF({ unit: "mm", format: "a4" });
     }
+
     if (typeof doc.autoTable !== "function") {
         throw new Error("A táblázat plugin nem töltődött be (jspdf-autotable).");
     }
 
-    // UTF-8 font
     doc.addFileToVFS("DejaVuSans.ttf", liberationBase64);
     doc.addFont("DejaVuSans.ttf", "DejaVu", "normal");
     doc.setFont("DejaVu");
@@ -359,7 +397,19 @@ async function generateCalculatorPdfBase64() {
     const now = new Date();
     const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, "0")}.${String(now.getDate()).padStart(2, "0")}.`;
 
-    // Logo dataURL betöltése (nem kötelező)
+    const calcForm = document.getElementById("calcContactForm");
+
+    const clientName =
+        calcForm?.querySelector('input[name="name"]')?.value?.trim() || "";
+
+    const clientEmail =
+        calcForm?.querySelector('input[name="email"]')?.value?.trim() || "";
+
+    const clientPhone =
+        calcForm?.querySelector('input[name="phone"]')?.value?.trim() || "";
+
+    const callbackWanted = document.getElementById("callbackReq")?.checked ? "Igen" : "Nem";
+
     async function loadLogoDataURL(url) {
         try {
             const res = await fetch(url, { cache: "no-store" });
@@ -376,36 +426,32 @@ async function generateCalculatorPdfBase64() {
         }
     }
 
-    const logoData = await loadLogoDataURL("icons/fejlec.jpg");
+    const logoData = await loadLogoDataURL("icons/fejlec.png");
 
     const footerText = "© 2026 StraVill – Strassenreiter Attila egyéni vállalkozó. Minden jog fenntartva.";
 
     function drawHeader(pageNo) {
         doc.setFillColor(245);
-        doc.rect(0, 0, pageWidth, 24, "F");
+        doc.rect(0, 0, pageWidth, 30, "F");
 
+        doc.setFont("DejaVu", "normal");
         doc.setFontSize(16);
         doc.setTextColor(0);
-        doc.text("StraVill árajánlat", pageWidth / 2, 11.5, { align: "center" });
-
-        doc.setFontSize(10);
-        doc.setTextColor(80);
-        doc.text(`Dátum: ${dateStr}`, pageWidth / 2, 18.0, { align: "center" });
-
-        doc.setTextColor(0);
+        doc.text("StraVill árajánlat", pageWidth / 2, 16, { align: "center" });
 
         if (logoData) {
-            const fmt = (String(logoData).startsWith("data:image/png")) ? "PNG" : "JPEG";
+            const fmt = String(logoData).startsWith("data:image/png") ? "PNG" : "JPEG";
             const targetW = 45;
             const targetH = 18;
             doc.addImage(logoData, fmt, margin, 5, targetW, targetH);
         }
 
         doc.setDrawColor(220);
-        doc.line(margin, 24, pageWidth - margin, 24);
+        doc.line(margin, 30, pageWidth - margin, 30);
     }
 
     function drawFooter(pageNo) {
+        doc.setFont("DejaVu", "normal");
         doc.setFontSize(9);
         doc.setTextColor(120);
         doc.text(footerText, pageWidth / 2, pageHeight - 8, { align: "center" });
@@ -413,7 +459,6 @@ async function generateCalculatorPdfBase64() {
         doc.setTextColor(0);
     }
 
-    // Tételek összegyűjtése kategóriánként
     const cards = document.querySelectorAll(".calc-card");
     const blocks = [];
 
@@ -431,7 +476,9 @@ async function generateCalculatorPdfBase64() {
             return qty > 0 ? { name, unit, qty, sum } : null;
         }).filter(Boolean);
 
-        if (items.length) blocks.push({ title, items });
+        if (items.length) {
+            blocks.push({ title, items });
+        }
     });
 
     if (!blocks.length) {
@@ -439,6 +486,49 @@ async function generateCalculatorPdfBase64() {
     }
 
     const totalText = document.getElementById("total")?.textContent || "";
+
+    drawHeader(1);
+    drawFooter(1);
+
+    let currentY = 38;
+
+    // Ügyféladatok box
+    const boxX = margin;
+    const boxY = currentY;
+    const boxW = pageWidth - margin * 2;
+    const boxH = 34;
+
+    doc.setDrawColor(220);
+    doc.setFillColor(248, 248, 248);
+    doc.roundedRect(boxX, boxY, boxW, boxH, 2, 2, "FD");
+
+    doc.setFont("DejaVu", "bold");
+    doc.setFontSize(11);
+    doc.setTextColor(0);
+    doc.text("Ügyféladatok", boxX + 4, boxY + 6);
+
+    const leftX = boxX + 4;
+    const rightX = boxX + boxW / 2 + 4;
+    const row1Y = boxY + 13;
+    const row2Y = boxY + 19;
+    const row3Y = boxY + 25;
+
+    doc.setFont("DejaVu", "normal");
+    doc.setFontSize(10);
+
+    doc.text(`Név: ${clientName || "-"}`, leftX, row1Y);
+    doc.text(`Email: ${clientEmail || "-"}`, leftX, row2Y);
+    doc.text(`Telefon: ${clientPhone || "-"}`, leftX, row3Y);
+
+    doc.text(`Visszahívást kér: ${callbackWanted}`, rightX, row1Y);
+    doc.text(`Dátum: ${dateStr}`, rightX, row3Y);
+
+    doc.setFont("DejaVu", "bold");
+    doc.setFontSize(10.5);
+    doc.text(`Ajánlatszám: ${offerId || "-"}`, rightX, row2Y);
+
+    doc.setFont("DejaVu", "normal");
+    currentY += 40;
 
     const common = {
         styles: {
@@ -451,7 +541,7 @@ async function generateCalculatorPdfBase64() {
             lineColor: [230, 230, 230],
             lineWidth: 0.1
         },
-        margin: { left: margin, right: margin, top: 30, bottom: 18 },
+        margin: { left: margin, right: margin, top: 36, bottom: 18 },
         didDrawPage: () => {
             const pageNo = doc.internal.getNumberOfPages();
             drawHeader(pageNo);
@@ -459,30 +549,47 @@ async function generateCalculatorPdfBase64() {
         }
     };
 
-    drawHeader(1);
-    drawFooter(1);
-
-    blocks.forEach(block => {
+    blocks.forEach((block, index) => {
         const head = [
-            [{ content: block.title, colSpan: 3, styles: { halign: "center", fillColor: [235, 235, 235], textColor: 0, font: "DejaVu" } }],
+            [{
+                content: block.title,
+                colSpan: 3,
+                styles: {
+                    halign: "center",
+                    fillColor: [235, 235, 235],
+                    textColor: 0,
+                    font: "DejaVu"
+                }
+            }],
             ["Tétel", "Menny.", "Összeg"]
         ];
 
         const body = block.items.map(it => [
             it.name,
-            `${it.qty} / ${String(it.unit || '').replace(/^\s*\d+\s*/,'')}`,
+            `${it.qty} / ${String(it.unit || "").replace(/^\s*\d+\s*/, "")}`,
             `${Number(it.sum || 0).toLocaleString("hu-HU")} Ft`
         ]);
 
         doc.autoTable({
             ...common,
-            startY: (doc.lastAutoTable ? doc.lastAutoTable.finalY + 4 : 34),
+            startY: index === 0 ? currentY : doc.lastAutoTable.finalY + 4,
             tableWidth: "wrap",
-            margin: { left: (pageWidth - 178) / 2, right: (pageWidth - 178) / 2, top: 38, bottom: 18 },
+            margin: {
+                left: (pageWidth - 178) / 2,
+                right: (pageWidth - 178) / 2,
+                top: 40,
+                bottom: 18
+            },
             head,
             body,
-            headStyles: { fillColor: [248, 248, 248], textColor: 60, font: "DejaVu" },
-            bodyStyles: { font: "DejaVu" },
+            headStyles: {
+                fillColor: [248, 248, 248],
+                textColor: 60,
+                font: "DejaVu"
+            },
+            bodyStyles: {
+                font: "DejaVu"
+            },
             columnStyles: {
                 0: { cellWidth: 110 },
                 1: { cellWidth: 30, halign: "center" },
@@ -491,20 +598,23 @@ async function generateCalculatorPdfBase64() {
         });
     });
 
-    const y = (doc.lastAutoTable ? doc.lastAutoTable.finalY + 8 : 60);
+    const y = doc.lastAutoTable ? doc.lastAutoTable.finalY + 8 : currentY + 10;
+
     doc.setDrawColor(0);
     doc.roundedRect(margin, y, pageWidth - margin * 2, 14, 2, 2, "S");
+    doc.setFont("DejaVu", "bold");
     doc.setFontSize(12);
     doc.text(`Végösszeg: ${totalText}`, margin + 4, y + 9);
 
+    doc.setFont("DejaVu", "normal");
     doc.setFontSize(9);
     doc.setTextColor(100);
-    const note = "Az árak tájékoztató jellegűek, a pontos árajánlatot helyszíni felmérés után adom.";
+    const note = "Az árak tájékoztató jellegűek, a végleges árajánlat helyszíni felmérés után készül.";
     const noteLines = doc.splitTextToSize(note, pageWidth - margin * 2);
     doc.text(noteLines, pageWidth / 2, y + 22, { align: "center" });
     doc.setTextColor(0);
 
-    const dataUri = doc.output("datauristring"); // data:application/pdf;base64,....
+    const dataUri = doc.output("datauristring");
     const base64 = String(dataUri).split(",")[1] || "";
     return { base64, doc };
 }
@@ -518,15 +628,17 @@ function initDownloadButton() {
 
     btn.addEventListener("click", async () => {
         try {
-            const { doc } = await generateCalculatorPdfBase64();
-            doc.save("stravill-arajanlat.pdf");
+            const { doc } = await generateCalculatorPdfBase64(currentOfferId);
+            const fileName = currentOfferId
+                ? `stravill-arajanlat-${currentOfferId}.pdf`
+                : "stravill-arajanlat.pdf";
+            doc.save(fileName);
         } catch (e) {
             console.error(e);
             alert(String(e?.message || "Hiba a PDF generálás közben. Nézd meg a konzolt (F12)."));
         }
     });
 }
-
 
 
 /* ============================
@@ -571,9 +683,9 @@ function loadAnalytics() {
     document.head.appendChild(script);
 
     window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-Y6NQ4G486W', { anonymize_ip: true });
+    function gtag() { dataLayer.push(arguments); }
+    gtag("js", new Date());
+    gtag("config", "G-Y6NQ4G486W", { anonymize_ip: true });
 }
 
 
@@ -588,14 +700,14 @@ function applyTheme(mode) {
     if (mode === "light") {
         body.classList.remove("dark");
         body.classList.add("light");
-        toggle.textContent = "🌙";
+        if (toggle) toggle.textContent = "🌙";
         return;
     }
 
     if (mode === "dark") {
         body.classList.remove("light");
         body.classList.add("dark");
-        toggle.textContent = "☀️";
+        if (toggle) toggle.textContent = "☀️";
         return;
     }
 
@@ -604,7 +716,7 @@ function applyTheme(mode) {
 
     body.classList.toggle("light", isDay);
     body.classList.toggle("dark", !isDay);
-    toggle.textContent = isDay ? "🌙" : "☀️";
+    if (toggle) toggle.textContent = isDay ? "🌙" : "☀️";
 }
 
 function setTheme(mode) {
