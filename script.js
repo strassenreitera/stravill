@@ -231,7 +231,11 @@ function initCalculator() {
 
                 const msg = document.getElementById("calcMessage");
                 if (msg) {
-                    msg.value = text;
+                    if (msg.value.trim() !== "") {
+                        msg.value += "\n\n" + text;   // hozzáfűzi
+                    } else {
+                        msg.value = text;            // ha üres, akkor csak beteszi
+                    }
                 }
 
                 const formData = new FormData(form);
