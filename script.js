@@ -230,11 +230,29 @@ function initCalculator() {
                 text += `\nVégösszeg: ${total}\n`;
 
                 const msg = document.getElementById("calcMessage");
+
                 if (msg) {
-                    if (msg.value.trim() !== "") {
-                        msg.value += "\n\n" + text;   // hozzáfűzi
+
+                    const START = "---- KALKULÁTOR AJÁNLAT ----";
+                    const END = "---- KALKULÁTOR VÉGE ----";
+
+                    const calcText = `${START}\n${text}\n${END}`;
+
+                    let current = msg.value;
+
+                    if (current.includes(START)) {
+
+                        const before = current.split(START)[0];
+                        msg.value = before + calcText;
+
                     } else {
-                        msg.value = text;            // ha üres, akkor csak beteszi
+
+                        if (current.trim() !== "") {
+                            msg.value = current + "\n\n" + calcText;
+                        } else {
+                            msg.value = calcText;
+                        }
+
                     }
                 }
 
