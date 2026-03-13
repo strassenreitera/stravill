@@ -1077,144 +1077,55 @@ body.dark-mode .calc-table input:disabled {
     color: #9ca3af;
     border-color: rgba(255,255,255,0.15);
 }
+/* ======================================
+   KALKULÁTOR – MOBILBARÁT FINOMHANGOLÁS
+   A fejlécet és láblécet nem érinti
+====================================== */
 
-/* ===============================
-   MOBIL / SORTÖRÉS / OVERFLOW FIXEK
-   (fejléc és lábléc érintése nélkül)
-================================ */
-
-.wrapper,
-.hero,
-.hero-inner,
-.hero-text,
-.content-box,
-.service-box,
-.reviews-box,
-.bottom-info-box,
-.contact-wrapper,
-.contact-card,
-.contact-map,
-.contact-form,
+/* Biztonságos dobozmodell a kalkulátor részen */
 .calc-card,
-.cookie-banner,
-.grid-3x3,
-.social-box {
-    min-width: 0;
+.calc-card *,
+.calc-table,
+.calc-table * {
+    box-sizing: border-box;
 }
 
-.hero h1,
-.hero-lead,
-.hero-badge,
-.hero-points li,
-.content-box h1,
-.content-box h2,
-.content-box h3,
-.content-box h4,
-.content-box p,
-.content-box li,
-.service-box p,
-.service-box li,
-.reviews-box p,
-.bottom-info-box p,
-.social-text,
-.contact-card p,
-.privacy-text,
-#status,
-#calc-status,
-button,
-.btn,
-.hero-link-chip,
-.bottom-phone,
-.contact-form button,
-.cookie-banner button,
-input,
-textarea,
-select,
-label,
-td,
-th {
-    overflow-wrap: anywhere;
-    word-break: break-word;
-}
-
-.hero-buttons,
-.hero-links,
-.hero-trust-row,
-.hero-badges,
-.hero-points,
-.social-icons,
-.calc-actions {
-    min-width: 0;
-}
-
-.calc-card,
-.content-box,
-.service-box,
-.reviews-box,
-.bottom-info-box,
-.contact-card,
-.contact-map,
-.contact-form {
+/* Könnyebb render a kalkulátor kártyán */
+.calc-card {
     overflow: hidden;
+    contain: layout paint;
 }
 
+/* A táblázat ne nyomja szét az oldalt */
 .calc-table {
     table-layout: fixed;
 }
 
-.calc-card {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
+.calc-table td,
+.calc-table th {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    vertical-align: middle;
 }
 
-.calc-card table,
-.calc-card .calc-table,
-.content-box table,
-.service-box table,
-.reviews-box table,
-.bottom-info-box table {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-.calc-card tbody,
-.calc-card thead,
-.calc-card tr,
-.content-box tbody,
-.content-box thead,
-.content-box tr,
-.service-box tbody,
-.service-box thead,
-.service-box tr,
-.reviews-box tbody,
-.reviews-box thead,
-.reviews-box tr,
-.bottom-info-box tbody,
-.bottom-info-box thead,
-.bottom-info-box tr {
-    width: 100%;
-}
-
-textarea {
-    resize: vertical;
-    min-height: 140px;
-}
-
-iframe,
-video,
-canvas,
-svg {
+/* A mezők ne lógjanak ki keskeny cellákból */
+.calc-table input,
+.calc-table select,
+.calc-table textarea {
+    min-width: 0;
     max-width: 100%;
 }
 
-img {
-    height: auto;
+/* Reset gomb maradjon kompakt és középen */
+.calc-table .row-reset {
+    display: inline-grid;
+    place-items: center;
+    width: 42px;
+    min-width: 42px;
+    flex: 0 0 42px;
 }
 
-/* Sötét mód egységesítés kompatibilisen */
+/* Sötét mód kompatibilitás a kétféle body osztállyal */
 body:not(.dark):not(.dark-mode) .calc-table input:disabled {
     background:
         repeating-linear-gradient(
@@ -1244,166 +1155,144 @@ body.dark-mode .calc-table input:disabled {
     border-color: rgba(255,255,255,0.15);
 }
 
-@media (max-width: 768px) {
-    .hero {
-        min-height: auto;
-        margin: 0.65rem;
-    }
-
-    .hero-inner {
-        min-height: auto;
-        padding: 2.2rem 0.95rem;
-    }
-
-    .hero-text {
-        max-width: 100%;
-        padding: 1.25rem 1rem;
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-    }
-
-    .content-box,
-    .service-box,
-    .reviews-box,
-    .bottom-info-box,
-    .contact-card,
-    .contact-map,
-    .contact-form,
+/* Tablet és kisebb: levegősebb, puhább táblázat */
+@media (max-width: 900px) {
     .calc-card {
-        margin-left: 0.65rem;
-        margin-right: 0.65rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
+        padding: 1rem;
+        margin: 0.85rem 0;
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
-        box-shadow: var(--shadow-sm);
     }
 
-    .hero h1 {
-        font-size: clamp(1.6rem, 7vw, 2rem);
-        line-height: 1.14;
-        text-wrap: pretty;
+    .calc-table td,
+    .calc-table th,
+    table td,
+    table th {
+        padding: 0.72rem 0.55rem;
     }
 
-    .hero-lead {
-        font-size: 0.98rem;
-    }
-
-    .hero-buttons,
-    .hero-links,
-    .hero-trust-row,
-    .hero-badges,
-    .hero-points,
-    .calc-actions {
-        gap: 0.6rem;
-    }
-
-    .hero-points li {
-        width: 100%;
-        justify-content: center;
-        text-align: center;
-    }
-
-    .hero-link-chip,
-    .btn,
-    button,
-    .contact-form button,
-    .cookie-banner button,
-    .bottom-phone,
-    .calc-actions button,
-    input[type="submit"] {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .grid-3x3 {
-        grid-template-columns: 1fr;
-    }
-
-    .social-icons a {
-        width: 60px;
-        height: 60px;
-    }
-
-    .social-icons img {
-        width: 26px;
-        height: 26px;
-    }
-
-    .contact-wrapper {
-        flex-direction: column;
-        gap: 0.9rem;
-    }
-
-    .contact-card,
-    .contact-map {
-        flex-basis: auto;
-    }
-
-    .contact-map iframe {
-        min-height: 240px;
-    }
-
-    .privacy-row {
-        align-items: flex-start;
-        justify-content: flex-start;
-        text-align: left;
-    }
-
-    .privacy-row input[type="checkbox"] {
-        margin-top: 0.15rem;
-    }
-
-    .calc-card table,
-    .calc-card .calc-table {
-        min-width: 560px;
+    .calc-table input,
+    .calc-table select,
+    .calc-table textarea {
+        padding: 0.82rem 0.82rem;
+        border-radius: 12px;
     }
 }
 
-@media (max-width: 560px) {
-    .wrapper {
-        overflow-x: clip;
+/* Mobil: a klasszikus táblázatból kártyás, egymás alatti elrendezés */
+@media (max-width: 680px) {
+    .calc-card {
+        padding: 0.9rem;
+        border-radius: 18px;
+        margin-left: 0.75rem;
+        margin-right: 0.75rem;
     }
 
-    .hero {
-        border-radius: 20px;
-    }
-
-    .hero-text {
-        padding: 1.1rem 0.9rem;
-    }
-
-    .content-box h1,
-    .reviews-box h2,
-    .bottom-info-box h2,
-    .form-title {
-        font-size: 1.45rem;
-    }
-
-    .content-box h2,
-    .service-title,
     .calc-card h2 {
-        font-size: 1.1rem;
+        line-height: 1.25;
+        text-wrap: balance;
+        margin-bottom: 0.85rem;
     }
 
-    .cookie-banner {
-        padding-left: 0.9rem;
-        padding-right: 0.9rem;
-    }
-
-    .cookie-banner button {
+    .calc-table,
+    .calc-table tbody,
+    .calc-table tr,
+    .calc-table td {
+        display: block;
         width: 100%;
     }
 
-    .cookie-banner button + button {
-        margin-left: 0;
-        margin-top: 0.55rem;
+    .calc-table {
+        border-collapse: separate;
+        border-spacing: 0;
     }
 
-    .theme-toggle {
-        right: 14px;
-        bottom: 14px;
-        width: 50px;
-        height: 50px;
+    .calc-table tr {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.55rem;
+        padding: 0.85rem;
+        margin-bottom: 0.8rem;
+        border: 1px solid rgba(17, 32, 51, 0.08);
+        border-radius: 16px;
+        background: rgba(255,255,255,0.38);
+    }
+
+    body.dark .calc-table tr,
+    body.dark-mode .calc-table tr {
+        background: rgba(255,255,255,0.03);
+        border-color: rgba(255,255,255,0.08);
+    }
+
+    .calc-table td,
+    table td,
+    table th {
+        padding: 0;
+        border: 0;
+        text-align: left;
+    }
+
+    .calc-table td:empty {
+        display: none;
+    }
+
+    .calc-table td + td {
+        margin-top: 0.2rem;
+    }
+
+    .calc-table input,
+    .calc-table select,
+    .calc-table textarea {
+        display: block;
+        width: 100%;
+        min-height: 46px;
+        font-size: 16px;
+    }
+
+    .calc-actions,
+    .calc-actions button,
+    .calc-card .btn,
+    .calc-card button,
+    .calc-card input[type="submit"] {
+        width: 100%;
+    }
+
+    .calc-actions {
+        display: grid;
+        gap: 0.65rem;
+    }
+
+    .calc-table .row-reset {
+        width: 100%;
+        min-width: 0;
+        min-height: 46px;
+        border-radius: 14px;
+    }
+
+    #calc-status {
+        line-height: 1.4;
+        text-wrap: balance;
+    }
+}
+
+/* Nagyon keskeny mobil: még kisebb belső margók, biztos sortörések */
+@media (max-width: 420px) {
+    .calc-card {
+        padding: 0.8rem;
+        margin-left: 0.6rem;
+        margin-right: 0.6rem;
+    }
+
+    .calc-table tr {
+        padding: 0.75rem;
+        border-radius: 14px;
+    }
+
+    .calc-card h2,
+    #calc-status,
+    .calc-table td,
+    .calc-table th {
+        overflow-wrap: anywhere;
+        word-break: break-word;
     }
 }
