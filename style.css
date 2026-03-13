@@ -1077,26 +1077,34 @@ body.dark-mode .calc-table input:disabled {
     color: #9ca3af;
     border-color: rgba(255,255,255,0.15);
 }
-/* ===== Kalkulátor mobil UI ===== */
-@media (max-width: 680px) {
+/* ===== Kalkulátor mobil finomhangolás ===== */
+@media (max-width: 768px) {
     .calc-card {
-        margin: 0.75rem;
-        padding: 1rem 0.85rem;
-        text-align: center;
-        overflow: hidden;
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
+        background: transparent !important;
+        border-color: transparent !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        padding: 0.5rem 0 !important;
+    }
+
+    body.dark .calc-card,
+    body.dark-mode .calc-card {
+        background: transparent !important;
+        border-color: transparent !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
     }
 
     .calc-card h2,
     .calc-card h3,
     .calc-card p,
     .calc-card label,
+    .calc-table td,
     .calc-table th,
-    .calc-table td {
+    .calc-table input {
         text-align: center;
-        white-space: normal;
-        word-break: break-word;
     }
 
     .calc-table,
@@ -1108,55 +1116,80 @@ body.dark-mode .calc-table input:disabled {
     }
 
     .calc-table tr {
-        margin-bottom: 0.75rem;
-        padding: 0.85rem;
-        border: 1px solid rgba(17, 32, 51, 0.08);
-        border-radius: 16px;
-        background: rgba(255,255,255,0.35);
+        padding: 0.9rem 0;
+        border-bottom: 1px solid rgba(17, 32, 51, 0.08);
     }
 
     .calc-table td {
-        padding: 0.4rem 0;
+        padding: 0.35rem 0;
         border: 0;
     }
 
+    .calc-table td:first-child {
+        padding-top: 0;
+        font-weight: 700;
+    }
+
     .calc-table input,
-    .row-reset {
-        min-height: 48px;
-        text-align: center;
+    .row-reset,
+    .calc-actions button {
+        min-height: 46px;
     }
 
-    .row-reset {
-        width: 48px;
-        margin: 0.35rem auto 0;
+    .row-reset,
+    .calc-actions button {
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
-body:not(.dark):not(.dark-mode) .calc-table input:disabled {
-    background:
-        repeating-linear-gradient(
-            45deg,
-            rgba(120,120,120,0.10),
-            rgba(120,120,120,0.10) 6px,
-            rgba(120,120,120,0.20) 6px,
-            rgba(120,120,120,0.20) 12px
-        ),
-        #eef1f5;
-    color: #6b7280;
-    border-color: rgba(120,120,120,0.4);
+/* ===== Kapcsolat / adatkezelési szöveg láthatóság ===== */
+.contact-form p,
+.contact-card p,
+.privacy-text,
+.contact-form label,
+.contact-form small {
+    color: var(--text-soft);
 }
 
-body.dark .calc-table input:disabled,
-body.dark-mode .calc-table input:disabled {
-    background:
-        repeating-linear-gradient(
-            45deg,
-            rgba(255,255,255,0.05),
-            rgba(255,255,255,0.05) 6px,
-            rgba(255,255,255,0.10) 6px,
-            rgba(255,255,255,0.10) 12px
-        ),
-        #2a2f3a;
-    color: #9ca3af;
-    border-color: rgba(255,255,255,0.15);
+.contact-form a,
+.contact-card a,
+.privacy-text a,
+.contact-form p a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 700;
+}
+
+body.dark .contact-form p,
+body.dark .contact-card p,
+body.dark .privacy-text,
+body.dark .contact-form label,
+body.dark .contact-form small,
+body.dark-mode .contact-form p,
+body.dark-mode .contact-card p,
+body.dark-mode .privacy-text,
+body.dark-mode .contact-form label,
+body.dark-mode .contact-form small {
+    color: rgba(236, 242, 255, 0.88);
+}
+
+body.dark .contact-form a,
+body.dark .contact-card a,
+body.dark .privacy-text a,
+body.dark .contact-form p a,
+body.dark-mode .contact-form a,
+body.dark-mode .contact-card a,
+body.dark-mode .privacy-text a,
+body.dark-mode .contact-form p a {
+    color: #9ec5ff;
+}
+
+.contact-form p[style],
+.contact-card p[style] {
+    color: inherit !important;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
