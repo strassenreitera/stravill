@@ -124,8 +124,8 @@ nav ul {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 1.1rem;
+    gap: clamp(0.8rem, 1.6vw, 1.6rem);
+    white-space: nowrap;
 }
 
 nav ul li a {
