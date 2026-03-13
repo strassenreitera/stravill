@@ -1077,55 +1077,61 @@ body.dark-mode .calc-table input:disabled {
     color: #9ca3af;
     border-color: rgba(255,255,255,0.15);
 }
-/* ======================================
-   KALKULÁTOR – MOBILBARÁT FINOMHANGOLÁS
-   A fejlécet és láblécet nem érinti
-====================================== */
+/* ===== Kalkulátor mobil UI ===== */
+@media (max-width: 680px) {
+    .calc-card {
+        margin: 0.75rem;
+        padding: 1rem 0.85rem;
+        text-align: center;
+        overflow: hidden;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
 
-/* Biztonságos dobozmodell a kalkulátor részen */
-.calc-card,
-.calc-card *,
-.calc-table,
-.calc-table * {
-    box-sizing: border-box;
+    .calc-card h2,
+    .calc-card h3,
+    .calc-card p,
+    .calc-card label,
+    .calc-table th,
+    .calc-table td {
+        text-align: center;
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    .calc-table,
+    .calc-table tbody,
+    .calc-table tr,
+    .calc-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .calc-table tr {
+        margin-bottom: 0.75rem;
+        padding: 0.85rem;
+        border: 1px solid rgba(17, 32, 51, 0.08);
+        border-radius: 16px;
+        background: rgba(255,255,255,0.35);
+    }
+
+    .calc-table td {
+        padding: 0.4rem 0;
+        border: 0;
+    }
+
+    .calc-table input,
+    .row-reset {
+        min-height: 48px;
+        text-align: center;
+    }
+
+    .row-reset {
+        width: 48px;
+        margin: 0.35rem auto 0;
+    }
 }
 
-/* Könnyebb render a kalkulátor kártyán */
-.calc-card {
-    overflow: hidden;
-    contain: layout paint;
-}
-
-/* A táblázat ne nyomja szét az oldalt */
-.calc-table {
-    table-layout: fixed;
-}
-
-.calc-table td,
-.calc-table th {
-    overflow-wrap: anywhere;
-    word-break: break-word;
-    vertical-align: middle;
-}
-
-/* A mezők ne lógjanak ki keskeny cellákból */
-.calc-table input,
-.calc-table select,
-.calc-table textarea {
-    min-width: 0;
-    max-width: 100%;
-}
-
-/* Reset gomb maradjon kompakt és középen */
-.calc-table .row-reset {
-    display: inline-grid;
-    place-items: center;
-    width: 42px;
-    min-width: 42px;
-    flex: 0 0 42px;
-}
-
-/* Sötét mód kompatibilitás a kétféle body osztállyal */
 body:not(.dark):not(.dark-mode) .calc-table input:disabled {
     background:
         repeating-linear-gradient(
@@ -1153,146 +1159,4 @@ body.dark-mode .calc-table input:disabled {
         #2a2f3a;
     color: #9ca3af;
     border-color: rgba(255,255,255,0.15);
-}
-
-/* Tablet és kisebb: levegősebb, puhább táblázat */
-@media (max-width: 900px) {
-    .calc-card {
-        padding: 1rem;
-        margin: 0.85rem 0;
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-    }
-
-    .calc-table td,
-    .calc-table th,
-    table td,
-    table th {
-        padding: 0.72rem 0.55rem;
-    }
-
-    .calc-table input,
-    .calc-table select,
-    .calc-table textarea {
-        padding: 0.82rem 0.82rem;
-        border-radius: 12px;
-    }
-}
-
-/* Mobil: a klasszikus táblázatból kártyás, egymás alatti elrendezés */
-@media (max-width: 680px) {
-    .calc-card {
-        padding: 0.9rem;
-        border-radius: 18px;
-        margin-left: 0.75rem;
-        margin-right: 0.75rem;
-    }
-
-    .calc-card h2 {
-        line-height: 1.25;
-        text-wrap: balance;
-        margin-bottom: 0.85rem;
-    }
-
-    .calc-table,
-    .calc-table tbody,
-    .calc-table tr,
-    .calc-table td {
-        display: block;
-        width: 100%;
-    }
-
-    .calc-table {
-        border-collapse: separate;
-        border-spacing: 0;
-    }
-
-    .calc-table tr {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 0.55rem;
-        padding: 0.85rem;
-        margin-bottom: 0.8rem;
-        border: 1px solid rgba(17, 32, 51, 0.08);
-        border-radius: 16px;
-        background: rgba(255,255,255,0.38);
-    }
-
-    body.dark .calc-table tr,
-    body.dark-mode .calc-table tr {
-        background: rgba(255,255,255,0.03);
-        border-color: rgba(255,255,255,0.08);
-    }
-
-    .calc-table td,
-    table td,
-    table th {
-        padding: 0;
-        border: 0;
-        text-align: left;
-    }
-
-    .calc-table td:empty {
-        display: none;
-    }
-
-    .calc-table td + td {
-        margin-top: 0.2rem;
-    }
-
-    .calc-table input,
-    .calc-table select,
-    .calc-table textarea {
-        display: block;
-        width: 100%;
-        min-height: 46px;
-        font-size: 16px;
-    }
-
-    .calc-actions,
-    .calc-actions button,
-    .calc-card .btn,
-    .calc-card button,
-    .calc-card input[type="submit"] {
-        width: 100%;
-    }
-
-    .calc-actions {
-        display: grid;
-        gap: 0.65rem;
-    }
-
-    .calc-table .row-reset {
-        width: 100%;
-        min-width: 0;
-        min-height: 46px;
-        border-radius: 14px;
-    }
-
-    #calc-status {
-        line-height: 1.4;
-        text-wrap: balance;
-    }
-}
-
-/* Nagyon keskeny mobil: még kisebb belső margók, biztos sortörések */
-@media (max-width: 420px) {
-    .calc-card {
-        padding: 0.8rem;
-        margin-left: 0.6rem;
-        margin-right: 0.6rem;
-    }
-
-    .calc-table tr {
-        padding: 0.75rem;
-        border-radius: 14px;
-    }
-
-    .calc-card h2,
-    #calc-status,
-    .calc-table td,
-    .calc-table th {
-        overflow-wrap: anywhere;
-        word-break: break-word;
-    }
 }
