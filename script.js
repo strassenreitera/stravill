@@ -14,6 +14,33 @@ const CONTENT_PAGES = new Set([
     "cookie.html"
 ]);
 
+
+const PDF_HEADER_LOGO_PATH = "icons/fejlec.png";
+let pdfHeaderLogoCache = null;
+
+function escapePdfText(value) {
+    return String(value || "").replace(/[–—]/g, "-");
+}
+
+async function getPdfHeaderLogo() {
+    if (pdfHeaderLogoCache !== null) return pdfHeaderLogoCache;
+    try {
+        const response = await fetch(`${PDF_HEADER_LOGO_PATH}?v=20260313`, { cache: "no-store" });
+        if (!response.ok) throw new Error("Logo fetch failed");
+        const blob = await response.blob();
+        pdfHeaderLogoCache = await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+        });
+    } catch (error) {
+        console.warn("A PDF fejléc logó nem tölthető be.", error);
+        pdfHeaderLogoCache = "";
+    }
+    return pdfHeaderLogoCache;
+}
+
 function $(selector, root = document) {
     return root.querySelector(selector);
 }
@@ -351,11 +378,15 @@ async function generateCalculatorPdfBase64(offerId = "") {
 
     doc.addFileToVFS("DejaVuSans.ttf", liberationBase64);
     doc.addFont("DejaVuSans.ttf", "DejaVu", "normal");
-    doc.setFont("DejaVu");
+    doc.addFont("DejaVuSans.ttf", "DejaVu", "bold");
+    doc.setFont("DejaVu", "normal");
 
+    const logoDataUrl = await getPdfHeaderLogo();
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
-    const margin = 12;
+    const margin = 14;
+    const headerBottomY = 29;
+    const footerTopY = pageHeight - 16;
     const now = new Date();
     const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, "0")}.${String(now.getDate()).padStart(2, "0")}.`;
 
@@ -365,36 +396,55 @@ async function generateCalculatorPdfBase64(offerId = "") {
     const clientPhone = calcForm?.elements?.namedItem("phone")?.value?.trim() || "";
     const callbackWanted = $("#callbackReqCalc")?.checked ? "Igen" : "Nem";
     const totalText = $("#total")?.textContent || "";
+    const companyLine1 = "StraVill";
+    const companyLine2 = "Villanyszerelési árajánlat";
+    const footerText = "StraVill – Strassenreiter Attila e.v. | Villanyszerelési szolgáltatások\nTelefon: +36 30 493 8929 | E-mail: strassenreiter.a@gmail.hu";
 
     function drawHeader(pageNo) {
-        doc.setFontSize(15);
+        const logoBoxX = margin;
+        const logoBoxY = 8;
+        const logoBoxW = 47;
+        const logoBoxH = 20;
+        if (logoDataUrl) {
+            try {
+                doc.addImage(logoDataUrl, "PNG", logoBoxX, logoBoxY, logoBoxW, logoBoxH, undefined, "FAST");
+            } catch (error) {
+                console.warn("A PDF fejléc logó nem rajzolható ki.", error);
+            }
+        }
+
         doc.setFont("DejaVu", "bold");
-        doc.text("StraVill – Előzetes kalkuláció", margin, 16);
+        doc.setFontSize(15);
+        doc.text(companyLine1, pageWidth / 2, 15, { align: "center" });
         doc.setFont("DejaVu", "normal");
+        doc.setFontSize(10);
+        doc.text(companyLine2, pageWidth / 2, 21, { align: "center" });
+
         doc.setFontSize(9);
-        doc.text(`Oldal: ${pageNo}`, pageWidth - margin, 16, { align: "right" });
+        doc.text(`Oldal: ${pageNo}`, pageWidth - margin, 15, { align: "right" });
         doc.setDrawColor(215);
-        doc.line(margin, 20, pageWidth - margin, 20);
+        doc.line(margin, headerBottomY, pageWidth - margin, headerBottomY);
     }
 
     function drawFooter(pageNo) {
         doc.setDrawColor(215);
-        doc.line(margin, pageHeight - 16, pageWidth - margin, pageHeight - 16);
-        doc.setFontSize(8);
+        doc.line(margin, footerTopY, pageWidth - margin, footerTopY);
+        doc.setFont("DejaVu", "normal");
+        doc.setFontSize(8.5);
         doc.setTextColor(105);
-        doc.text("StraVill – Strassenreiter Attila E.V.", margin, pageHeight - 10);
-        doc.text(`Oldal ${pageNo}`, pageWidth - margin, pageHeight - 10, { align: "right" });
+        doc.text(escapePdfText(footerText), pageWidth / 2, pageHeight - 9, { align: "center" });
+        doc.text(`${pageNo}`, pageWidth - margin, pageHeight - 9, { align: "right" });
         doc.setTextColor(0);
     }
 
     drawHeader(1);
     drawFooter(1);
 
-    let currentY = 28;
+    let currentY = 36;
     const boxX = margin;
     const boxY = currentY;
     const boxW = pageWidth - margin * 2;
-    const boxH = 34;
+    const boxH = 38;
 
     doc.setDrawColor(220);
     doc.setFillColor(248, 248, 248);
@@ -402,42 +452,46 @@ async function generateCalculatorPdfBase64(offerId = "") {
 
     doc.setFont("DejaVu", "bold");
     doc.setFontSize(11);
-    doc.text("Ügyféladatok", boxX + 4, boxY + 6);
+    doc.text("Ajánlatkérő adatai", boxX + 4, boxY + 7);
 
     const leftX = boxX + 4;
     const rightX = boxX + boxW / 2 + 4;
 
     doc.setFont("DejaVu", "normal");
     doc.setFontSize(10);
-    doc.text(`Név: ${clientName || "-"}`, leftX, boxY + 13);
-    doc.text(`Email: ${clientEmail || "-"}`, leftX, boxY + 19);
-    doc.text(`Telefon: ${clientPhone || "-"}`, leftX, boxY + 25);
+    doc.text(`Név: ${escapePdfText(clientName || "-")}`, leftX, boxY + 15);
+    doc.text(`E-mail: ${escapePdfText(clientEmail || "-")}`, leftX, boxY + 22);
+    doc.text(`Telefon: ${escapePdfText(clientPhone || "-")}`, leftX, boxY + 29);
 
-    doc.text(`Visszahívást kér: ${callbackWanted}`, rightX, boxY + 13);
-    doc.text(`Dátum: ${dateStr}`, rightX, boxY + 25);
+    doc.text(`Ajánlatszám: ${escapePdfText(offerId || "-")}`, rightX, boxY + 15);
+    doc.text(`Visszahívást kér: ${callbackWanted}`, rightX, boxY + 22);
+    doc.text(`Dátum: ${dateStr}`, rightX, boxY + 29);
+
+    currentY += 46;
 
     doc.setFont("DejaVu", "bold");
-    doc.text(`Ajánlatszám: ${offerId || "-"}`, rightX, boxY + 19);
-
-    currentY += 42;
+    doc.setFontSize(13);
+    doc.text("Előzetes kalkuláció", pageWidth / 2, currentY, { align: "center" });
+    currentY += 4;
 
     doc.autoTable({
-        startY: currentY,
-        margin: { left: margin, right: margin, top: 24, bottom: 18 },
+        startY: currentY + 4,
+        margin: { left: margin, right: margin, top: headerBottomY + 8, bottom: 24 },
         head: [["Tétel", "Mennyiség", "Egységár", "Összeg"]],
         body: items.map(item => [
-            item.name,
-            `${item.qty} ${item.unit.replace(/^\d+\s*/, "")}`.trim(),
+            escapePdfText(item.name),
+            `${item.qty} ${escapePdfText(item.unit.replace(/^\d+\s*/, ""))}`.trim(),
             `${item.price.toLocaleString("hu-HU")} Ft`,
             `${item.sum.toLocaleString("hu-HU")} Ft`
         ]),
         styles: {
             font: "DejaVu",
             fontSize: 10,
-            cellPadding: 3,
+            cellPadding: 3.2,
             overflow: "linebreak",
             lineColor: [230, 230, 230],
-            lineWidth: 0.1
+            lineWidth: 0.1,
+            valign: "middle"
         },
         headStyles: {
             fillColor: [235, 235, 235],
@@ -447,9 +501,9 @@ async function generateCalculatorPdfBase64(offerId = "") {
         },
         columnStyles: {
             0: { cellWidth: 88 },
-            1: { cellWidth: 34, halign: "center" },
-            2: { cellWidth: 32, halign: "right" },
-            3: { cellWidth: 32, halign: "right" }
+            1: { cellWidth: 30, halign: "center" },
+            2: { cellWidth: 34, halign: "right" },
+            3: { cellWidth: 34, halign: "right" }
         },
         didDrawPage: ({ pageNumber }) => {
             drawHeader(pageNumber);
@@ -458,17 +512,18 @@ async function generateCalculatorPdfBase64(offerId = "") {
     });
 
     const y = (doc.lastAutoTable?.finalY || currentY) + 8;
-    doc.setDrawColor(0);
-    doc.roundedRect(margin, y, pageWidth - margin * 2, 14, 2, 2, "S");
+    doc.setDrawColor(180);
+    doc.setFillColor(250, 250, 250);
+    doc.roundedRect(margin, y, pageWidth - margin * 2, 16, 2, 2, "FD");
     doc.setFont("DejaVu", "bold");
     doc.setFontSize(12);
-    doc.text(`Végösszeg: ${totalText}`, margin + 4, y + 9);
+    doc.text(`Végösszeg: ${escapePdfText(totalText)}`, margin + 4, y + 10);
 
     doc.setFont("DejaVu", "normal");
     doc.setFontSize(9);
     doc.setTextColor(100);
     const note = "Az árak tájékoztató jellegűek, a végleges árajánlat helyszíni felmérés után készül.";
-    doc.text(doc.splitTextToSize(note, pageWidth - margin * 2), pageWidth / 2, y + 22, { align: "center" });
+    doc.text(doc.splitTextToSize(escapePdfText(note), pageWidth - margin * 2), pageWidth / 2, y + 24, { align: "center" });
     doc.setTextColor(0);
 
     const dataUri = doc.output("datauristring");
