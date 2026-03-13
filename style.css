@@ -136,6 +136,7 @@ nav ul li a {
     color: rgba(255,255,255,0.94);
     text-decoration: none;
     font-weight: 600;
+    font-size: clamp(1.1rem, 1.2vw, 1.3rem);
     transition: color var(--transition);
 }
 
@@ -774,14 +775,22 @@ footer {
 
 footer p {
     margin-bottom: 0.5rem;
+    font-size: clamp(0.65rem, 1.4vw, 0.95rem);
+    white-space: nowrap;
 }
 
 .footer-links {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.8rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: clamp(0.25rem, 1vw, 0.8rem);
+}
+
+.footer-links a,
+.footer-links span {
+    font-size: clamp(0.7rem, 1.6vw, 1rem);
 }
 
 .footer-links a {
@@ -1018,9 +1027,7 @@ body.dark footer {
         width: 100%;
     }
 
-    .footer-links span {
-        display: none;
-    }
+    
 
     .cookie-banner button {
         width: calc(50% - 0.35rem);
