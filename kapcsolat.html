@@ -5,11 +5,8 @@
     <p><strong>Forduljon hozzám bizalommal bármilyen villanyszerelési munkával kapcsolatban!</strong></p>
 
     <div class="contact-wrapper">
-
-        <!-- BAL OLDAL -->
         <div class="contact-card">
             <h2>📌 Elérhetőségek</h2>
-
             <p><strong>Strassenreiter Attila E.V.</strong></p>
             <p>📍 5900 Orosháza, Szarvasi utca 12.</p>
             <p>📞 <a href="tel:+36304938929">06 30 493 8929</a></p>
@@ -18,53 +15,47 @@
             <p>📄 Nyilvántartási szám: 59381563</p>
         </div>
 
-        <!-- JOBB OLDAL -->
         <div class="contact-map">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10969.609170720607!2d20.6672226!3d46.579284!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47443f2d22d977cf%3A0xd12daeff6b3b374d!2sStrassenreiter%20Attila%20Villanyszerel%C5%91%20E.V.!5e0!3m2!1shu!2hu!4v1772120210144!5m2!1shu!2hu" 
-                allowfullscreen 
+            <iframe
+                title="StraVill térkép"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10969.609170720607!2d20.6672226!3d46.579284!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47443f2d22d977cf%3A0xd12daeff6b3b374d!2sStrassenreiter%20Attila%20Villanyszerel%C5%91%20E.V.!5e0!3m2!1shu!2hu!4v1772120210144!5m2!1shu!2hu"
                 loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen>
             </iframe>
         </div>
-
     </div>
 
     <h2 id="uzenetkuldes" class="form-title">📨 Üzenet küldése</h2>
 
+    <form id="contactForm" class="contact-form" novalidate>
+        <input type="text" name="name" placeholder="Név" autocomplete="name" required>
+        <input type="email" name="email" placeholder="E-mail" autocomplete="email" required>
+        <input type="tel" name="phone" placeholder="Telefonszám (nem kötelező)" autocomplete="tel">
+        <textarea name="message" placeholder="Üzenet" rows="6" required></textarea>
 
-    <form id="contactForm" class="contact-form">
-    <input type="text" name="name" placeholder="Név" required>
-    <input type="email" name="email" placeholder="E-mail" required>
-    <input type="tel" name="phone" placeholder="Telefonszám (nem kötelező)">
-    <textarea name="message" placeholder="Üzenet" required></textarea>
+        <div class="privacy-row">
+            <input type="checkbox" id="callbackReqContact" name="callbackReq">
+            <label for="callbackReqContact" class="privacy-text">Kérek visszahívást</label>
+        </div>
 
-    <div class="privacy-row">
-        <input type="checkbox" id="callbackReq" name="callbackReq">
-        <span class="privacy-text">Kérek visszahívást</span>
-    </div>
+        <div class="privacy-row">
+            <input type="checkbox" id="policyContact" name="policy" required>
+            <label for="policyContact" class="privacy-text">
+                Elfogadom az
+                <a href="#" onclick="loadPage('adatkezeles.html'); return false;">adatkezelési tájékoztatót</a>.
+            </label>
+        </div>
 
-    <div class="privacy-row">
-        <input type="checkbox" id="policy" name="policy" required>
-        <span class="privacy-text">
-            Elfogadom az 
-            <a href="#" onclick="loadPage('adatkezeles.html'); return false;">
-                adatkezelési tájékoztatót
-            </a>.
-        </span>
-    </div>
+        <button type="submit">Küldés</button>
+    </form>
 
-    <button type="submit">Küldés</button>
-</form>
-
-    <p style="text-align:center; margin-top:15px; font-size:0.9rem;">
-        Az üzenet elküldésével elfogadja az 
-        <a href="#" onclick="loadPage('adatkezeles.html'); return false;" style="font-weight:600;">
-            adatkezelési tájékoztatóban
-        </a>
+    <p class="section-note">
+        Az üzenet elküldésével elfogadja az
+        <a href="#" onclick="loadPage('adatkezeles.html'); return false;">adatkezelési tájékoztatóban</a>
         foglaltakat.
     </p>
 
-    <div id="status" class="status-box"></div>
+    <div id="status" class="status-box" aria-live="polite"></div>
 
 </div>

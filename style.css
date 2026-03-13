@@ -299,7 +299,6 @@ nav ul li a.active {
 button,
 .contact-form button,
 .cookie-banner button,
-.calc-actions button,
 .row-reset,
 button[type="submit"],
 input[type="submit"] {
@@ -1192,4 +1191,112 @@ body.dark-mode .contact-form p a {
     max-width: 100%;
     overflow-wrap: break-word;
     word-break: break-word;
+}
+
+
+/* ===== 2026 optimalizálás ===== */
+.cookie-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.section-note {
+    margin-top: 0.8rem;
+    font-size: 0.95rem;
+    opacity: 0.92;
+    text-align: center;
+}
+
+.section-divider {
+    margin: 30px 0;
+    opacity: 0.3;
+}
+
+.calc-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.calc-helper {
+    margin-top: -0.2rem;
+    margin-bottom: 0.2rem;
+}
+
+.status-box[data-state="success"] {
+    color: #0f7a29;
+    background: rgba(15, 122, 41, 0.08);
+}
+
+.status-box[data-state="error"] {
+    color: #b42318;
+    background: rgba(180, 35, 24, 0.08);
+}
+
+.status-box[data-state="info"] {
+    color: #1557b8;
+    background: rgba(21, 87, 184, 0.08);
+}
+
+.contact-form textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.theme-toggle {
+    border: 0;
+}
+
+body.dark .status-box[data-state="success"] {
+    color: #7be495;
+    background: rgba(123, 228, 149, 0.08);
+}
+
+body.dark .status-box[data-state="error"] {
+    color: #ff9c9c;
+    background: rgba(255, 156, 156, 0.08);
+}
+
+body.dark .status-box[data-state="info"] {
+    color: #9ec5ff;
+    background: rgba(158, 197, 255, 0.08);
+}
+
+body:not(.dark) .calc-table input:disabled {
+    background:
+        repeating-linear-gradient(
+            45deg,
+            rgba(120,120,120,0.10),
+            rgba(120,120,120,0.10) 6px,
+            rgba(120,120,120,0.20) 6px,
+            rgba(120,120,120,0.20) 12px
+        ),
+        #eef1f5;
+    color: #6b7280;
+    border-color: rgba(120,120,120,0.4);
+}
+
+body.dark .calc-table input:disabled {
+    background:
+        repeating-linear-gradient(
+            45deg,
+            rgba(255,255,255,0.05),
+            rgba(255,255,255,0.05) 6px,
+            rgba(255,255,255,0.10) 6px,
+            rgba(255,255,255,0.10) 12px
+        ),
+        #2a2f3a;
+    color: #9ca3af;
+    border-color: rgba(255,255,255,0.15);
+}
+
+@media (max-width: 768px) {
+    .cookie-actions,
+    .calc-actions {
+        flex-direction: column;
+    }
 }

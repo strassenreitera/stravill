@@ -1,400 +1,343 @@
-let currentOfferId = "";
 const GAS_URL = "https://script.google.com/macros/s/AKfycbx_FI6eN8AONYMFqtBFF792ymRvmFdZSrfkMICwKbgvp2ExavZWIAK72P5Vdsy8FSQrGA/exec";
+let currentOfferId = "";
+let analyticsLoaded = false;
 
-/* ============================
-   DINAMIKUS OLDALBETÖLTÉS
-============================ */
+const CONTENT_PAGES = new Set([
+    "rolam.html",
+    "szolgaltatasok.html",
+    "arlista.html",
+    "galeria.html",
+    "kapcsolat.html",
+    "kalkulator.html",
+    "impresszum.html",
+    "adatkezeles.html",
+    "cookie.html"
+]);
 
-function loadPage(page, linkElement) {
-    fetch(page)
-        .then(res => res.ok ? res.text() : Promise.reject(res.status))
-        .then(html => {
-            const box = document.getElementById("content-box");
-            const header = document.querySelector(".fixed-header");
-
-            if (box) {
-                delete box.dataset.calcInited;
-                delete box.dataset.pdfInited;
-            }
-
-            box.innerHTML = html;
-
-            const boxTop = box.getBoundingClientRect().top;
-            const headerHeight = header.offsetHeight;
-
-            if (boxTop < 0 || boxTop > window.innerHeight) {
-                const absoluteTop = box.getBoundingClientRect().top + window.scrollY;
-                window.scrollTo({
-                    top: absoluteTop - headerHeight - 10,
-                    behavior: "smooth"
-                });
-            }
-
-            if (page === "kapcsolat.html") initContactForm();
-            if (page === "kalkulator.html") {
-                initCalculator();
-                initDownloadButton();
-            }
-
-            document.querySelectorAll("nav ul li a").forEach(a => a.classList.remove("active"));
-            if (linkElement) linkElement.classList.add("active");
-
-            document.querySelectorAll(".footer-links a").forEach(a => {
-                a.classList.toggle("active-footer", a.getAttribute("data-page") === page);
-            });
-        })
-        .catch(() => {
-            document.getElementById("content-box").innerHTML =
-                "<p style='text-align:center;color:red;'>Nem sikerült betölteni az oldalt.</p>";
-        });
+function $(selector, root = document) {
+    return root.querySelector(selector);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const defaultLink = document.querySelector('a[data-page="rolam.html"]');
-    loadPage("rolam.html", defaultLink);
-});
+function $$(selector, root = document) {
+    return Array.from(root.querySelectorAll(selector));
+}
 
+function getHeaderOffset() {
+    const header = $(".fixed-header");
+    return header ? header.offsetHeight + 10 : 10;
+}
 
-/* ============================
-   AJÁNLATSZÁM LEKÉRÉS
-============================ */
+function scrollToElement(element) {
+    if (!element) return;
+    const top = element.getBoundingClientRect().top + window.scrollY - getHeaderOffset();
+    window.scrollTo({ top, behavior: "smooth" });
+}
+
+function updateActiveLinks(page) {
+    $$("nav [data-page], .footer-links [data-page]").forEach(link => {
+        const isActive = link.getAttribute("data-page") === page;
+        link.classList.toggle("active", isActive && !!link.closest("nav"));
+        link.classList.toggle("active-footer", isActive && !!link.closest(".footer-links"));
+    });
+}
+
+async function loadPage(page, linkElement = null, options = {}) {
+    const targetPage = CONTENT_PAGES.has(page) ? page : "rolam.html";
+    const contentBox = $("#content-box");
+    if (!contentBox) return;
+
+    try {
+        const response = await fetch(targetPage, { cache: "no-store" });
+        if (!response.ok) throw new Error(String(response.status));
+
+        contentBox.innerHTML = await response.text();
+        contentBox.dataset.page = targetPage;
+
+        updateActiveLinks(targetPage);
+        initPageFeatures(targetPage);
+
+        if (options.anchorId) {
+            requestAnimationFrame(() => scrollToElement(document.getElementById(options.anchorId)));
+        } else if (options.scroll !== false) {
+            requestAnimationFrame(() => scrollToElement(contentBox));
+        }
+
+        linkElement?.blur?.();
+    } catch (error) {
+        console.error(error);
+        contentBox.innerHTML = "<p style='text-align:center;color:red;'>Nem sikerült betölteni az oldalt.</p>";
+    }
+}
+
+function initPageFeatures(page) {
+    if (page === "kapcsolat.html") initContactForm();
+    if (page === "kalkulator.html") {
+        initCalculator();
+        initDownloadButton();
+    }
+}
 
 async function fetchOfferId() {
-    const res = await fetch(`${GAS_URL}?action=getOfferId`, {
-        method: "GET"
-    });
+    const response = await fetch(`${GAS_URL}?action=getOfferId`, { method: "GET" });
+    const text = await response.text();
 
-    const text = await res.text();
-
-    if (!res.ok) {
-        throw new Error("Nem sikerült ajánlatszámot kérni.");
-    }
-
-    if (text.startsWith("OK|")) {
-        return text.split("|")[1];
-    }
-
+    if (!response.ok) throw new Error("Nem sikerült ajánlatszámot kérni.");
+    if (text.startsWith("OK|")) return text.split("|")[1];
     throw new Error(text || "Ismeretlen hiba az ajánlatszám lekérésekor.");
 }
 
-
-/* ============================
-   HERO GOMB → KAPCSOLAT ŰRLAPRA GÖRGETÉS
-============================ */
-
-function goToContact() {
-    const link = document.querySelector('a[data-page="kapcsolat.html"]');
-
-    loadPage("kapcsolat.html", link);
-
-    setTimeout(() => {
-        const target = document.getElementById("uzenetkuldes");
-        if (target) {
-            const headerHeight = document.querySelector(".fixed-header").offsetHeight;
-            const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 10;
-
-            window.scrollTo({
-                top: top,
-                behavior: "smooth"
-            });
-        }
-    }, 350);
+function setStatus(statusBox, message, type = "info") {
+    if (!statusBox) return;
+    statusBox.textContent = message;
+    statusBox.dataset.state = type;
 }
 
-
-/* ============================
-   KAPCSOLAT OLDAL – FORM KEZELŐ
-============================ */
+function validateForm(form, statusBox) {
+    if (form.checkValidity()) return true;
+    form.reportValidity();
+    setStatus(statusBox, "Kérjük, töltse ki a kötelező mezőket.", "error");
+    return false;
+}
 
 function initContactForm() {
-    const form = document.getElementById("contactForm");
-    const statusBox = document.getElementById("status");
-    if (!form) return;
+    const form = $("#contactForm");
+    const statusBox = $("#status");
+    if (!form || form.dataset.bound === "1") return;
+    form.dataset.bound = "1";
 
-    form.addEventListener("submit", async e => {
-        e.preventDefault();
+    form.addEventListener("submit", async event => {
+        event.preventDefault();
+        if (!validateForm(form, statusBox)) return;
 
         try {
-            statusBox.textContent = "Küldés...";
-            statusBox.style.color = "blue";
+            setStatus(statusBox, "Küldés...", "info");
 
             const formData = new FormData(form);
-
-            const policyAccepted = document.getElementById("policy")?.checked;
-            formData.set("policy", policyAccepted ? "Elfogadva" : "Nincs elfogadva");
+            formData.set("policy", $("#policyContact")?.checked ? "Elfogadva" : "Nincs elfogadva");
+            formData.set("callbackReq", $("#callbackReqContact")?.checked ? "Igen" : "Nem");
 
             const offerId = await fetchOfferId();
             currentOfferId = offerId;
             formData.set("offerId", offerId);
 
-            const response = await fetch(GAS_URL, {
-                method: "POST",
-                body: formData
-            });
+            const response = await fetch(GAS_URL, { method: "POST", body: formData });
+            const result = await response.text();
 
-            const res = await response.text();
-
-            if (res.startsWith("OK|")) {
-                const savedOfferId = res.split("|")[1];
-                currentOfferId = savedOfferId;
-                statusBox.textContent = "Üzenet elküldve! Azonosító: " + savedOfferId;
-                statusBox.style.color = "green";
+            if (result.startsWith("OK|")) {
+                currentOfferId = result.split("|")[1];
+                setStatus(statusBox, `Üzenet elküldve! Azonosító: ${currentOfferId}`, "success");
                 form.reset();
-            } else if (res === "OK") {
-                statusBox.textContent = "Üzenet elküldve!";
-                statusBox.style.color = "green";
+            } else if (result === "OK") {
+                setStatus(statusBox, "Üzenet elküldve!", "success");
                 form.reset();
             } else {
-                statusBox.textContent = "Hiba történt: " + res;
-                statusBox.style.color = "red";
+                throw new Error(result);
             }
-        } catch (err) {
-            statusBox.textContent = "Hiba történt: " + (err?.message || "Ismeretlen hiba");
-            statusBox.style.color = "red";
+        } catch (error) {
+            console.error(error);
+            setStatus(statusBox, `Hiba történt: ${error?.message || "Ismeretlen hiba"}`, "error");
         }
     });
 }
 
+function getCalculatorRows() {
+    return $$(".calc-table tr").map(row => {
+        const cells = row.children;
+        const input = row.querySelector("input[type='number']");
+        return {
+            row,
+            input,
+            name: cells[0]?.textContent?.trim() || "",
+            unit: cells[1]?.textContent?.trim() || "",
+            price: Number(cells[2]?.textContent || 0),
+            qty: Number(input?.value || 0),
+            sumCell: row.querySelector(".sum")
+        };
+    });
+}
 
-/* ============================
-   KALKULÁTOR – INIT
-============================ */
+function getSelectedCalculatorItems() {
+    return getCalculatorRows()
+        .filter(item => item.qty > 0)
+        .map(item => ({
+            name: item.name,
+            unit: item.unit,
+            qty: item.qty,
+            price: item.price,
+            sum: item.qty * item.price
+        }));
+}
 
-function initCalculator() {
-    const tables = document.querySelectorAll(".calc-table");
-    const form = document.getElementById("calcContactForm");
-    const statusBox = document.getElementById("calc-status");
+function hasCalculatorData() {
+    return getSelectedCalculatorItems().length > 0;
+}
 
-    if (!tables.length) return;
+function updateCalc() {
+    const rows = getCalculatorRows();
+    const materialRow = rows.find(item => item.name === "Teljes felújítás (anyaggal)");
 
-    document.querySelectorAll(".calc-table input[type='number']").forEach(input => {
-        input.addEventListener("input", updateCalc);
+    rows.forEach(item => {
+        if (item.input) item.input.disabled = false;
     });
 
-    updateCalc();
-
-    document.querySelectorAll(".row-reset").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const row = btn.closest("tr");
-            const input = row.querySelector("input");
-            const sum = row.querySelector(".sum");
-
-            if (input) input.value = "";
-            if (sum) sum.textContent = "";
-
-            updateCalc();
-        });
-    });
-
-    const resetBtn = document.getElementById("calcReset");
-    if (resetBtn) {
-        resetBtn.addEventListener("click", () => {
-            document.querySelectorAll(".calc-table input[type='number']").forEach(input => {
-                input.value = "";
-                input.disabled = false;
-            });
-
-            document.querySelectorAll(".calc-table .sum").forEach(sum => {
-                sum.textContent = "";
-            });
-
-            const totalBox = document.getElementById("total");
-            if (totalBox) totalBox.textContent = "0 Ft";
-
-            currentOfferId = "";
+    if (materialRow && materialRow.qty > 0) {
+        rows.forEach(item => {
+            if (item.input && item !== materialRow) {
+                item.input.value = "";
+                item.input.disabled = true;
+            }
         });
     }
 
-    if (form) {
-        form.addEventListener("submit", async e => {
-            e.preventDefault();
+    let total = 0;
+    rows.forEach(item => {
+        const sum = item.input?.disabled ? 0 : item.qty * item.price;
+        if (item.sumCell) item.sumCell.textContent = sum ? `${sum.toLocaleString("hu-HU")} Ft` : "";
+        total += sum;
+    });
 
-            try {
-                statusBox.textContent = "Küldés...";
-                statusBox.style.color = "blue";
+    const totalBox = $("#total");
+    if (totalBox) totalBox.textContent = `${total.toLocaleString("hu-HU")} Ft`;
+}
 
-                let text = "Kalkulátor ajánlatkérés:\n\n";
-                let total = document.getElementById("total")?.textContent || "0 Ft";
+function resetCalculator() {
+    $$(".calc-table input[type='number']").forEach(input => {
+        input.value = "";
+        input.disabled = false;
+    });
+    updateCalc();
+}
 
-                document.querySelectorAll(".calc-table tr").forEach(row => {
-                    const name = row.children[0]?.textContent?.trim() || "";
-                    const unit = row.children[1]?.textContent?.trim() || "";
-                    const qty = row.querySelector("input")?.value || 0;
-                    const sum = row.querySelector(".sum")?.textContent || "";
+function attachCalculatorSummary(messageField) {
+    if (!messageField) return;
 
-                    if (Number(qty) > 0) {
-                        text += `${name} – ${qty} ${unit} – ${sum}\n`;
-                    }
-                });
+    const selectedItems = getSelectedCalculatorItems();
+    if (!selectedItems.length) return;
 
-                text += `\nVégösszeg: ${total}\n`;
+    const totalText = $("#total")?.textContent || "0 Ft";
+    const lines = selectedItems.map(item => `${item.name} – ${item.qty} ${item.unit} – ${item.sum.toLocaleString("hu-HU")} Ft`);
+    const calcText = [
+        "---- KALKULÁTOR AJÁNLAT ----",
+        "Kalkulátor ajánlatkérés:",
+        "",
+        ...lines,
+        "",
+        `Végösszeg: ${totalText}`,
+        "---- KALKULÁTOR VÉGE ----"
+    ].join("\n");
 
-                const msg = document.getElementById("calcMessage");
+    const currentText = messageField.value.trim();
+    if (currentText.includes("---- KALKULÁTOR AJÁNLAT ----")) {
+        const before = currentText.split("---- KALKULÁTOR AJÁNLAT ----")[0].trim();
+        messageField.value = before ? `${before}\n\n${calcText}` : calcText;
+    } else {
+        messageField.value = currentText ? `${currentText}\n\n${calcText}` : calcText;
+    }
+}
 
-                if (msg) {
+function initCalculator() {
+    const form = $("#calcContactForm");
+    const statusBox = $("#calc-status");
 
-                    const START = "---- KALKULÁTOR AJÁNLAT ----";
-                    const END = "---- KALKULÁTOR VÉGE ----";
+    getCalculatorRows().forEach(item => {
+        if (!item.input) return;
+        item.input.addEventListener("input", updateCalc);
+        const resetButton = item.row.querySelector(".row-reset");
+        if (resetButton) {
+            resetButton.addEventListener("click", () => {
+                item.input.value = "";
+                item.input.disabled = false;
+                updateCalc();
+            });
+        }
+    });
 
-                    const calcText = `${START}\n${text}\n${END}`;
+    const resetButton = $("#calcReset");
+    if (resetButton && resetButton.dataset.bound !== "1") {
+        resetButton.dataset.bound = "1";
+        resetButton.addEventListener("click", resetCalculator);
+    }
 
-                    let current = msg.value;
+    updateCalc();
 
-                    if (current.includes(START)) {
+    if (!form || form.dataset.bound === "1") return;
+    form.dataset.bound = "1";
 
-                        const before = current.split(START)[0];
-                        msg.value = before + calcText;
+    form.addEventListener("submit", async event => {
+        event.preventDefault();
+        if (!validateForm(form, statusBox)) return;
 
-                    } else {
+        const messageField = $("#calcMessage");
+        const rawMessage = messageField?.value.trim() || "";
+        const calcSelected = hasCalculatorData();
 
-                        if (current.trim() !== "") {
-                            msg.value = current + "\n\n" + calcText;
-                        } else {
-                            msg.value = calcText;
-                        }
+        if (!calcSelected && !rawMessage) {
+            setStatus(statusBox, "Írjon üzenetet vagy töltsön ki legalább egy kalkulátor tételt.", "error");
+            return;
+        }
 
-                    }
-                }
+        try {
+            setStatus(statusBox, "Küldés...", "info");
 
-                const formData = new FormData(form);
+            if (calcSelected) attachCalculatorSummary(messageField);
 
-                const policyAccepted = document.getElementById("policy2")?.checked;
-                formData.set("policy", policyAccepted ? "Igen" : "Nem");
-                formData.set("policy2", policyAccepted ? "Igen" : "Nem");
+            const formData = new FormData(form);
+            const policyAccepted = $("#policyCalc")?.checked;
+            formData.set("policy", policyAccepted ? "Igen" : "Nem");
+            formData.set("policy2", policyAccepted ? "Igen" : "Nem");
+            formData.set("callbackReq", $("#callbackReqCalc")?.checked ? "Igen" : "Nem");
 
-                const callbackChecked = document.getElementById("callbackReq")?.checked;
-                formData.set("callbackReq", callbackChecked ? "Igen" : "Nem");
+            const offerId = await fetchOfferId();
+            currentOfferId = offerId;
+            formData.set("offerId", offerId);
 
-                const offerId = await fetchOfferId();
-                currentOfferId = offerId;
-                formData.set("offerId", offerId);
-
+            if (calcSelected) {
                 const pdf = await generateCalculatorPdfBase64(offerId);
                 if (pdf?.base64) {
                     formData.set("pdfBase64", pdf.base64);
                     formData.set("pdfName", `stravill-arajanlat-${offerId}.pdf`);
                 }
-
-                const response = await fetch(GAS_URL, {
-                    method: "POST",
-                    body: formData
-                });
-
-                const res = await response.text();
-
-                if (res.startsWith("OK|")) {
-                    const savedOfferId = res.split("|")[1];
-                    currentOfferId = savedOfferId;
-                    statusBox.textContent = "Ajánlatkérés elküldve! Azonosító: " + savedOfferId;
-                    statusBox.style.color = "green";
-                    form.reset();
-
-                    document.querySelectorAll(".calc-table input[type='number']").forEach(input => {
-                        input.disabled = false;
-                    });
-
-                    updateCalc();
-                } else if (res === "OK") {
-                    statusBox.textContent = "Ajánlatkérés elküldve!";
-                    statusBox.style.color = "green";
-                    form.reset();
-
-                    document.querySelectorAll(".calc-table input[type='number']").forEach(input => {
-                        input.disabled = false;
-                    });
-
-                    updateCalc();
-                } else {
-                    statusBox.textContent = "Hiba történt: " + res;
-                    statusBox.style.color = "red";
-                }
-            } catch (err) {
-                statusBox.textContent = "Hiba történt: " + (err?.message || "Ismeretlen hiba");
-                statusBox.style.color = "red";
             }
-        });
-    }
-}
 
+            const response = await fetch(GAS_URL, { method: "POST", body: formData });
+            const result = await response.text();
 
-/* ============================
-   KALKULÁTOR – SZÁMOLÓ
-============================ */
-
-function updateCalc() {
-    let total = 0;
-    let specialInput = null;
-    let specialQty = 0;
-
-    const rows = document.querySelectorAll(".calc-table tr");
-
-    rows.forEach(row => {
-        const name = row.children[0]?.textContent?.trim() || "";
-        const input = row.querySelector("input");
-
-        if (name === "Teljes felújítás (anyaggal)") {
-            specialInput = input;
-            specialQty = Number(input?.value || 0);
+            if (result.startsWith("OK|")) {
+                currentOfferId = result.split("|")[1];
+                setStatus(statusBox, `Ajánlatkérés elküldve! Azonosító: ${currentOfferId}`, "success");
+                form.reset();
+                resetCalculator();
+            } else if (result === "OK") {
+                setStatus(statusBox, "Ajánlatkérés elküldve!", "success");
+                form.reset();
+                resetCalculator();
+            } else {
+                throw new Error(result);
+            }
+        } catch (error) {
+            console.error(error);
+            setStatus(statusBox, `Hiba történt: ${error?.message || "Ismeretlen hiba"}`, "error");
         }
     });
-
-    document.querySelectorAll(".calc-table input[type='number']").forEach(input => {
-        input.disabled = false;
-    });
-
-    if (specialInput && specialQty > 0) {
-        document.querySelectorAll(".calc-table input[type='number']").forEach(input => {
-            if (input !== specialInput) {
-                input.value = "";
-                input.disabled = true;
-            }
-        });
-    }
-
-    rows.forEach(row => {
-        const price = Number(row.children[2]?.textContent || 0);
-        const qty = Number(row.querySelector("input")?.value || 0);
-        const sumCell = row.querySelector(".sum");
-
-        const sum = price * qty;
-
-        if (sumCell) {
-            sumCell.textContent = sum ? sum.toLocaleString("hu-HU") + " Ft" : "";
-        }
-
-        total += sum;
-    });
-
-    const totalBox = document.getElementById("total");
-    if (totalBox) {
-        totalBox.textContent = total.toLocaleString("hu-HU") + " Ft";
-    }
 }
-
-
-/* ============================
-   PDF GENERÁLÁS – KÉZI LETÖLTÉS + EMAILHEZ
-============================ */
 
 async function generateCalculatorPdfBase64(offerId = "") {
-    if (!window.jspdf || !window.jspdf.jsPDF) {
-        throw new Error("A PDF letöltéshez szükséges könyvtár nem töltődött be (jsPDF).");
-    }
+    if (!window.jspdf || !window.jspdf.jsPDF) throw new Error("A PDF letöltéshez szükséges könyvtár nem töltődött be (jsPDF).");
+    if (typeof liberationBase64 === "undefined" || !liberationBase64) throw new Error("A PDF-hez szükséges betűtípus nem töltődött be (dejavu.js / liberationBase64).");
 
-    if (typeof liberationBase64 === "undefined" || !liberationBase64) {
-        throw new Error("A PDF-hez szükséges betűtípus nem töltődött be (dejavu.js / liberationBase64).");
-    }
+    const items = getSelectedCalculatorItems();
+    if (!items.length) throw new Error("Nincs kiválasztott tétel a kalkulátorban.");
 
     const { jsPDF } = window.jspdf;
     let doc = new jsPDF({ unit: "mm", format: "a4" });
 
     async function loadScript(srcUrl) {
         await new Promise((resolve, reject) => {
-            const s = document.createElement("script");
-            s.src = srcUrl;
-            s.onload = resolve;
-            s.onerror = reject;
-            document.head.appendChild(s);
+            const script = document.createElement("script");
+            script.src = srcUrl;
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
         });
     }
 
@@ -404,9 +347,7 @@ async function generateCalculatorPdfBase64(offerId = "") {
         doc = new jsPDF({ unit: "mm", format: "a4" });
     }
 
-    if (typeof doc.autoTable !== "function") {
-        throw new Error("A táblázat plugin nem töltődött be (jspdf-autotable).");
-    }
+    if (typeof doc.autoTable !== "function") throw new Error("A táblázat plugin nem töltődött be (jspdf-autotable).");
 
     doc.addFileToVFS("DejaVuSans.ttf", liberationBase64);
     doc.addFont("DejaVuSans.ttf", "DejaVu", "normal");
@@ -415,106 +356,41 @@ async function generateCalculatorPdfBase64(offerId = "") {
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
     const margin = 12;
-
     const now = new Date();
     const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, "0")}.${String(now.getDate()).padStart(2, "0")}.`;
 
-    const calcForm = document.getElementById("calcContactForm");
-
-    const clientName =
-        calcForm?.querySelector('input[name="name"]')?.value?.trim() || "";
-
-    const clientEmail =
-        calcForm?.querySelector('input[name="email"]')?.value?.trim() || "";
-
-    const clientPhone =
-        calcForm?.querySelector('input[name="phone"]')?.value?.trim() || "";
-
-    const callbackWanted = document.getElementById("callbackReq")?.checked ? "Igen" : "Nem";
-
-    async function loadLogoDataURL(url) {
-        try {
-            const res = await fetch(url, { cache: "no-store" });
-            if (!res.ok) return null;
-            const blob = await res.blob();
-            return await new Promise((resolve, reject) => {
-                const fr = new FileReader();
-                fr.onload = () => resolve(fr.result);
-                fr.onerror = reject;
-                fr.readAsDataURL(blob);
-            });
-        } catch {
-            return null;
-        }
-    }
-
-    const logoData = await loadLogoDataURL("icons/fejlec.png");
-
-    const footerText = "© 2026 StraVill – Strassenreiter Attila egyéni vállalkozó. Minden jog fenntartva.";
+    const calcForm = $("#calcContactForm");
+    const clientName = calcForm?.elements?.namedItem("name")?.value?.trim() || "";
+    const clientEmail = calcForm?.elements?.namedItem("email")?.value?.trim() || "";
+    const clientPhone = calcForm?.elements?.namedItem("phone")?.value?.trim() || "";
+    const callbackWanted = $("#callbackReqCalc")?.checked ? "Igen" : "Nem";
+    const totalText = $("#total")?.textContent || "";
 
     function drawHeader(pageNo) {
-        doc.setFillColor(245);
-        doc.rect(0, 0, pageWidth, 30, "F");
-
+        doc.setFontSize(15);
+        doc.setFont("DejaVu", "bold");
+        doc.text("StraVill – Előzetes kalkuláció", margin, 16);
         doc.setFont("DejaVu", "normal");
-        doc.setFontSize(16);
-        doc.setTextColor(0);
-        doc.text("StraVill árajánlat", pageWidth / 2, 16, { align: "center" });
-
-        if (logoData) {
-            const fmt = String(logoData).startsWith("data:image/png") ? "PNG" : "JPEG";
-            const targetW = 45;
-            const targetH = 18;
-            doc.addImage(logoData, fmt, margin, 5, targetW, targetH);
-        }
-
-        doc.setDrawColor(220);
-        doc.line(margin, 30, pageWidth - margin, 30);
+        doc.setFontSize(9);
+        doc.text(`Oldal: ${pageNo}`, pageWidth - margin, 16, { align: "right" });
+        doc.setDrawColor(215);
+        doc.line(margin, 20, pageWidth - margin, 20);
     }
 
     function drawFooter(pageNo) {
-        doc.setFont("DejaVu", "normal");
-        doc.setFontSize(9);
-        doc.setTextColor(120);
-        doc.text(footerText, pageWidth / 2, pageHeight - 8, { align: "center" });
-        doc.text(`Oldal ${pageNo}`, pageWidth - margin, pageHeight - 8, { align: "right" });
+        doc.setDrawColor(215);
+        doc.line(margin, pageHeight - 16, pageWidth - margin, pageHeight - 16);
+        doc.setFontSize(8);
+        doc.setTextColor(105);
+        doc.text("StraVill – Strassenreiter Attila E.V.", margin, pageHeight - 10);
+        doc.text(`Oldal ${pageNo}`, pageWidth - margin, pageHeight - 10, { align: "right" });
         doc.setTextColor(0);
     }
-
-    const cards = document.querySelectorAll(".calc-card");
-    const blocks = [];
-
-    cards.forEach(card => {
-        const title = card.querySelector("h2")?.textContent?.trim() || "";
-        const rows = [...card.querySelectorAll("tr")];
-
-        const items = rows.map(r => {
-            const name = r.children[0]?.textContent?.trim() || "";
-            const unitRaw = r.children[1]?.textContent?.trim() || "";
-            const unit = unitRaw.replace(/^\s*\d+\s*/, "");
-            const price = Number(r.children[2]?.textContent?.trim() || 0);
-            const qty = Number(r.querySelector("input")?.value || 0);
-            const sum = price * qty;
-            return qty > 0 ? { name, unit, qty, sum } : null;
-        }).filter(Boolean);
-
-        if (items.length) {
-            blocks.push({ title, items });
-        }
-    });
-
-    if (!blocks.length) {
-        throw new Error("Nincs kiválasztott tétel a kalkulátorban.");
-    }
-
-    const totalText = document.getElementById("total")?.textContent || "";
 
     drawHeader(1);
     drawFooter(1);
 
-    let currentY = 38;
-
-    // Ügyféladatok box
+    let currentY = 28;
     const boxX = margin;
     const boxY = currentY;
     const boxW = pageWidth - margin * 2;
@@ -526,102 +402,62 @@ async function generateCalculatorPdfBase64(offerId = "") {
 
     doc.setFont("DejaVu", "bold");
     doc.setFontSize(11);
-    doc.setTextColor(0);
     doc.text("Ügyféladatok", boxX + 4, boxY + 6);
 
     const leftX = boxX + 4;
     const rightX = boxX + boxW / 2 + 4;
-    const row1Y = boxY + 13;
-    const row2Y = boxY + 19;
-    const row3Y = boxY + 25;
 
     doc.setFont("DejaVu", "normal");
     doc.setFontSize(10);
+    doc.text(`Név: ${clientName || "-"}`, leftX, boxY + 13);
+    doc.text(`Email: ${clientEmail || "-"}`, leftX, boxY + 19);
+    doc.text(`Telefon: ${clientPhone || "-"}`, leftX, boxY + 25);
 
-    doc.text(`Név: ${clientName || "-"}`, leftX, row1Y);
-    doc.text(`Email: ${clientEmail || "-"}`, leftX, row2Y);
-    doc.text(`Telefon: ${clientPhone || "-"}`, leftX, row3Y);
-
-    doc.text(`Visszahívást kér: ${callbackWanted}`, rightX, row1Y);
-    doc.text(`Dátum: ${dateStr}`, rightX, row3Y);
+    doc.text(`Visszahívást kér: ${callbackWanted}`, rightX, boxY + 13);
+    doc.text(`Dátum: ${dateStr}`, rightX, boxY + 25);
 
     doc.setFont("DejaVu", "bold");
-    doc.setFontSize(10.5);
-    doc.text(`Ajánlatszám: ${offerId || "-"}`, rightX, row2Y);
+    doc.text(`Ajánlatszám: ${offerId || "-"}`, rightX, boxY + 19);
 
-    doc.setFont("DejaVu", "normal");
-    currentY += 40;
+    currentY += 42;
 
-    const common = {
+    doc.autoTable({
+        startY: currentY,
+        margin: { left: margin, right: margin, top: 24, bottom: 18 },
+        head: [["Tétel", "Mennyiség", "Egységár", "Összeg"]],
+        body: items.map(item => [
+            item.name,
+            `${item.qty} ${item.unit.replace(/^\d+\s*/, "")}`.trim(),
+            `${item.price.toLocaleString("hu-HU")} Ft`,
+            `${item.sum.toLocaleString("hu-HU")} Ft`
+        ]),
         styles: {
             font: "DejaVu",
             fontSize: 10,
-            fontStyle: "normal",
             cellPadding: 3,
             overflow: "linebreak",
-            valign: "middle",
             lineColor: [230, 230, 230],
             lineWidth: 0.1
         },
-        margin: { left: margin, right: margin, top: 36, bottom: 18 },
-        didDrawPage: () => {
-            const pageNo = doc.internal.getNumberOfPages();
-            drawHeader(pageNo);
-            drawFooter(pageNo);
+        headStyles: {
+            fillColor: [235, 235, 235],
+            textColor: 40,
+            font: "DejaVu",
+            fontStyle: "bold"
+        },
+        columnStyles: {
+            0: { cellWidth: 88 },
+            1: { cellWidth: 34, halign: "center" },
+            2: { cellWidth: 32, halign: "right" },
+            3: { cellWidth: 32, halign: "right" }
+        },
+        didDrawPage: ({ pageNumber }) => {
+            drawHeader(pageNumber);
+            drawFooter(pageNumber);
         }
-    };
-
-    blocks.forEach((block, index) => {
-        const head = [
-            [{
-                content: block.title,
-                colSpan: 3,
-                styles: {
-                    halign: "center",
-                    fillColor: [235, 235, 235],
-                    textColor: 0,
-                    font: "DejaVu"
-                }
-            }],
-            ["Tétel", "Menny.", "Összeg"]
-        ];
-
-        const body = block.items.map(it => [
-            it.name,
-            `${it.qty} / ${String(it.unit || "").replace(/^\s*\d+\s*/, "")}`,
-            `${Number(it.sum || 0).toLocaleString("hu-HU")} Ft`
-        ]);
-
-        doc.autoTable({
-            ...common,
-            startY: index === 0 ? currentY : doc.lastAutoTable.finalY + 4,
-            tableWidth: "wrap",
-            margin: {
-                left: (pageWidth - 178) / 2,
-                right: (pageWidth - 178) / 2,
-                top: 40,
-                bottom: 18
-            },
-            head,
-            body,
-            headStyles: {
-                fillColor: [248, 248, 248],
-                textColor: 60,
-                font: "DejaVu"
-            },
-            bodyStyles: {
-                font: "DejaVu"
-            },
-            columnStyles: {
-                0: { cellWidth: 110 },
-                1: { cellWidth: 30, halign: "center" },
-                2: { cellWidth: 38, halign: "right" }
-            }
-        });
     });
 
-    const y = doc.lastAutoTable ? doc.lastAutoTable.finalY + 8 : currentY + 10;
-
+    const y = (doc.lastAutoTable?.finalY || currentY) + 8;
     doc.setDrawColor(0);
     doc.roundedRect(margin, y, pageWidth - margin * 2, 14, 2, 2, "S");
     doc.setFont("DejaVu", "bold");
@@ -632,8 +468,7 @@ async function generateCalculatorPdfBase64(offerId = "") {
     doc.setFontSize(9);
     doc.setTextColor(100);
     const note = "Az árak tájékoztató jellegűek, a végleges árajánlat helyszíni felmérés után készül.";
-    const noteLines = doc.splitTextToSize(note, pageWidth - margin * 2);
-    doc.text(noteLines, pageWidth / 2, y + 22, { align: "center" });
+    doc.text(doc.splitTextToSize(note, pageWidth - margin * 2), pageWidth / 2, y + 22, { align: "center" });
     doc.setTextColor(0);
 
     const dataUri = doc.output("datauristring");
@@ -642,92 +477,75 @@ async function generateCalculatorPdfBase64(offerId = "") {
 }
 
 function initDownloadButton() {
-    const btn = document.getElementById("downloadPdf") || document.getElementById("downloadOffer");
-    if (!btn) return;
+    const button = $("#downloadPdf") || $("#downloadOffer");
+    if (!button || button.dataset.bound === "1") return;
+    button.dataset.bound = "1";
 
-    if (btn.dataset.bound === "1") return;
-    btn.dataset.bound = "1";
-
-    btn.addEventListener("click", async () => {
+    button.addEventListener("click", async () => {
         try {
             const { doc } = await generateCalculatorPdfBase64(currentOfferId);
-            const fileName = currentOfferId
-                ? `stravill-arajanlat-${currentOfferId}.pdf`
-                : "stravill-arajanlat.pdf";
+            const fileName = currentOfferId ? `stravill-arajanlat-${currentOfferId}.pdf` : "stravill-arajanlat.pdf";
             doc.save(fileName);
-        } catch (e) {
-            console.error(e);
-            alert(String(e?.message || "Hiba a PDF generálás közben. Nézd meg a konzolt (F12)."));
+        } catch (error) {
+            console.error(error);
+            alert(String(error?.message || "Hiba a PDF generálás közben."));
         }
     });
 }
 
-
-/* ============================
-   COOKIE BANNER
-============================ */
-
-document.addEventListener("DOMContentLoaded", () => {
-    const banner = document.getElementById("cookie-banner");
-    const accept = document.getElementById("cookie-accept");
-    const decline = document.getElementById("cookie-decline");
-
-    setTimeout(() => {
-        if (!localStorage.getItem("cookie-consent")) {
-            banner.style.display = "block";
-        }
-    }, 150);
-
-    if (accept) {
-        accept.onclick = () => {
-            localStorage.setItem("cookie-consent", "accepted");
-            banner.style.display = "none";
-            loadAnalytics();
-        };
-    }
-
-    if (decline) {
-        decline.onclick = () => {
-            localStorage.setItem("cookie-consent", "declined");
-            banner.style.display = "none";
-        };
-    }
-
-    if (localStorage.getItem("cookie-consent") === "accepted") {
-        loadAnalytics();
-    }
-});
-
 function loadAnalytics() {
+    if (analyticsLoaded) return;
+    analyticsLoaded = true;
+
     const script = document.createElement("script");
     script.src = "https://www.googletagmanager.com/gtag/js?id=G-Y6NQ4G486W";
     script.async = true;
     document.head.appendChild(script);
 
     window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag("js", new Date());
-    gtag("config", "G-Y6NQ4G486W", { anonymize_ip: true });
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", "G-Y6NQ4G486W", { anonymize_ip: true });
 }
 
+function initCookieBanner() {
+    const banner = $("#cookie-banner");
+    const accept = $("#cookie-accept");
+    const decline = $("#cookie-decline");
+    if (!banner) return;
 
-/* ============================
-   TÉMA VÁLTÓ
-============================ */
+    const consent = localStorage.getItem("cookie-consent");
+    if (!consent) {
+        setTimeout(() => {
+            banner.style.display = "block";
+        }, 150);
+    } else if (consent === "accepted") {
+        loadAnalytics();
+    }
+
+    accept?.addEventListener("click", () => {
+        localStorage.setItem("cookie-consent", "accepted");
+        banner.style.display = "none";
+        loadAnalytics();
+    });
+
+    decline?.addEventListener("click", () => {
+        localStorage.setItem("cookie-consent", "declined");
+        banner.style.display = "none";
+    });
+}
 
 function applyTheme(mode) {
     const body = document.body;
-    const toggle = document.getElementById("themeToggle");
+    const toggle = $("#themeToggle");
 
     if (mode === "light") {
         body.classList.remove("dark");
-        body.classList.add("light");
         if (toggle) toggle.textContent = "🌙";
         return;
     }
 
     if (mode === "dark") {
-        body.classList.remove("light");
         body.classList.add("dark");
         if (toggle) toggle.textContent = "☀️";
         return;
@@ -735,8 +553,6 @@ function applyTheme(mode) {
 
     const hour = new Date().getHours();
     const isDay = hour >= 6 && hour < 18;
-
-    body.classList.toggle("light", isDay);
     body.classList.toggle("dark", !isDay);
     if (toggle) toggle.textContent = isDay ? "🌙" : "☀️";
 }
@@ -746,17 +562,24 @@ function setTheme(mode) {
     applyTheme(mode);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const saved = localStorage.getItem("theme-mode") || "auto";
-    applyTheme(saved);
+function initThemeToggle() {
+    applyTheme(localStorage.getItem("theme-mode") || "auto");
 
-    const toggle = document.getElementById("themeToggle");
-    if (toggle) {
-        toggle.onclick = () => {
-            const current = localStorage.getItem("theme-mode") || "auto";
-            if (current === "auto") setTheme("light");
-            else if (current === "light") setTheme("dark");
-            else setTheme("auto");
-        };
-    }
+    const toggle = $("#themeToggle");
+    if (!toggle || toggle.dataset.bound === "1") return;
+    toggle.dataset.bound = "1";
+
+    toggle.addEventListener("click", () => {
+        const current = localStorage.getItem("theme-mode") || "auto";
+        if (current === "auto") setTheme("light");
+        else if (current === "light") setTheme("dark");
+        else setTheme("auto");
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    initCookieBanner();
+    initThemeToggle();
+    const defaultLink = $("a[data-page='rolam.html']");
+    loadPage("rolam.html", defaultLink, { scroll: false });
 });

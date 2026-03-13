@@ -3,127 +3,120 @@
     <h1>Villanyszerelési kalkulátor</h1>
     <p>Adja meg a kívánt mennyiséget, a végösszeg automatikusan frissül.</p>
 
-    <!-- ============================
-         KATEGÓRIA KÁRTYÁK IKONOKKAL
-    ============================= -->
-
     <div class="calc-card">
         <h2>🛠️ Teljes felújítás</h2>
         <table class="calc-table">
-            <tr><td>Teljes felújítás (anyag nélkül)</td><td>1 m²</td><td>10000</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
-            <tr><td>Teljes felújítás (anyaggal)</td><td>1 m²</td><td>20000</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
+            <tr><td>Teljes felújítás (anyag nélkül)</td><td>1 m²</td><td>10000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Teljes felújítás (anyaggal)</td><td>1 m²</td><td>20000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
         </table>
     </div>
 
     <div class="calc-card">
         <h2>🔌 Szerelvények</h2>
         <table class="calc-table">
-            <tr><td>Konnektor csere</td><td>1 db</td><td>2500</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
-            <tr><td>Kapcsoló csere</td><td>1 db</td><td>2500</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
-            <tr><td>Konnektor + kapcsoló csomag</td><td>1 db</td><td>2000</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
+            <tr><td>Konnektor csere</td><td>1 db</td><td>2500</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Kapcsoló csere</td><td>1 db</td><td>2500</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Konnektor + kapcsoló csomag</td><td>1 db</td><td>2000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
         </table>
     </div>
 
     <div class="calc-card">
         <h2>💡 Lámpák</h2>
         <table class="calc-table">
-            <tr><td>Lámpatest felszerelés</td><td>1 db</td><td>5000</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
-            <tr><td>Csillár bekötés</td><td>1 db</td><td>6000</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
+            <tr><td>Lámpatest felszerelés</td><td>1 db</td><td>5000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Csillár bekötés</td><td>1 db</td><td>6000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
         </table>
     </div>
 
     <div class="calc-card">
-        <h2>🔥 Nagygépek</h2>
+        <h2>🔥 Háztartási gépek</h2>
         <table class="calc-table">
-            <tr><td>Sütő bekötés</td><td>1 db</td><td>10000</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
-            <tr><td>Főzőlap bekötés</td><td>1 db</td><td>10000</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
-            <tr><td>Kombinált tűzhely bekötés</td><td>1 db</td><td>15000</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
-            <tr><td>Bojler bekötés</td><td>1 db</td><td>15000</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
+            <tr><td>Sütő bekötés</td><td>1 db</td><td>10000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Főzőlap bekötés</td><td>1 db</td><td>10000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Kombinált tűzhely bekötés</td><td>1 db</td><td>15000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Bojler bekötés</td><td>1 db</td><td>15000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
         </table>
     </div>
 
     <div class="calc-card">
         <h2>📦 Kábelezés</h2>
         <table class="calc-table">
-            <tr><td>Új kábel falon kívül</td><td>1 m</td><td>6000</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
-            <tr><td>Új kábel falban (vésve)</td><td>1 m</td><td>8500</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
+            <tr><td>Új kábel falon kívül</td><td>1 m</td><td>6000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Új kábel falban (vésve)</td><td>1 m</td><td>8500</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
         </table>
     </div>
 
     <div class="calc-card">
         <h2>⚡ Elosztó / Áramkörök</h2>
         <table class="calc-table">
-            <tr><td>Lakáselosztó csere</td><td>1 db</td><td>20000</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
-            <tr><td>Áramkör bővítés</td><td>1 db</td><td>3000</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
+            <tr><td>Lakáselosztó csere</td><td>1 db</td><td>20000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Áramkör bővítés</td><td>1 db</td><td>3000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
         </table>
     </div>
 
     <div class="calc-card">
         <h2>🧲 FI-relé</h2>
         <table class="calc-table">
-            <tr><td>FI-relé (1 fázis)</td><td>1 db</td><td>10000</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
-            <tr><td>FI-relé (3 fázis)</td><td>1 db</td><td>12000</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
+            <tr><td>FI-relé (1 fázis)</td><td>1 db</td><td>10000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>FI-relé (3 fázis)</td><td>1 db</td><td>12000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
         </table>
     </div>
 
     <div class="calc-card">
         <h2>🚨 Hibaelhárítás</h2>
         <table class="calc-table">
-            <tr><td>Hibaelhárítás – első óra</td><td>1 óra</td><td>8000</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
-            <tr><td>További fél óra</td><td>30 perc</td><td>3500</td><td><input type="number" min="0"></td><td class="sum"></td><td><button class="row-reset">✖</button></td></tr>
+            <tr><td>Hibaelhárítás – első óra</td><td>1 óra</td><td>8000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>További fél óra</td><td>30 perc</td><td>3500</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
         </table>
     </div>
 
     <h2 class="total-box">Végösszeg: <span id="total">0 Ft</span></h2>
 
-    <p style="margin-top:10px; font-size:0.9rem; opacity:0.8;">
+    <p class="section-note">
         Az árak tájékoztató jellegűek, pontos árajánlatot helyszíni felmérés után adok.
     </p>
 
-    <div style="text-align:center; margin:20px 0;">
+    <div class="calc-actions">
         <button id="calcReset" class="btn yellow-btn" type="button">🔄 Kalkulátor alaphelyzetbe</button>
         <button id="downloadPdf" class="btn yellow-btn" type="button">📄 Kalkuláció letöltése PDF-ben</button>
     </div>
 
-    <hr style="margin:30px 0; opacity:0.3;">
+    <hr class="section-divider">
 
     <h2 id="ajanlatkeres" class="form-title">📨 Ajánlatkérés a kalkulátor alapján</h2>
 
-    <form id="calcContactForm" class="contact-form">
-        <input type="text" name="name" placeholder="Név" required>
-        <input type="email" name="email" placeholder="E-mail" required>
-        <input type="tel" name="phone" placeholder="Telefonszám (nem kötelező)">
-        <textarea id="calcMessage" name="message" placeholder="Üzenet" required></textarea>
+    <form id="calcContactForm" class="contact-form" novalidate>
+        <input type="text" name="name" placeholder="Név" autocomplete="name" required>
+        <input type="email" name="email" placeholder="E-mail" autocomplete="email" required>
+        <input type="tel" name="phone" placeholder="Telefonszám (nem kötelező)" autocomplete="tel">
+        <textarea id="calcMessage" name="message" placeholder="Üzenet (nem kötelező, ha a kalkulátor ki van töltve)" rows="6"></textarea>
 
+        <p class="section-note calc-helper">
+            Küldéshez legalább az egyik szükséges: egy kitöltött kalkulátor tétel vagy szöveges üzenet.
+        </p>
 
         <div class="privacy-row">
-            <input type="checkbox" id="callbackReq" name="callbackReq">
-            <span class="privacy-text">Kérek visszahívást</span>
+            <input type="checkbox" id="callbackReqCalc" name="callbackReq">
+            <label for="callbackReqCalc" class="privacy-text">Kérek visszahívást</label>
         </div>
 
         <div class="privacy-row">
-            <input type="checkbox" id="policy2" name="policy2" required>
-            <span class="privacy-text">
-                Elfogadom az 
+            <input type="checkbox" id="policyCalc" name="policy2" required>
+            <label for="policyCalc" class="privacy-text">
+                Elfogadom az
                 <a href="#" onclick="loadPage('adatkezeles.html'); return false;">adatkezelési tájékoztatót</a>.
-            </span>
+            </label>
         </div>
 
         <button type="submit">Ajánlatkérés elküldése</button>
     </form>
 
-</form>
+    <p class="section-note">
+        Az üzenet elküldésével elfogadja az
+        <a href="#" onclick="loadPage('adatkezeles.html'); return false;">adatkezelési tájékoztatóban</a>
+        foglaltakat.
+    </p>
 
-<p style="text-align:center; margin-top:15px; font-size:0.9rem;">
-    Az üzenet elküldésével elfogadja az 
-    <a href="#" onclick="loadPage('adatkezeles.html'); return false;" style="font-weight:600;">
-        adatkezelési tájékoztatóban
-    </a>
-    foglaltakat.
-</p>
-
-<div id="calc-status" class="status-box"></div>
-
-    <div id="calc-status" class="status-box"></div>
+    <div id="calc-status" class="status-box" aria-live="polite"></div>
 
 </div>

@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Villanyszerelő Orosháza – StraVill | Strassenreiter Attila E.V.</title>
-
 <meta name="description" content="Villanyszerelő Orosházán és környékén: gyors hibaelhárítás, szerelvénycsere, lámpa bekötés, hálózat felújítás. Hétvégén is elérhető. Hívjon most!">
-
-<meta name="keywords" content="villanyszerelő Orosháza, villanyszerelés Orosháza, villanyszerelő Békéscsaba, villanyszerelő Csorvás, villanyszerelő Nagyszénás">
-
-<link rel="canonical" href="https://www.stravill.hu">
-
+<meta name="robots" content="index,follow">
 <meta name="author" content="Strassenreiter Attila E.V.">
+<meta name="theme-color" content="#12233c">
+<link rel="canonical" href="https://www.stravill.hu">
+<link rel="icon" type="image/x-icon" href="icons/favicon.ico">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 
-<!-- Schema -->
+<meta property="og:title" content="Villanyszerelő Orosháza – StraVill">
+<meta property="og:description" content="Gyors, precíz villanyszerelés Orosházán – hívjon most!">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.stravill.hu">
+<meta property="og:image" content="https://www.stravill.hu/icons/logo.png">
+<meta property="og:locale" content="hu_HU">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Villanyszerelő Orosháza – StraVill">
+<meta name="twitter:description" content="Gyors, precíz villanyszerelés Orosházán – hívjon most!">
+<meta name="twitter:image" content="https://www.stravill.hu/icons/logo.png">
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -67,41 +76,14 @@
 }
 </script>
 
-<!-- Open Graph -->
-<meta property="og:title" content="Villanyszerelő Orosháza – StraVill">
-<meta property="og:description" content="Gyors, precíz villanyszerelés Orosházán – hívjon most!">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.stravill.hu">
-<meta property="og:image" content="https://www.stravill.hu/icons/logo.png">
-
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Villanyszerelő Orosháza – StraVill">
-<meta name="twitter:description" content="Gyors, precíz villanyszerelés Orosházán – hívjon most!">
-<meta name="twitter:image" content="https://www.stravill.hu/icons/logo.png">
-
-<link rel="icon" type="image/x-icon" href="icons/favicon.ico">
-
-<!-- FŐ CSS -->
 <link rel="stylesheet" href="style.css">
-
-<!-- FOOTER ACTIVE LINK FIX -->
-<style>
-.footer-links a.active-footer {
-    text-decoration: underline;
-    color: #fff;
-}
-</style>
-
 </head>
 <body>
-
 <div class="wrapper">
-
 <header class="fixed-header">
-    <nav>
+    <nav aria-label="Fő navigáció">
         <div class="nav-left">
-            <a href="https://www.facebook.com/profile.php?id=61578948980529" target="_blank" class="nav-left-link">
+            <a href="https://www.facebook.com/profile.php?id=61578948980529" target="_blank" rel="noopener noreferrer" class="nav-left-link" aria-label="StraVill Facebook oldal">
                 <img src="icons/logo.png" alt="StraVill villanyszerelő Orosháza" class="header-logo">
                 <span class="nav-title">StraVill – Strassenreiter Attila E.V.</span>
             </a>
@@ -118,7 +100,6 @@
 </header>
 
 <section class="hero">
-    <div class="hero-overlay"></div>
     <div class="hero-inner">
         <div class="hero-text">
             <div class="hero-badges">
@@ -135,12 +116,11 @@
 
             <div class="hero-buttons">
                 <a href="tel:+36304938929" class="hero-link-chip hero-cta-chip">📞 Hívjon most</a>
-                <a href="#" class="hero-link-chip hero-cta-chip" onclick="goToContact(); return false;">📩 Ajánlatkérés</a>
+                <a href="https://m.me/752587131264576" class="hero-link-chip hero-cta-chip" target="_blank" rel="noopener noreferrer">💬 Írjon Messengeren</a>
             </div>
 
             <div class="hero-links">
-                <a href="#" class="hero-link-chip" onclick="loadPage('kalkulator.html', this); return false;">Árak becslése a kalkulátorral</a>
-                <a href="https://m.me/752587131264576" class="hero-link-chip" target="_blank" rel="noopener noreferrer">Írjon Messengeren</a>
+                <a href="#" class="hero-link-chip" onclick="loadPage('kalkulator.html'); return false;">📩 Kérjen ajánlatot</a>
             </div>
 
             <div class="hero-trust-row" aria-label="Bizalmi elemek">
@@ -152,26 +132,32 @@
     </div>
 </section>
 
-<section id="content-box" class="content-box"></section>
+<main id="content-box" class="content-box" aria-live="polite"></main>
 
 <div class="service-box social-box">
     <h2>🌐 Kövessen a közösségi médiában</h2>
-
-<p class="social-text">
-Ahol a munkáimról, villanyszerelési tippekről és aktuális projektekből osztok meg képeket és videókat.
-</p>
+    <p class="social-text">
+        Ahol a munkáimról, villanyszerelési tippekről és aktuális projektekből osztok meg képeket és videókat.
+    </p>
 
     <div class="social-icons">
-        <a href="https://www.facebook.com/16rfCArxpN/" target="_blank" class="facebook" aria-label="Facebook"><img src="icons/facebook.png" alt="Facebook"></a>
-        <a href="https://www.instagram.com/stra_vill/" target="_blank" class="instagram" aria-label="Instagram"><img src="icons/instagram.png" alt="Instagram"></a>
-        <a href="https://youtube.com/@stra_vill" target="_blank" class="youtube" aria-label="YouTube"><img src="icons/youtube.png" alt="YouTube"></a>
-        <a href="https://tiktok.com/@stra_vill" target="_blank" class="tiktok" aria-label="TikTok"><img src="icons/tiktok.png" alt="TikTok"></a>
+        <a href="https://www.facebook.com/16rfCArxpN/" target="_blank" rel="noopener noreferrer" class="facebook" aria-label="Facebook">
+            <img src="icons/facebook.png" alt="Facebook">
+        </a>
+        <a href="https://www.instagram.com/stra_vill/" target="_blank" rel="noopener noreferrer" class="instagram" aria-label="Instagram">
+            <img src="icons/instagram.png" alt="Instagram">
+        </a>
+        <a href="https://youtube.com/@stra_vill" target="_blank" rel="noopener noreferrer" class="youtube" aria-label="YouTube">
+            <img src="icons/youtube.png" alt="YouTube">
+        </a>
+        <a href="https://tiktok.com/@stra_vill" target="_blank" rel="noopener noreferrer" class="tiktok" aria-label="TikTok">
+            <img src="icons/tiktok.png" alt="TikTok">
+        </a>
     </div>
 </div>
 
 <section class="reviews-box">
     <h2>Vélemények</h2>
-
     <div data-romw-token="VnDD3R62HnpTNSKxzJmVNJ5p2ohFYWndHoVyl3lChqbhSO0XQI" data-romw-lazy></div>
     <script src="https://localimpact.com/js/v2/embed.js?id=b8f5b4fd2464663219f4d9b7ec62f159" defer></script>
 </section>
@@ -185,7 +171,6 @@ Ahol a munkáimról, villanyszerelési tippekről és aktuális projektekből os
 
 <footer>
     <p>© 2026 StraVill – Strassenreiter Attila egyéni vállalkozó. Minden jog fenntartva.</p>
-
     <div class="footer-links">
         <a href="#" data-page="impresszum.html" onclick="loadPage('impresszum.html', this); return false;">Impresszum</a>
         <span>|</span>
@@ -195,11 +180,9 @@ Ahol a munkáimról, villanyszerelési tippekről és aktuális projektekből os
     </div>
 </footer>
 
-<!-- TÉMA VÁLTÓ GOMB -->
-<div class="theme-toggle" id="themeToggle">🌙</div>
+<button type="button" class="theme-toggle" id="themeToggle" aria-label="Téma váltása">🌙</button>
 
-<!-- COOKIE BANNER -->
-<div id="cookie-banner" class="cookie-banner">
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Süti beállítások">
     <p>
         Ez a weboldal statisztikai célú sütiket (Google Analytics 4) használ a látogatottság mérésére.
         A sütik csak az Ön hozzájárulása után aktiválódnak.
@@ -207,17 +190,16 @@ Ahol a munkáimról, villanyszerelési tippekről és aktuális projektekből os
         <a href="#" onclick="loadPage('adatkezeles.html'); return false;">Adatkezelési tájékoztató</a> |
         <a href="#" onclick="loadPage('cookie.html'); return false;">Cookie tájékoztató</a>
     </p>
-
-    <button id="cookie-accept">Elfogadom</button>
-    <button id="cookie-decline">Elutasítom</button>
+    <div class="cookie-actions">
+        <button id="cookie-accept" type="button">Elfogadom</button>
+        <button id="cookie-decline" type="button">Elutasítom</button>
+    </div>
 </div>
 
-</div> <!-- wrapper END -->
+</div>
 
-<!-- KÜLSŐ JAVASCRIPT -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="dejavu.js"></script>
-<script src="script.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="dejavu.js" defer></script>
+<script src="script.js" defer></script>
 </body>
 </html>
