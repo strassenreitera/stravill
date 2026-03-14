@@ -98,15 +98,18 @@
             </a>
         </div>
 
-        <button type="button" class="nav-toggle" id="navToggle" aria-label="Menü megnyitása" aria-controls="primary-menu" aria-expanded="false">☰</button>
-
-        <ul id="primary-menu">
+        <ul id="primary-menu" class="primary-menu">
             <li><a href="#" data-page="rolam.html">Főoldal</a></li>
             <li><a href="#" data-page="szolgaltatasok.html">Szolgáltatások</a></li>
             <li><a href="#" data-page="arlista.html">Árlista</a></li>
             <li><a href="#" data-page="galeria.html">Galéria</a></li>
             <li><a href="#" data-page="kapcsolat.html">Kapcsolat</a></li>
         </ul>
+
+        <div class="nav-more">
+            <button type="button" class="nav-toggle" id="navToggle" aria-label="További menüpontok megnyitása" aria-controls="more-menu-panel" aria-expanded="false">☰</button>
+            <div class="more-menu-panel" id="more-menu-panel" aria-label="További menüpontok"></div>
+        </div>
     </nav>
 </header>
 

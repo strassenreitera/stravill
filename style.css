@@ -298,7 +298,7 @@ nav ul li a.active {
 .btn,
 button,
 .contact-form button,
-.cookie-banner button,
+
 .row-reset,
 button[type="submit"],
 input[type="submit"] {
@@ -347,7 +347,7 @@ input[type="submit"]:hover {
 .hero-link-chip.hero-cta-chip,
 .btn,
 .contact-form button,
-.cookie-banner button,
+
 button[type="submit"],
 input[type="submit"],
 .yellow-btn {
@@ -1021,16 +1021,25 @@ body.dark footer {
     .btn,
     button,
     .contact-form button,
-    .cookie-banner button,
+    
     .bottom-phone {
         width: 100%;
     }
 
     
 
-    .cookie-banner button {
-        width: calc(50% - 0.35rem);
-    }
+    /* Stabil cookie gomb layout mobilon */
+.cookie-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    flex-wrap: nowrap;
+}
+
+.cookie-banner button {
+    width: auto;
+    min-width: 120px;
+}
 }
 
 
@@ -1735,4 +1744,16 @@ body.dark .contact-form textarea::placeholder {
         align-items: center;
         text-align: center;
     }
+}
+
+/* Cookie banner gombok egységes (sárga) dizájn */
+.cookie-banner button {
+    background: linear-gradient(180deg, #ffd95b 0%, var(--accent) 100%);
+    color: #10203a;
+    border-color: rgba(255, 202, 40, 0.7);
+    box-shadow: 0 14px 34px rgba(240, 180, 0, 0.25);
+}
+
+.cookie-banner button:hover {
+    background: linear-gradient(180deg, #ffe37c 0%, #ffc928 100%);
 }
