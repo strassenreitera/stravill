@@ -1046,7 +1046,7 @@ body.dark footer {
 }
 
 /* világos mód */
-body:not(.dark-mode) .calc-table input:disabled {
+body:not(.dark) .calc-table input:disabled {
     background:
         repeating-linear-gradient(
             45deg,
@@ -1062,7 +1062,7 @@ body:not(.dark-mode) .calc-table input:disabled {
 }
 
 /* sötét mód */
-body.dark-mode .calc-table input:disabled {
+body.dark .calc-table input:disabled {
     background:
         repeating-linear-gradient(
             45deg,
@@ -1087,8 +1087,7 @@ body.dark-mode .calc-table input:disabled {
         padding: 0.5rem 0 !important;
     }
 
-    body.dark .calc-card,
-    body.dark-mode .calc-card {
+    body.dark .calc-card {
         background: transparent !important;
         border-color: transparent !important;
         box-shadow: none !important;
@@ -1165,23 +1164,14 @@ body.dark .contact-form p,
 body.dark .contact-card p,
 body.dark .privacy-text,
 body.dark .contact-form label,
-body.dark .contact-form small,
-body.dark-mode .contact-form p,
-body.dark-mode .contact-card p,
-body.dark-mode .privacy-text,
-body.dark-mode .contact-form label,
-body.dark-mode .contact-form small {
+body.dark .contact-form small {
     color: rgba(236, 242, 255, 0.88);
 }
 
 body.dark .contact-form a,
 body.dark .contact-card a,
 body.dark .privacy-text a,
-body.dark .contact-form p a,
-body.dark-mode .contact-form a,
-body.dark-mode .contact-card a,
-body.dark-mode .privacy-text a,
-body.dark-mode .contact-form p a {
+body.dark .contact-form p a {
     color: #9ec5ff;
 }
 
@@ -1298,5 +1288,286 @@ body.dark .calc-table input:disabled {
     .cookie-actions,
     .calc-actions {
         flex-direction: column;
+    }
+}
+
+
+.footer-link-button {
+    appearance: none;
+    background: none;
+    border: 0;
+    color: var(--primary);
+    cursor: pointer;
+    font: inherit;
+    padding: 0;
+    text-decoration: underline;
+}
+
+.external-content-box {
+    max-width: 760px;
+    margin: 1rem auto 0;
+    padding: 1.2rem;
+    border: 1px solid rgba(31, 111, 229, 0.16);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 12px 28px rgba(10, 18, 34, 0.06);
+    text-align: center;
+}
+
+.external-content-box p {
+    margin-bottom: 1rem;
+}
+
+#reviews-embed[hidden] {
+    display: none !important;
+}
+
+body.dark .external-content-box,
+body.dark .footer-link-button {
+    color: #ecf2ff;
+}
+
+body.dark .external-content-box {
+    background: rgba(17, 26, 41, 0.86);
+    border-color: rgba(255,255,255,0.08);
+}
+
+
+/* ===== Kódellenőrzés után egységesített finomhangolások ===== */
+:root {
+    --content-width: 1200px;
+    --section-spacing: 1rem;
+    --focus-ring: 0 0 0 4px rgba(31, 111, 229, 0.14);
+}
+
+.wrapper,
+.fixed-header,
+.cookie-banner {
+    max-width: var(--content-width);
+}
+
+.content-box,
+.service-box,
+.reviews-box,
+.bottom-info-box {
+    margin: var(--section-spacing);
+}
+
+button,
+.btn,
+.hero-link-chip,
+.footer-link-button,
+.theme-toggle {
+    font: inherit;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+.footer-link-button {
+    color: rgba(255,255,255,0.96);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.footer-link-button:hover {
+    color: var(--accent);
+}
+
+.footer-link-button:focus-visible {
+    border-radius: 8px;
+}
+
+.contact-form button,
+.contact-form .btn {
+    width: 100%;
+}
+
+.status-box {
+    border: 1px solid transparent;
+}
+
+.status-box[data-state="success"] {
+    border-color: rgba(15, 122, 41, 0.18);
+}
+
+.status-box[data-state="error"] {
+    border-color: rgba(180, 35, 24, 0.18);
+}
+
+.status-box[data-state="info"] {
+    border-color: rgba(21, 87, 184, 0.18);
+}
+
+.external-content-box,
+.contact-card,
+.contact-map,
+.contact-form,
+.calc-card {
+    border-radius: var(--radius-lg);
+}
+
+@media (max-width: 560px) {
+    .footer-links {
+        flex-wrap: wrap;
+        white-space: normal;
+    }
+
+    .footer-links span {
+        display: none;
+    }
+
+    .footer-link-button,
+    .footer-links a {
+        width: 100%;
+    }
+}
+
+
+/* ===== Végső egységesítés ===== */
+nav ul li a[aria-current="page"] {
+    color: var(--accent) !important;
+}
+
+nav ul li a,
+.footer-links a,
+.footer-link-button {
+    transition: color var(--transition), opacity var(--transition), box-shadow var(--transition);
+}
+
+.contact-form input,
+.contact-form textarea,
+.calc-table input[type="number"] {
+    transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: rgba(83, 98, 119, 0.82);
+}
+
+body.dark .contact-form input::placeholder,
+body.dark .contact-form textarea::placeholder {
+    color: rgba(214, 223, 236, 0.72);
+}
+
+.status-box[data-state] {
+    box-shadow: 0 10px 24px rgba(16, 33, 62, 0.06);
+}
+
+
+/* ===== Jogi oldalak és adatkezelési sorok igazítása ===== */
+.privacy-row {
+    width: min(100%, 680px);
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    justify-content: center;
+    align-items: start;
+    gap: 0.75rem;
+    text-align: left;
+}
+
+.privacy-row .privacy-text {
+    display: block;
+    line-height: 1.55;
+}
+
+.content-box ul,
+.content-box ol {
+    width: min(100%, 760px);
+    margin: 1rem auto;
+    padding-left: 1.4rem;
+    text-align: left;
+}
+
+.content-box li + li {
+    margin-top: 0.45rem;
+}
+
+.content-box h1,
+.content-box h2,
+.content-box .section-note,
+.content-box > p {
+    text-align: center;
+}
+
+@media (max-width: 640px) {
+    .privacy-row {
+        width: 100%;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+    }
+
+    .privacy-row .privacy-text {
+        text-align: center;
+    }
+
+    .content-box ul,
+    .content-box ol {
+        padding-left: 1.1rem;
+    }
+}
+/* Jogi oldalak optikai középre igazítása */
+#content-box[data-page="adatkezeles.html"],
+#content-box[data-page="cookie.html"] {
+    text-align: center;
+}
+
+#content-box[data-page="adatkezeles.html"] h1,
+#content-box[data-page="adatkezeles.html"] h2,
+#content-box[data-page="adatkezeles.html"] h3,
+#content-box[data-page="adatkezeles.html"] h4,
+#content-box[data-page="cookie.html"] h1,
+#content-box[data-page="cookie.html"] h2,
+#content-box[data-page="cookie.html"] h3,
+#content-box[data-page="cookie.html"] h4 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#content-box[data-page="adatkezeles.html"] p,
+#content-box[data-page="cookie.html"] p {
+    text-align: center;
+}
+
+#content-box[data-page="adatkezeles.html"] ul,
+#content-box[data-page="adatkezeles.html"] ol,
+#content-box[data-page="cookie.html"] ul,
+#content-box[data-page="cookie.html"] ol {
+    width: fit-content;
+    max-width: min(100%, 760px);
+    margin: 0 auto 1rem;
+    padding-left: 1.4rem;
+    text-align: left;
+}
+
+#content-box[data-page="adatkezeles.html"] li,
+#content-box[data-page="cookie.html"] li {
+    text-align: left;
+}
+
+/* Ha a számozott pontok címei önálló blokkok, ezek is maradjanak középen */
+#content-box[data-page="adatkezeles.html"] > :is(h2, h3, h4),
+#content-box[data-page="cookie.html"] > :is(h2, h3, h4) {
+    max-width: 760px;
+}
+
+@media (max-width: 768px) {
+    #content-box[data-page="adatkezeles.html"] ul,
+    #content-box[data-page="adatkezeles.html"] ol,
+    #content-box[data-page="cookie.html"] ul,
+    #content-box[data-page="cookie.html"] ol {
+        width: min(100%, 100%);
+        max-width: 100%;
+        padding-left: 1.15rem;
     }
 }

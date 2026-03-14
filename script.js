@@ -1,6 +1,9 @@
 const GAS_URL = "https://script.google.com/macros/s/AKfycbx_FI6eN8AONYMFqtBFF792ymRvmFdZSrfkMICwKbgvp2ExavZWIAK72P5Vdsy8FSQrGA/exec";
+const GA_MEASUREMENT_ID = "G-Y6NQ4G486W";
+const GOOGLE_MAPS_EMBED_URL = "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10969.609170720607!2d20.6672226!3d46.579284!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47443f2d22d977cf%3A0xd12daeff6b3b374d!2sStrassenreiter%20Attila%20Villanyszerel%C5%91%20E.V.!5e0!3m2!1shu!2hu!4v1772120210144!5m2!1shu!2hu";
 let currentOfferId = "";
 let analyticsLoaded = false;
+let reviewsLoaded = false;
 
 const CONTENT_PAGES = new Set([
     "rolam.html",
@@ -14,7 +17,6 @@ const CONTENT_PAGES = new Set([
     "cookie.html"
 ]);
 
-
 const PDF_HEADER_LOGO_PATH = "icons/fejlec.png";
 let pdfHeaderLogoCache = null;
 
@@ -25,7 +27,7 @@ function escapePdfText(value) {
 async function getPdfHeaderLogo() {
     if (pdfHeaderLogoCache !== null) return pdfHeaderLogoCache;
     try {
-        const response = await fetch(`${PDF_HEADER_LOGO_PATH}?v=20260313`, { cache: "no-store" });
+        const response = await fetch(`${PDF_HEADER_LOGO_PATH}?v=20260313`);
         if (!response.ok) throw new Error("Logo fetch failed");
         const blob = await response.blob();
         pdfHeaderLogoCache = await new Promise((resolve, reject) => {
@@ -65,7 +67,50 @@ function updateActiveLinks(page) {
         const isActive = link.getAttribute("data-page") === page;
         link.classList.toggle("active", isActive && !!link.closest("nav"));
         link.classList.toggle("active-footer", isActive && !!link.closest(".footer-links"));
+        if (link.closest("nav")) {
+            link.setAttribute("aria-current", isActive ? "page" : "false");
+        }
     });
+}
+
+function getLinkTarget(link) {
+    if (!link) return null;
+    return {
+        page: link.dataset.page || null,
+        anchorId: link.dataset.anchor || null
+    };
+}
+
+function buildHash(page, anchorId = "") {
+    const safePage = CONTENT_PAGES.has(page) ? page : "rolam.html";
+    const safeAnchor = anchorId ? String(anchorId).trim() : "";
+    return safeAnchor ? `#${safePage}|${safeAnchor}` : `#${safePage}`;
+}
+
+function parseHash(hash = window.location.hash) {
+    const raw = String(hash || "").replace(/^#/, "").trim();
+    if (!raw) return null;
+
+    const [pagePart, anchorPart = ""] = raw.split("|");
+    const page = CONTENT_PAGES.has(pagePart) ? pagePart : null;
+    if (!page) return null;
+
+    return {
+        page,
+        anchorId: anchorPart || null
+    };
+}
+
+function syncHash(page, anchorId = "", replace = false) {
+    const nextHash = buildHash(page, anchorId);
+    const currentHash = window.location.hash || "";
+    if (currentHash === nextHash) return;
+
+    if (replace) {
+        history.replaceState(null, "", nextHash);
+    } else {
+        history.pushState(null, "", nextHash);
+    }
 }
 
 async function loadPage(page, linkElement = null, options = {}) {
@@ -80,14 +125,22 @@ async function loadPage(page, linkElement = null, options = {}) {
         contentBox.innerHTML = await response.text();
         contentBox.dataset.page = targetPage;
 
+        if (options.updateHash !== false) {
+            syncHash(targetPage, options.anchorId || "", !!options.replaceHash);
+        }
+
         updateActiveLinks(targetPage);
         initPageFeatures(targetPage);
 
-        if (options.anchorId) {
-            requestAnimationFrame(() => scrollToElement(document.getElementById(options.anchorId)));
-        } else if (options.scroll !== false) {
-            requestAnimationFrame(() => scrollToElement(contentBox));
-        }
+        requestAnimationFrame(() => {
+
+            const anchorTarget = options.anchorId ? document.getElementById(options.anchorId) : null;
+            if (anchorTarget) {
+                scrollToElement(anchorTarget);
+            } else if (options.scroll !== false) {
+                scrollToElement(contentBox);
+            }
+        });
 
         linkElement?.blur?.();
     } catch (error) {
@@ -97,7 +150,10 @@ async function loadPage(page, linkElement = null, options = {}) {
 }
 
 function initPageFeatures(page) {
-    if (page === "kapcsolat.html") initContactForm();
+    if (page === "kapcsolat.html") {
+        initContactForm();
+        initMapEmbed();
+    }
     if (page === "kalkulator.html") {
         initCalculator();
         initDownloadButton();
@@ -140,7 +196,7 @@ function initContactForm() {
             setStatus(statusBox, "Küldés...", "info");
 
             const formData = new FormData(form);
-            formData.set("policy", $("#policyContact")?.checked ? "Elfogadva" : "Nincs elfogadva");
+            formData.set("policy", $("#policyContact")?.checked ? "Igen" : "Nem");
             formData.set("callbackReq", $("#callbackReqContact")?.checked ? "Igen" : "Nem");
 
             const offerId = await fetchOfferId();
@@ -167,20 +223,39 @@ function initContactForm() {
     });
 }
 
-function getCalculatorRows() {
-    return $$(".calc-table tr").map(row => {
+let calculatorRowsCache = null;
+
+function parsePrice(value) {
+    return Number(String(value || "").replace(/[^\d.-]/g, "")) || 0;
+}
+
+function getCalculatorRows(forceRefresh = false) {
+    if (!forceRefresh && Array.isArray(calculatorRowsCache) && calculatorRowsCache.length) {
+        return calculatorRowsCache.map(item => ({
+            ...item,
+            qty: Number(item.input?.value || 0)
+        }));
+    }
+
+    calculatorRowsCache = $$(".calc-table tr").map((row, index) => {
         const cells = row.children;
         const input = row.querySelector("input[type='number']");
+        const name = cells[0]?.textContent?.trim() || `Tétel ${index + 1}`;
+        const unit = cells[1]?.textContent?.trim() || "";
+        if (input) {
+            input.setAttribute("aria-label", `${name} mennyiség (${unit || "db"})`);
+        }
         return {
             row,
             input,
-            name: cells[0]?.textContent?.trim() || "",
-            unit: cells[1]?.textContent?.trim() || "",
-            price: Number(cells[2]?.textContent || 0),
-            qty: Number(input?.value || 0),
+            name,
+            unit,
+            price: parsePrice(cells[2]?.textContent),
             sumCell: row.querySelector(".sum")
         };
     });
+
+    return getCalculatorRows();
 }
 
 function getSelectedCalculatorItems() {
@@ -196,7 +271,7 @@ function getSelectedCalculatorItems() {
 }
 
 function hasCalculatorData() {
-    return getSelectedCalculatorItems().length > 0;
+    return getCalculatorRows().some(item => item.qty > 0);
 }
 
 function updateCalc() {
@@ -260,17 +335,20 @@ function attachCalculatorSummary(messageField) {
     } else {
         messageField.value = currentText ? `${currentText}\n\n${calcText}` : calcText;
     }
+
 }
 
 function initCalculator() {
     const form = $("#calcContactForm");
     const statusBox = $("#calc-status");
 
-    getCalculatorRows().forEach(item => {
-        if (!item.input) return;
+    getCalculatorRows(true).forEach(item => {
+        if (!item.input || item.input.dataset.bound === "1") return;
+        item.input.dataset.bound = "1";
         item.input.addEventListener("input", updateCalc);
         const resetButton = item.row.querySelector(".row-reset");
-        if (resetButton) {
+        if (resetButton && resetButton.dataset.bound !== "1") {
+            resetButton.dataset.bound = "1";
             resetButton.addEventListener("click", () => {
                 item.input.value = "";
                 item.input.disabled = false;
@@ -398,12 +476,15 @@ async function generateCalculatorPdfBase64(offerId = "") {
     const totalText = $("#total")?.textContent || "";
     const companyLine1 = "StraVill";
     const companyLine2 = "Villanyszerelési árajánlat";
-    const footerText = "StraVill – Strassenreiter Attila e.v. | Villanyszerelési szolgáltatások\nTelefon: +36 30 493 8929 | E-mail: strassenreiter.a@gmail.hu";
+    const footerText = [
+        "StraVill – Strassenreiter Attila e.v. | Villanyszerelési szolgáltatások",
+        "Telefon: +36 30 493 8929 | E-mail: strassenreiter.a@gmail.com"
+    ].join("\n");
 
     function drawHeader(pageNo) {
         const logoBoxX = margin;
         const logoBoxY = 8;
-        const logoBoxW = 47;
+        const logoBoxW = 53;
         const logoBoxH = 20;
         if (logoDataUrl) {
             try {
@@ -553,23 +634,66 @@ function loadAnalytics() {
     analyticsLoaded = true;
 
     const script = document.createElement("script");
-    script.src = "https://www.googletagmanager.com/gtag/js?id=G-Y6NQ4G486W";
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
     script.async = true;
     document.head.appendChild(script);
 
     window.dataLayer = window.dataLayer || [];
     window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
     window.gtag("js", new Date());
-    window.gtag("config", "G-Y6NQ4G486W", { anonymize_ip: true });
+    window.gtag("config", GA_MEASUREMENT_ID);
+}
+
+function setCookieConsent(value) {
+    localStorage.setItem("cookie-consent", value);
+}
+
+function getCookieConsent() {
+    return localStorage.getItem("cookie-consent");
+}
+
+function deleteAnalyticsCookies() {
+    const domains = [window.location.hostname, `.${window.location.hostname}`].filter(Boolean);
+    const cookieNames = ["_ga", "_ga_" + GA_MEASUREMENT_ID.replace(/[^A-Z0-9]/gi, "")];
+
+    cookieNames.forEach(name => {
+        document.cookie = `${name}=; Max-Age=0; path=/; SameSite=Lax`;
+        domains.forEach(domain => {
+            document.cookie = `${name}=; Max-Age=0; path=/; domain=${domain}; SameSite=Lax`;
+        });
+    });
+}
+
+function openCookieSettings() {
+    const banner = $("#cookie-banner");
+    if (!banner) return;
+    banner.style.display = "block";
+    banner.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function revokeCookieConsent() {
+    localStorage.removeItem("cookie-consent");
+    deleteAnalyticsCookies();
+    analyticsLoaded = false;
+    openCookieSettings();
+}
+
+function setExternalConsent(key, value) {
+    localStorage.setItem(key, value);
+}
+
+function getExternalConsent(key) {
+    return localStorage.getItem(key);
 }
 
 function initCookieBanner() {
     const banner = $("#cookie-banner");
     const accept = $("#cookie-accept");
     const decline = $("#cookie-decline");
+    const settingsButton = $("#cookie-settings-btn");
     if (!banner) return;
 
-    const consent = localStorage.getItem("cookie-consent");
+    const consent = getCookieConsent();
     if (!consent) {
         setTimeout(() => {
             banner.style.display = "block";
@@ -579,15 +703,82 @@ function initCookieBanner() {
     }
 
     accept?.addEventListener("click", () => {
-        localStorage.setItem("cookie-consent", "accepted");
+        setCookieConsent("accepted");
         banner.style.display = "none";
         loadAnalytics();
     });
 
     decline?.addEventListener("click", () => {
-        localStorage.setItem("cookie-consent", "declined");
+        setCookieConsent("declined");
+        deleteAnalyticsCookies();
         banner.style.display = "none";
     });
+
+    if (settingsButton && settingsButton.dataset.bound !== "1") {
+        settingsButton.dataset.bound = "1";
+        settingsButton.addEventListener("click", revokeCookieConsent);
+    }
+}
+
+function loadMapEmbed() {
+    const container = $(".contact-map");
+    if (!container || container.dataset.loaded === "1") return;
+
+    container.dataset.loaded = "1";
+    setExternalConsent("map-consent", "accepted");
+
+    container.innerHTML = `
+        <iframe
+            title="StraVill térkép"
+            src="${GOOGLE_MAPS_EMBED_URL}"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+        </iframe>
+    `;
+}
+
+function initMapEmbed() {
+    if (getExternalConsent("map-consent") === "accepted") {
+        loadMapEmbed();
+        return;
+    }
+
+    const button = $("#loadMapBtn");
+    if (!button || button.dataset.bound === "1") return;
+
+    button.dataset.bound = "1";
+    button.addEventListener("click", loadMapEmbed);
+}
+
+function loadReviewWidget() {
+    if (reviewsLoaded) return;
+    reviewsLoaded = true;
+
+    setExternalConsent("reviews-consent", "accepted");
+
+    const placeholder = $("#reviews-placeholder");
+    const embed = $("#reviews-embed");
+    if (placeholder) placeholder.hidden = true;
+    if (embed) embed.hidden = false;
+
+    const script = document.createElement("script");
+    script.src = "https://localimpact.com/js/v2/embed.js?id=b8f5b4fd2464663219f4d9b7ec62f159";
+    script.defer = true;
+    document.body.appendChild(script);
+}
+
+function initReviewWidget() {
+    if (getExternalConsent("reviews-consent") === "accepted") {
+        loadReviewWidget();
+        return;
+    }
+
+    const button = $("#loadReviewsBtn");
+    if (!button || button.dataset.bound === "1") return;
+
+    button.dataset.bound = "1";
+    button.addEventListener("click", loadReviewWidget);
 }
 
 function applyTheme(mode) {
@@ -632,9 +823,58 @@ function initThemeToggle() {
     });
 }
 
+
+function initNavigation() {
+    if (document.body.dataset.navBound === "1") return;
+    document.body.dataset.navBound = "1";
+
+    document.addEventListener("click", event => {
+        const link = event.target.closest("a[data-page]");
+        if (!link) return;
+
+        const target = getLinkTarget(link);
+        if (!target?.page) return;
+
+        event.preventDefault();
+        loadPage(target.page, link, { anchorId: target.anchorId });
+    });
+
+    window.addEventListener("hashchange", () => {
+        const route = parseHash();
+        if (!route) return;
+        const currentPage = $("#content-box")?.dataset.page;
+        if (currentPage === route.page) {
+            if (route.anchorId) {
+                requestAnimationFrame(() => {
+                    const anchorTarget = document.getElementById(route.anchorId);
+                    if (anchorTarget) scrollToElement(anchorTarget);
+                });
+            }
+            return;
+        }
+        loadPage(route.page, null, {
+            anchorId: route.anchorId,
+            scroll: false,
+            updateHash: false
+        });
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     initCookieBanner();
     initThemeToggle();
-    const defaultLink = $("a[data-page='rolam.html']");
-    loadPage("rolam.html", defaultLink, { scroll: false });
+    initReviewWidget();
+    initNavigation();
+
+    const route = parseHash();
+    const initialPage = route?.page || "rolam.html";
+    const defaultLink = $(`a[data-page='${initialPage}']`) || $("a[data-page='rolam.html']");
+    loadPage(initialPage, defaultLink, {
+        anchorId: route?.anchorId || null,
+        scroll: false,
+        replaceHash: true
+    });
 });
+
+
+window.loadPage = loadPage;

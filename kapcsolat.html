@@ -16,13 +16,13 @@
         </div>
 
         <div class="contact-map">
-            <iframe
-                title="StraVill térkép"
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10969.609170720607!2d20.6672226!3d46.579284!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47443f2d22d977cf%3A0xd12daeff6b3b374d!2sStrassenreiter%20Attila%20Villanyszerel%C5%91%20E.V.!5e0!3m2!1shu!2hu!4v1772120210144!5m2!1shu!2hu"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                allowfullscreen>
-            </iframe>
+            <div class="external-content-box" id="map-placeholder">
+                <p>
+                    A térkép a Google Maps külső szolgáltatásból töltődik be. Betöltés után a Google
+                    technikai adatokat, például IP-címet és böngészőadatokat kezelhet.
+                </p>
+                <button type="button" class="btn yellow-btn" id="loadMapBtn">Térkép betöltése</button>
+            </div>
         </div>
     </div>
 
@@ -43,17 +43,17 @@
             <input type="checkbox" id="policyContact" name="policy" required>
             <label for="policyContact" class="privacy-text">
                 Elfogadom az
-                <a href="#" onclick="loadPage('adatkezeles.html'); return false;">adatkezelési tájékoztatót</a>.
+                <a href="#" data-page="adatkezeles.html">adatkezelési tájékoztatót</a>.
             </label>
         </div>
 
-        <button type="submit">Küldés</button>
+        <button type="submit" class="btn yellow-btn">Küldés</button>
     </form>
 
     <p class="section-note">
-        Az üzenet elküldésével elfogadja az
-        <a href="#" onclick="loadPage('adatkezeles.html'); return false;">adatkezelési tájékoztatóban</a>
-        foglaltakat.
+        Az űrlap elküldésével megadott adatok a kapcsolatfelvétel és ajánlatadás céljából kerülnek kezelésre a
+        <a href="#" data-page="adatkezeles.html">adatkezelési tájékoztató</a>
+        szerint.
     </p>
 
     <div id="status" class="status-box" aria-live="polite"></div>

@@ -11,7 +11,6 @@
 <link rel="canonical" href="https://www.stravill.hu">
 <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 
 <meta property="og:title" content="Villanyszerelő Orosháza – StraVill">
 <meta property="og:description" content="Gyors, precíz villanyszerelés Orosházán – hívjon most!">
@@ -90,11 +89,11 @@
         </div>
 
         <ul>
-            <li><a href="#" data-page="rolam.html" onclick="loadPage('rolam.html', this); return false;">Főoldal</a></li>
-            <li><a href="#" data-page="szolgaltatasok.html" onclick="loadPage('szolgaltatasok.html', this); return false;">Szolgáltatások</a></li>
-            <li><a href="#" data-page="arlista.html" onclick="loadPage('arlista.html', this); return false;">Árlista</a></li>
-            <li><a href="#" data-page="galeria.html" onclick="loadPage('galeria.html', this); return false;">Galéria</a></li>
-            <li><a href="#" data-page="kapcsolat.html" onclick="loadPage('kapcsolat.html', this); return false;">Kapcsolat</a></li>
+            <li><a href="#" data-page="rolam.html">Főoldal</a></li>
+            <li><a href="#" data-page="szolgaltatasok.html">Szolgáltatások</a></li>
+            <li><a href="#" data-page="arlista.html">Árlista</a></li>
+            <li><a href="#" data-page="galeria.html">Galéria</a></li>
+            <li><a href="#" data-page="kapcsolat.html">Kapcsolat</a></li>
         </ul>
     </nav>
 </header>
@@ -120,7 +119,7 @@
             </div>
 
             <div class="hero-links">
-                <a href="#" class="hero-link-chip" onclick="loadPage('kalkulator.html'); return false;">📩 Kérjen ajánlatot</a>
+                <a href="#" class="hero-link-chip" data-page="kalkulator.html" data-anchor="ajanlatkeres">📩 Kérjen ajánlatot</a>
             </div>
 
             <div class="hero-trust-row" aria-label="Bizalmi elemek">
@@ -132,7 +131,7 @@
     </div>
 </section>
 
-<main id="content-box" class="content-box" aria-live="polite"></main>
+<main id="content-box" aria-live="polite" tabindex="-1"></main>
 
 <div class="service-box social-box">
     <h2>🌐 Kövessen a közösségi médiában</h2>
@@ -158,8 +157,14 @@
 
 <section class="reviews-box">
     <h2>Ügyfeleim véleménye</h2>
-    <div data-romw-token="VnDD3R62HnpTNSKxzJmVNJ5p2ohFYWndHoVyl3lChqbhSO0XQI" data-romw-lazy></div>
-    <script src="https://localimpact.com/js/v2/embed.js?id=b8f5b4fd2464663219f4d9b7ec62f159" defer></script>
+    <div id="reviews-placeholder" class="external-content-box" data-external-service="localimpact">
+        <p>
+            Az ügyfélvélemények külső szolgáltatótól töltődnek be. A betöltés után a szolgáltató
+            technikai adatokat, például IP-címet és böngészőadatokat kezelhet.
+        </p>
+        <button type="button" class="btn yellow-btn" id="loadReviewsBtn">Vélemények betöltése</button>
+    </div>
+    <div id="reviews-embed" data-romw-token="VnDD3R62HnpTNSKxzJmVNJ5p2ohFYWndHoVyl3lChqbhSO0XQI" hidden></div>
 </section>
 
 <div class="bottom-info-box">
@@ -172,23 +177,26 @@
 <footer>
     <p>© 2026 StraVill – Strassenreiter Attila egyéni vállalkozó. Minden jog fenntartva.</p>
     <div class="footer-links">
-        <a href="#" data-page="impresszum.html" onclick="loadPage('impresszum.html', this); return false;">Impresszum</a>
+        <a href="#" data-page="impresszum.html">Impresszum</a>
         <span>|</span>
-        <a href="#" data-page="adatkezeles.html" onclick="loadPage('adatkezeles.html', this); return false;">Adatkezelési tájékoztató</a>
+        <a href="#" data-page="adatkezeles.html">Adatkezelési tájékoztató</a>
         <span>|</span>
-        <a href="#" data-page="cookie.html" onclick="loadPage('cookie.html', this); return false;">Cookie tájékoztató</a>
+        <a href="#" data-page="cookie.html">Cookie tájékoztató</a>
+        <span>|</span>
+        <button type="button" class="footer-link-button" id="cookie-settings-btn">Süti beállítások</button>
     </div>
 </footer>
 
 <button type="button" class="theme-toggle" id="themeToggle" aria-label="Téma váltása">🌙</button>
 
-<div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Süti beállítások">
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Süti beállítások" aria-modal="false">
     <p>
-        Ez a weboldal statisztikai célú sütiket (Google Analytics 4) használ a látogatottság mérésére.
-        A sütik csak az Ön hozzájárulása után aktiválódnak.
+        Ez a weboldal opcionális statisztikai sütiket (Google Analytics 4) használ a látogatottság mérésére.
+        A statisztikai mérés csak az Ön hozzájárulása után indul el. A hozzájárulást később a
+        <strong>Süti beállítások</strong> gombbal bármikor visszavonhatja.
         <br>
-        <a href="#" onclick="loadPage('adatkezeles.html'); return false;">Adatkezelési tájékoztató</a> |
-        <a href="#" onclick="loadPage('cookie.html'); return false;">Cookie tájékoztató</a>
+        <a href="#" data-page="adatkezeles.html">Adatkezelési tájékoztató</a> |
+        <a href="#" data-page="cookie.html">Cookie tájékoztató</a>
     </p>
     <div class="cookie-actions">
         <button id="cookie-accept" type="button">Elfogadom</button>
