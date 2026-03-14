@@ -8,9 +8,18 @@
 <meta name="robots" content="index,follow">
 <meta name="author" content="Strassenreiter Attila E.V.">
 <meta name="theme-color" content="#12233c">
+<meta name="format-detection" content="telephone=yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="canonical" href="https://www.stravill.hu">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preload" as="image" href="icons/hero-bg.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="icons/logo.png">
+<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="//www.googletagmanager.com">
+<link rel="dns-prefetch" href="//www.google.com">
 
 <meta property="og:title" content="Villanyszerelő Orosháza – StraVill">
 <meta property="og:description" content="Gyors, precíz villanyszerelés Orosházán – hívjon most!">
@@ -78,17 +87,20 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<noscript><div class="noscript-banner">A weboldal egyes funkciói JavaScript nélkül nem működnek teljesen. Brave-ben ellenőrizze, hogy a JavaScript engedélyezve van-e. Elérhetőség: <a href="tel:+36304938929">06 30 493 8929</a> • <a href="mailto:strassenreiter.a@gmail.com">strassenreiter.a@gmail.com</a></div></noscript>
 <div class="wrapper">
 <header class="fixed-header">
     <nav aria-label="Fő navigáció">
         <div class="nav-left">
             <a href="https://www.facebook.com/profile.php?id=61578948980529" target="_blank" rel="noopener noreferrer" class="nav-left-link" aria-label="StraVill Facebook oldal">
-                <img src="icons/logo.png" alt="StraVill villanyszerelő Orosháza" class="header-logo">
+                <img src="icons/logo.png" alt="StraVill villanyszerelő Orosháza" class="header-logo" fetchpriority="high" decoding="async">
                 <span class="nav-title">StraVill – Strassenreiter Attila E.V.</span>
             </a>
         </div>
 
-        <ul>
+        <button type="button" class="nav-toggle" id="navToggle" aria-label="Menü megnyitása" aria-controls="primary-menu" aria-expanded="false">☰</button>
+
+        <ul id="primary-menu">
             <li><a href="#" data-page="rolam.html">Főoldal</a></li>
             <li><a href="#" data-page="szolgaltatasok.html">Szolgáltatások</a></li>
             <li><a href="#" data-page="arlista.html">Árlista</a></li>
@@ -141,10 +153,10 @@
 
     <div class="social-icons">
         <a href="https://www.facebook.com/16rfCArxpN/" target="_blank" rel="noopener noreferrer" class="facebook" aria-label="Facebook">
-            <img src="icons/facebook.png" alt="Facebook">
+            <img src="icons/facebook.png" alt="Facebook" loading="lazy" decoding="async">
         </a>
         <a href="https://www.instagram.com/stra_vill/" target="_blank" rel="noopener noreferrer" class="instagram" aria-label="Instagram">
-            <img src="icons/instagram.png" alt="Instagram">
+            <img src="icons/instagram.png" alt="Instagram" loading="lazy" decoding="async">
         </a>
         <a href="https://youtube.com/@stra_vill" target="_blank" rel="noopener noreferrer" class="youtube" aria-label="YouTube">
             <img src="icons/youtube.png" alt="YouTube">

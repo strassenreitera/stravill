@@ -1376,12 +1376,26 @@ select:focus-visible {
     text-decoration: none;
 }
 
-.footer-link-button:hover {
+.footer-link-button:hover,
+.footer-link-button:focus-visible,
+#cookie-settings-btn:hover,
+#cookie-settings-btn:focus-visible {
     color: var(--accent);
+    -webkit-text-fill-color: var(--accent);
+    text-decoration-color: currentColor;
 }
 
 .footer-link-button:focus-visible {
     border-radius: 8px;
+}
+
+body.dark .footer-link-button:hover,
+body.dark .footer-link-button:focus-visible,
+body.dark #cookie-settings-btn:hover,
+body.dark #cookie-settings-btn:focus-visible {
+    color: var(--accent);
+    -webkit-text-fill-color: var(--accent);
+    text-decoration-color: currentColor;
 }
 
 .contact-form button,
@@ -1569,5 +1583,156 @@ body.dark .contact-form textarea::placeholder {
         width: min(100%, 100%);
         max-width: 100%;
         padding-left: 1.15rem;
+    }
+}
+
+/* ===== Header logo fix 2026-03-14 ===== */
+.fixed-header nav {
+    flex-wrap: nowrap;
+}
+
+.nav-left {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.nav-left-link {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.header-logo {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: none;
+    height: clamp(42px, 5vw, 56px);
+    object-fit: contain;
+}
+
+.nav-title {
+    min-width: 0;
+    display: block;
+    font-size: clamp(0.96rem, 1.15vw, 1.08rem);
+    line-height: 1.2;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+#primary-menu {
+    flex: 0 1 auto;
+    min-width: 0;
+}
+
+@media (max-width: 980px) {
+    .fixed-header nav {
+        flex-wrap: wrap;
+    }
+
+    .nav-left {
+        width: 100%;
+    }
+
+    .nav-left-link {
+        justify-content: center;
+        text-align: left;
+    }
+
+    #primary-menu {
+        width: 100%;
+        justify-content: center;
+        row-gap: 0.65rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .wrapper {
+        padding-top: 138px;
+    }
+
+    .fixed-header {
+        border-radius: 0 0 18px 18px;
+    }
+
+    nav {
+        padding: 0.75rem 0.95rem;
+    }
+
+    .nav-left-link {
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.7rem;
+    }
+
+    .header-logo {
+        height: 40px;
+    }
+
+    .nav-title {
+        font-size: 0.92rem;
+        line-height: 1.15;
+    }
+
+    #primary-menu {
+        gap: 0.55rem 0.9rem;
+    }
+
+    #primary-menu li a {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 420px) {
+    .wrapper {
+        padding-top: 150px;
+    }
+
+    .nav-title {
+        font-size: 0.84rem;
+    }
+
+    .header-logo {
+        height: 36px;
+    }
+}
+
+@media (forced-colors: active) {
+    .footer-link-button:hover,
+    .footer-link-button:focus-visible,
+    #cookie-settings-btn:hover,
+    #cookie-settings-btn:focus-visible {
+        color: Highlight;
+        -webkit-text-fill-color: Highlight;
+    }
+}
+
+/* ===== Üzenetküldő checkbox sorok középre igazítása ===== */
+.contact-form .privacy-row {
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: center;
+}
+
+.contact-form .privacy-row .privacy-text {
+    display: inline-block;
+    margin: 0;
+    text-align: center;
+}
+
+@media (max-width: 640px) {
+    .contact-form .privacy-row {
+        width: fit-content;
+        grid-template-columns: auto auto;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
     }
 }

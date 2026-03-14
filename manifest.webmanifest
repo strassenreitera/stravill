@@ -1,0 +1,17 @@
+{
+  "name": "StraVill",
+  "short_name": "StraVill",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#eef3fb",
+  "theme_color": "#12233c",
+  "lang": "hu",
+  "icons": [
+    {
+      "src": "icons/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
