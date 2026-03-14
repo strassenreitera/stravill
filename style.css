@@ -1795,3 +1795,35 @@ body.dark .contact-form textarea::placeholder {
         white-space: nowrap;
     }
 }
+
+
+/* ===== Végleges footer elrendezés ===== */
+/* Első sor: Impresszum | Adatkezelési | Cookie mindig egy sorban */
+.footer-links-row{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:nowrap;
+    white-space:nowrap;
+    gap:0.4rem;
+}
+
+/* Második sor: Süti beállítások külön */
+.footer-cookie-row{
+    display:flex;
+    justify-content:center;
+    width:100%;
+    margin-top:0.25rem;
+}
+
+.footer-cookie-row .footer-link-button{
+    white-space:nowrap;
+}
+
+/* Mobilon se törjön */
+@media (max-width:480px){
+    .footer-links-row{
+        flex-wrap:nowrap;
+        white-space:nowrap;
+    }
+}
