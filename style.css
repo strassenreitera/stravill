@@ -1757,3 +1757,41 @@ body.dark .contact-form textarea::placeholder {
 .cookie-banner button:hover {
     background: linear-gradient(180deg, #ffe37c 0%, #ffc928 100%);
 }
+
+
+/* ===== Footer link layout fix (Impresszum / Adatkezelés / Cookie egy sorban) ===== */
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    white-space: normal;
+}
+
+.footer-links-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: clamp(0.25rem, 1vw, 0.8rem);
+}
+
+.footer-cookie-row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.footer-link-button {
+    width: auto;
+    white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+    .footer-links-row {
+        flex-wrap: nowrap;
+        white-space: nowrap;
+    }
+}
