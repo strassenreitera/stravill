@@ -98,7 +98,7 @@
             </a>
         </div>
 
-        <ul id="primary-menu" class="primary-menu">
+        <ul id="primary-menu">
             <li><a href="#" data-page="rolam.html">Főoldal</a></li>
             <li><a href="#" data-page="szolgaltatasok.html">Szolgáltatások</a></li>
             <li><a href="#" data-page="arlista.html">Árlista</a></li>
@@ -106,9 +106,13 @@
             <li><a href="#" data-page="kapcsolat.html">Kapcsolat</a></li>
         </ul>
 
-        <div class="nav-more">
-            <button type="button" class="nav-toggle" id="navToggle" aria-label="További menüpontok megnyitása" aria-controls="more-menu-panel" aria-expanded="false">☰</button>
-            <div class="more-menu-panel" id="more-menu-panel" aria-label="További menüpontok"></div>
+        <div class="hamburger-wrap">
+            <button type="button" class="nav-toggle" id="navToggle" aria-label="További menüpontok" aria-controls="hamburgerMenu" aria-expanded="false">☰</button>
+            <div class="hamburger-menu" id="hamburgerMenu" role="menu" aria-label="További menüpontok">
+                <a href="#" data-page="blog.html" role="menuitem">Blog</a>
+                <a href="#" data-page="gyik.html" role="menuitem">GYIK</a>
+                <a href="#" data-page="videok.html" role="menuitem">Videók</a>
+            </div>
         </div>
     </nav>
 </header>
@@ -191,14 +195,17 @@
 
 <footer>
     <p>© 2026 StraVill – Strassenreiter Attila egyéni vállalkozó. Minden jog fenntartva.</p>
+
     <div class="footer-links">
-        <a href="#" data-page="impresszum.html">Impresszum</a>
+        <a href="#">Impresszum</a>
         <span>|</span>
-        <a href="#" data-page="adatkezeles.html">Adatkezelési tájékoztató</a>
+        <a href="#">Adatkezelési tájékoztató</a>
         <span>|</span>
-        <a href="#" data-page="cookie.html">Cookie tájékoztató</a>
-        <span>|</span>
-        <button type="button" class="footer-link-button" id="cookie-settings-btn">Süti beállítások</button>
+        <a href="#">Cookie tájékoztató</a>
+    </div>
+
+    <div class="footer-link-button cookie-settings">
+        <button id="cookie-settings-btn" type="button" class="footer-text-button">Süti beállítások</button>
     </div>
 </footer>
 
@@ -224,5 +231,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
 <script src="dejavu.js" defer></script>
 <script src="script.js" defer></script>
+
 </body>
 </html>

@@ -298,7 +298,7 @@ nav ul li a.active {
 .btn,
 button,
 .contact-form button,
-
+.cookie-banner button,
 .row-reset,
 button[type="submit"],
 input[type="submit"] {
@@ -347,7 +347,7 @@ input[type="submit"]:hover {
 .hero-link-chip.hero-cta-chip,
 .btn,
 .contact-form button,
-
+.cookie-banner button,
 button[type="submit"],
 input[type="submit"],
 .yellow-btn {
@@ -1021,25 +1021,16 @@ body.dark footer {
     .btn,
     button,
     .contact-form button,
-    
+    .cookie-banner button,
     .bottom-phone {
         width: 100%;
     }
 
     
 
-    /* Stabil cookie gomb layout mobilon */
-.cookie-actions {
-    display: flex;
-    justify-content: center;
-    gap: 0.6rem;
-    flex-wrap: nowrap;
-}
-
-.cookie-banner button {
-    width: auto;
-    min-width: 120px;
-}
+    .cookie-banner button {
+        width: calc(50% - 0.35rem);
+    }
 }
 
 
@@ -1294,7 +1285,6 @@ body.dark .calc-table input:disabled {
 }
 
 @media (max-width: 768px) {
-    .cookie-actions,
     .calc-actions {
         flex-direction: column;
     }
@@ -1339,6 +1329,45 @@ body.dark .footer-link-button {
 body.dark .external-content-box {
     background: rgba(17, 26, 41, 0.86);
     border-color: rgba(255,255,255,0.08);
+}
+
+.footer-text-button {
+    appearance: none;
+    background: none !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    min-width: 0 !important;
+    color: rgba(255,255,255,0.96);
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transform: none !important;
+}
+
+.footer-text-button:hover,
+.footer-text-button:focus-visible,
+#cookie-settings-btn:hover,
+#cookie-settings-btn:focus-visible {
+    color: var(--accent) !important;
+    -webkit-text-fill-color: var(--accent);
+    background: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+body.dark .footer-text-button,
+body.dark #cookie-settings-btn {
+    color: rgba(255,255,255,0.96);
+}
+
+body.dark .footer-text-button:hover,
+body.dark .footer-text-button:focus-visible,
+body.dark #cookie-settings-btn:hover,
+body.dark #cookie-settings-btn:focus-visible {
+    color: var(--accent) !important;
+    -webkit-text-fill-color: var(--accent);
 }
 
 
@@ -1746,84 +1775,296 @@ body.dark .contact-form textarea::placeholder {
     }
 }
 
-/* Cookie banner gombok egységes (sárga) dizájn */
-.cookie-banner button {
-    background: linear-gradient(180deg, #ffd95b 0%, var(--accent) 100%);
-    color: #10203a;
-    border-color: rgba(255, 202, 40, 0.7);
-    box-shadow: 0 14px 34px rgba(240, 180, 0, 0.25);
+
+/* ===== Footer layout fix 2026-03-14 ===== */
+footer{
+    text-align:center;
 }
 
-.cookie-banner button:hover {
-    background: linear-gradient(180deg, #ffe37c 0%, #ffc928 100%);
+.footer-links{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:nowrap;   /* mindig egy sor */
+}
+
+.cookie-settings{
+    margin-top:8px;     /* külön sor alatta */
 }
 
 
-/* ===== Footer link layout fix (Impresszum / Adatkezelés / Cookie egy sorban) ===== */
-.footer-links {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.45rem;
-    white-space: normal;
+/* ===== FINAL COOKIE + HAMBURGER FIX ===== */
+
+/* Cookie gombok mindig egymás mellett */
+.cookie-actions{
+    display:flex !important;
+    justify-content:center !important;
+    align-items:center !important;
+    gap:0.6rem !important;
+    flex-wrap:nowrap !important;
 }
 
-.footer-links-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    gap: clamp(0.25rem, 1vw, 0.8rem);
+.cookie-banner button{
+    width:auto !important;
+    min-width:120px !important;
 }
 
-.footer-cookie-row {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-.footer-link-button {
-    width: auto;
-    white-space: nowrap;
-}
-
-@media (max-width: 560px) {
-    .footer-links-row {
-        flex-wrap: nowrap;
-        white-space: nowrap;
+/* Mobilon se legyenek teljes szélességűek */
+@media (max-width: 560px){
+    .cookie-banner button{
+        width:auto !important;
+        min-width:120px !important;
     }
 }
 
-
-/* ===== Végleges footer elrendezés ===== */
-/* Első sor: Impresszum | Adatkezelési | Cookie mindig egy sorban */
-.footer-links-row{
+/* Hamburger a sor végén maradjon, kör alakban */
+.hamburger-wrap{
+    position:relative;
     display:flex;
-    justify-content:center;
     align-items:center;
-    flex-wrap:nowrap;
-    white-space:nowrap;
-    gap:0.4rem;
+    margin-left:auto;
+    flex:0 0 auto;
 }
 
-/* Második sor: Süti beállítások külön */
-.footer-cookie-row{
+.nav-toggle{
+    width:48px !important;
+    height:48px !important;
+    min-width:48px !important;
+    min-height:48px !important;
+    padding:0 !important;
+    border-radius:50% !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    line-height:1 !important;
+    font-size:1.2rem !important;
+    overflow:hidden;
+    flex:0 0 48px !important;
+}
+
+.hamburger-menu{
+    position:absolute;
+    top:58px;
+    right:0;
+    left:auto;
+    background:rgba(17,32,51,0.97);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:14px;
+    box-shadow:0 18px 40px rgba(0,0,0,0.35);
+    padding:0.4rem 0;
+    display:none;
+    flex-direction:column;
+    min-width:220px;
+    max-width:min(280px, calc(100vw - 24px));
+    z-index:1200;
+}
+
+.hamburger-menu a{
+    padding:0.7rem 1rem;
+    text-decoration:none;
+    color:#fff;
+    font-weight:600;
+    white-space:nowrap;
+}
+
+.hamburger-menu a:hover,
+.hamburger-menu a:focus-visible{
+    background:rgba(255,255,255,0.08);
+    color:var(--accent);
+}
+
+.hamburger-wrap.open .hamburger-menu{
     display:flex;
-    justify-content:center;
-    width:100%;
-    margin-top:0.25rem;
 }
 
-.footer-cookie-row .footer-link-button{
-    white-space:nowrap;
-}
-
-/* Mobilon se törjön */
-@media (max-width:480px){
-    .footer-links-row{
-        flex-wrap:nowrap;
-        white-space:nowrap;
+/* Kisebb képernyőn is látható maradjon */
+@media (max-width: 980px){
+    .fixed-header nav{
+        flex-wrap:wrap;
     }
+
+    .hamburger-wrap{
+        order:3;
+        margin-left:0;
+    }
+
+    .hamburger-menu{
+        right:0;
+        left:auto;
+    }
+}
+
+@media (max-width: 640px){
+    .hamburger-wrap{
+        width:auto;
+        margin-left:auto;
+    }
+
+    .hamburger-menu{
+        position:absolute;
+        right:0;
+        left:auto;
+        top:58px;
+        width:max-content;
+        min-width:220px;
+        max-width:calc(100vw - 24px);
+    }
+
+    #primary-menu{
+        gap:0.55rem 0.9rem;
+    }
+}
+
+
+/* ===== Hamburger menü finomhangolás 2026-03-15 ===== */
+.fixed-header nav {
+    align-items: center;
+}
+
+#primary-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 1 auto;
+}
+
+.hamburger-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    margin-left: 0;
+    order: 3;
+    transition: transform var(--transition), opacity var(--transition);
+}
+
+.nav-toggle {
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 48px !important;
+    line-height: 1 !important;
+    font-size: 1.2rem !important;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.hamburger-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    left: auto;
+    display: none;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 170px;
+    padding: 0.45rem;
+    border-radius: 16px;
+    background: rgba(17, 32, 51, 0.97);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+    z-index: 1200;
+}
+
+.hamburger-menu a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0.72rem 1rem;
+    border-radius: 999px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+
+.hamburger-menu a:hover,
+.hamburger-menu a:focus-visible {
+    background: rgba(255,255,255,0.08);
+    color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.hamburger-wrap.open .hamburger-menu {
+    display: flex;
+}
+
+@media (min-width: 981px) {
+    .fixed-header nav {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
+    .nav-left {
+        order: 1;
+    }
+
+    #primary-menu {
+        order: 2;
+    }
+
+    .hamburger-wrap {
+        order: 3;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 980px) {
+    .fixed-header nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-left {
+        order: 1;
+        width: 100%;
+    }
+
+    #primary-menu {
+        order: 2;
+        width: 100%;
+        justify-content: center;
+        row-gap: 0.65rem;
+    }
+
+    .hamburger-wrap {
+        order: 3;
+        width: 100%;
+        margin-top: 0.2rem;
+        justify-content: center;
+    }
+
+    .hamburger-menu {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 640px) {
+    .wrapper {
+        padding-top: 148px;
+    }
+
+    .hamburger-wrap {
+        margin-top: 0.35rem;
+    }
+
+    .hamburger-menu {
+        width: min(220px, calc(100vw - 24px));
+    }
+}
+
+body.dark .hamburger-menu {
+    background: rgba(9, 15, 27, 0.98);
+    border-color: rgba(255,255,255,0.08);
 }
