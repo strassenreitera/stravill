@@ -1077,7 +1077,6 @@ function loadMapEmbed() {
             referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen>
         </iframe>
-        <p class="external-content-note">Ha a térkép nem jelenik meg Brave-ben, megnyithatja külön ablakban is.</p>
         <p><a class="btn yellow-btn" href="https://www.google.com/maps?q=46.579284,20.6672226" target="_blank" rel="noopener noreferrer">Google Maps megnyitása</a></p>
     `;
 }
