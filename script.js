@@ -244,7 +244,8 @@ async function loadPage(page, linkElement = null, options = {}) {
         const response = await fetch(targetPage, { cache: "no-store" });
         if (!response.ok) throw new Error(String(response.status));
 
-        contentBox.innerHTML = await response.text();
+        const html = await response.text();
+        contentBox.innerHTML = html;
         contentBox.dataset.page = targetPage;
 
         if (options.updateHash !== false) {
@@ -1228,9 +1229,9 @@ function initMobileMenu() {
 }
 
 function initDeferredMedia(root = document) {
-    $$("img:not([loading])", root).forEach((img, index) => {
+    $$("img", root).forEach(img => {
         if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
-        if (index > 0 && !img.hasAttribute('fetchpriority')) img.setAttribute('loading', 'lazy');
+        if (!img.hasAttribute('loading') && !img.hasAttribute('fetchpriority')) img.setAttribute('loading', 'lazy');
     });
 }
 

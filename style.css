@@ -2130,3 +2130,72 @@ body.dark .hamburger-menu {
         gap: 0.25rem;
     }
 }
+
+
+/* ===== Stabil mobil-optimalizálás grafikai változás nélkül ===== */
+#content-box,
+.content-box,
+.service-box,
+.reviews-box,
+.bottom-info-box,
+.contact-form,
+.contact-card,
+.contact-map,
+.external-content-box,
+.calc-card {
+    overflow-wrap: break-word;
+    word-break: normal;
+}
+
+.calc-table td {
+    vertical-align: middle;
+}
+
+@media (max-width: 980px) {
+    #primary-menu {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-3x3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .contact-map iframe {
+        min-height: 300px;
+    }
+
+    .calc-table td:last-child {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 560px) {
+    .grid-3x3 {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-buttons,
+    .hero-links,
+    .cookie-actions,
+    .calc-actions {
+        width: 100%;
+    }
+
+    .hero-link-chip,
+    .btn,
+    .contact-form button,
+    .cookie-banner button,
+    .calc-actions button {
+        max-width: 100%;
+    }
+
+    .calc-table td,
+    table td,
+    table th {
+        padding-left: 0.2rem;
+        padding-right: 0.2rem;
+    }
+}
