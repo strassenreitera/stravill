@@ -7,7 +7,7 @@ let reviewsLoaded = false;
 let activePageRequest = null;
 
 const CONTENT_PAGES = new Set([
-    "rolam.html",
+"rolam.html",
     "szolgaltatasok.html",
     "arlista.html",
     "galeria.html",
@@ -15,14 +15,16 @@ const CONTENT_PAGES = new Set([
     "kalkulator.html",
     "impresszum.html",
     "adatkezeles.html",
-    "cookie.html"
-]);
+    "cookie.html",
+    "blog.html",
+    "videok.html"
+]);;
 
 const PDF_HEADER_LOGO_PATH = "icons/fejlec.png";
 let pdfHeaderLogoCache = null;
 const SCRIPT_LOAD_TIMEOUT = 12000;
 const PAGE_META = {
-    "rolam.html": {
+"rolam.html": {
         title: "Villanyszerelő Orosháza – Rólam | StraVill",
         description: "Ismerje meg StraVill – Strassenreiter Attila egyéni vállalkozó villanyszerelő szolgáltatásait Orosházán és környékén.",
         canonical: "https://www.stravill.hu/#rolam.html"
@@ -67,6 +69,18 @@ const PAGE_META = {
         description: "StraVill cookie tájékoztató: sütik, helyi tárhely, hozzájárulás-kezelés és külső szolgáltatások ismertetése.",
         canonical: "https://www.stravill.hu/#cookie.html"
     }
+,
+"blog.html": {
+    title: "Blog | StraVill",
+    description: "StraVill blog: tippek, tudnivalók és villanyszerelési bejegyzések.",
+    canonical: "https://www.stravill.hu/#blog.html"
+},
+"videok.html": {
+    title: "Videók | StraVill",
+    description: "StraVill videók: villanyszerelési munkák, bemutatók és rövid tartalmak.",
+    canonical: "https://www.stravill.hu/#videok.html"
+}
+
 };
 
 function setMetaContent(selector, value, attribute = "content") {
@@ -1157,59 +1171,73 @@ function initMapEmbed() {
     button.addEventListener("click", loadMapEmbed);
 }
 
-function loadReviewWidget() {
-    if (reviewsLoaded) return;
+const GOOGLE_REVIEWS_FALLBACK_URL = "https://www.google.com/search?q=StraVill+Strassenreiter+Attila+Villanyszerel%C5%91+E.V.+Orosh%C3%A1za+v%C3%A9lem%C3%A9nyek";
 
-    setExternalConsent("reviews-consent", "accepted");
+function initReviewSlider() {
+    const slider = $("#reviewSlider");
+    const track = $("#reviewTrack");
+    const prev = $("#reviewPrev");
+    const next = $("#reviewNext");
+    const dots = Array.from(document.querySelectorAll(".review-dot"));
+    const slides = Array.from(document.querySelectorAll(".review-card--slide"));
+    const moreLink = $("#googleReviewsMoreLink");
 
-    const placeholder = $("#reviews-placeholder");
-    const embed = $("#reviews-embed");
-    if (placeholder) placeholder.hidden = true;
-    if (embed) embed.hidden = false;
+    if (moreLink) moreLink.href = GOOGLE_REVIEWS_FALLBACK_URL;
+    if (!slider || !track || !prev || !next || !slides.length) return;
 
-    const existingScript = document.querySelector('script[data-external-service="localimpact"]');
-    if (existingScript) {
-        reviewsLoaded = true;
-        return;
+    let currentIndex = 0;
+    let autoplayId = null;
+
+    function render(index) {
+        currentIndex = (index + slides.length) % slides.length;
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        slides.forEach((slide, i) => {
+            slide.classList.toggle("is-active", i === currentIndex);
+            slide.setAttribute("aria-hidden", i === currentIndex ? "false" : "true");
+        });
+
+        dots.forEach((dot, i) => {
+            dot.classList.toggle("is-active", i === currentIndex);
+            dot.setAttribute("aria-current", i === currentIndex ? "true" : "false");
+        });
     }
 
-    const script = document.createElement("script");
-    script.src = "https://localimpact.com/js/v2/embed.js?id=b8f5b4fd2464663219f4d9b7ec62f159";
-    script.defer = true;
-    script.dataset.externalService = "localimpact";
-    script.onload = () => {
-        reviewsLoaded = true;
-    };
-    script.onerror = () => {
-        reviewsLoaded = false;
-        if (embed) embed.hidden = true;
-        if (placeholder) {
-            placeholder.hidden = false;
-            placeholder.innerHTML = `
-                <p>A vélemények külső widgetje nem töltődött be. Ezt Brave Shield, reklámblokkoló vagy hálózati tiltás is okozhatja.</p>
-                <button type="button" class="btn yellow-btn" id="loadReviewsBtn">Újrapróbálom</button>
-            `;
-            normalizeExternalConsentCards(document);
-    initReviewWidget();
-        }
-        console.warn("A LocalImpact widget betöltését a böngésző vagy egy bővítmény blokkolta.");
-    };
-    document.body.appendChild(script);
-}
-
-function initReviewWidget() {
-    normalizeExternalConsentCards(document);
-
-    if (getExternalConsent("reviews-consent") === "accepted") {
-        loadReviewWidget();
-        return;
+    function stopAutoplay() {
+        if (!autoplayId) return;
+        clearInterval(autoplayId);
+        autoplayId = null;
     }
 
-    const button = $("#loadReviewsBtn");
-    if (!button || button.dataset.bound === "1") return;
+    function startAutoplay() {
+        stopAutoplay();
+        autoplayId = window.setInterval(() => render(currentIndex + 1), 5000);
+    }
 
-    button.dataset.bound = "1";
-    button.addEventListener("click", loadReviewWidget);
+    prev.addEventListener("click", () => {
+        render(currentIndex - 1);
+        startAutoplay();
+    });
+
+    next.addEventListener("click", () => {
+        render(currentIndex + 1);
+        startAutoplay();
+    });
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+            render(index);
+            startAutoplay();
+        });
+    });
+
+    slider.addEventListener("mouseenter", stopAutoplay);
+    slider.addEventListener("mouseleave", startAutoplay);
+    slider.addEventListener("focusin", stopAutoplay);
+    slider.addEventListener("focusout", startAutoplay);
+
+    render(0);
+    startAutoplay();
 }
 
 function applyTheme(mode) {
@@ -1275,12 +1303,7 @@ function initMobileMenu() {
         wrap.classList.toggle('open', willOpen);
         toggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
     });
-
-    menu.addEventListener('click', event => {
-        event.stopPropagation();
-    });
-
-    document.addEventListener('click', event => {
+document.addEventListener('click', event => {
         if (!wrap.contains(event.target)) closeMobileMenu();
     });
 
@@ -1360,24 +1383,39 @@ function initNavigation() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    initCookieBanner();
-    initThemeToggle();
-    initReviewWidget();
-    initMobileMenu();
-    initNavigation();
-    initDeferredMedia(document);
-    initViewportOptimizations();
+function safeInit(label, fn) {
+    try {
+        fn();
+    } catch (error) {
+        console.error(`${label} hiba:`, error);
+    }
+}
 
-    const route = parseHash();
-    const initialPage = route?.page || "rolam.html";
-    const defaultLink = $(`a[data-page='${initialPage}']`) || $("a[data-page='rolam.html']");
-    loadPage(initialPage, defaultLink, {
-        anchorId: route?.anchorId || null,
-        scroll: false,
-        replaceHash: true
+function bootApp() {
+    safeInit("initCookieBanner", () => initCookieBanner());
+    safeInit("initThemeToggle", () => initThemeToggle());
+    safeInit("initReviewSlider", () => initReviewSlider());
+    safeInit("initMobileMenu", () => initMobileMenu());
+    safeInit("initNavigation", () => initNavigation());
+    safeInit("initDeferredMedia", () => initDeferredMedia(document));
+    safeInit("initViewportOptimizations", () => initViewportOptimizations());
+
+    safeInit("initialPageLoad", () => {
+        const route = parseHash();
+        const initialPage = route?.page || "rolam.html";
+        const defaultLink = document.querySelector(`a[data-page='${initialPage}']`) || document.querySelector("a[data-page='rolam.html']");
+        loadPage(initialPage, defaultLink, {
+            anchorId: route?.anchorId || null,
+            scroll: false,
+            replaceHash: true
+        });
     });
-});
+}
 
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootApp, { once: true });
+} else {
+    bootApp();
+}
 
 window.loadPage = loadPage;

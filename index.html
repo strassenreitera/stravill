@@ -80,7 +80,67 @@
     "https://www.instagram.com/stra_vill/",
     "https://youtube.com/@stra_vill",
     "https://tiktok.com/@stra_vill"
-  ]
+  ],
+  "review": [
+    {
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "Zoltánné Czvitkó"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5
+      },
+      "reviewBody": "Pontos, korrekt ár, mindenkinek ajánlom.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      }
+    },
+    {
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "Béla Strassenreiter"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5
+      },
+      "reviewBody": "Köszi!",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      }
+    },
+    {
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "Edit Oláh"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5
+      },
+      "reviewBody": "Megbízható, pontos és alapos villanyszerelő.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Google"
+      }
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": 5,
+    "reviewCount": 3,
+    "bestRating": 5,
+    "worstRating": 1
+  }
 }
 </script>
 
@@ -99,19 +159,19 @@
         </div>
 
         <ul id="primary-menu">
-            <li><a href="#" data-page="rolam.html">Főoldal</a></li>
-            <li><a href="#" data-page="szolgaltatasok.html">Szolgáltatások</a></li>
-            <li><a href="#" data-page="arlista.html">Árlista</a></li>
-            <li><a href="#" data-page="galeria.html">Galéria</a></li>
-            <li><a href="#" data-page="kapcsolat.html">Kapcsolat</a></li>
+            <li><a href="rolam.html" data-page="rolam.html">Főoldal</a></li>
+            <li><a href="szolgaltatasok.html" data-page="szolgaltatasok.html">Szolgáltatások</a></li>
+            <li><a href="arlista.html" data-page="arlista.html">Árlista</a></li>
+            <li><a href="galeria.html" data-page="galeria.html">Galéria</a></li>
+            <li><a href="kapcsolat.html" data-page="kapcsolat.html">Kapcsolat</a></li>
         </ul>
 
         <div class="hamburger-wrap">
             <button type="button" class="nav-toggle" id="navToggle" aria-label="További menüpontok" aria-controls="hamburgerMenu" aria-expanded="false">☰</button>
             <div class="hamburger-menu" id="hamburgerMenu" role="menu" aria-label="További menüpontok">
-                <a href="#" data-page="kalkulator.html" data-anchor="ajanlatkeres" role="menuitem">Kalkulátor</a>
-                <a href="blog/" role="menuitem">Blog</a>
-                <a href="videok/" role="menuitem">Videók</a>
+                <a href="kalkulator.html" data-page="kalkulator.html">Kalkulátor</a>
+                <a href="blog.html" data-page="blog.html">Blog</a>
+                <a href="videok.html" data-page="videok.html">Videók</a>
             </div>
         </div>
     </nav>
@@ -138,7 +198,7 @@
             </div>
 
             <div class="hero-links">
-                <a href="#" class="hero-link-chip" data-page="kalkulator.html" data-anchor="ajanlatkeres">📩 Kérjen ajánlatot</a>
+                <a href="kalkulator.html#ajanlatkeres" class="hero-link-chip" data-page="kalkulator.html" data-anchor="ajanlatkeres">📩 Kérjen ajánlatot</a>
             </div>
 
             <div class="hero-trust-row" aria-label="Bizalmi elemek">
@@ -174,16 +234,66 @@
     </div>
 </div>
 
-<section class="reviews-box">
-    <h2>Ügyfeleim véleménye</h2>
-    <div id="reviews-placeholder" class="external-content-box" data-external-service="localimpact">
-        <p>
-            Az ügyfélvélemények külső szolgáltatótól töltődnek be. A betöltés után a szolgáltató
-            technikai adatokat, például IP-címet és böngészőadatokat kezelhet.
-        </p>
-        <button type="button" class="btn yellow-btn" id="loadReviewsBtn">Vélemények betöltése</button>
+<section class="reviews-box reviews-box--slider" id="google-reviews-section" aria-labelledby="reviewsTitle">
+    <h2 id="reviewsTitle">Ügyfeleim véleménye</h2>
+    <p class="reviews-intro">
+        A teljes értékelési listát a Google-on is meg tudja nézni.
+    </p>
+
+    <div class="review-slider" id="reviewSlider" aria-roledescription="carousel">
+        <button class="review-slider-btn review-slider-btn--prev" id="reviewPrev" type="button" aria-label="Előző vélemény">‹</button>
+
+        <div class="review-slider-viewport">
+            <div class="review-slider-track" id="reviewTrack">
+                <article class="review-card review-card--slide is-active" data-review-index="0">
+                    <div class="review-card-top">
+                        <div>
+                            <div class="review-author">Zoltánné Czvitkó</div>
+                            <div class="review-meta">Google vélemény • 4 hete</div>
+                        </div>
+                        <div class="review-stars" aria-label="5 csillag">★★★★★</div>
+                    </div>
+                    <p class="review-text">„Pontos, korrekt ár, mindenkinek ajánlom.”</p>
+                </article>
+
+                <article class="review-card review-card--slide" data-review-index="1">
+                    <div class="review-card-top">
+                        <div>
+                            <div class="review-author">Béla Strassenreiter</div>
+                            <div class="review-meta">Google vélemény • 9 hete</div>
+                        </div>
+                        <div class="review-stars" aria-label="5 csillag">★★★★★</div>
+                    </div>
+                    <p class="review-text">„Köszi!”</p>
+                </article>
+
+                <article class="review-card review-card--slide" data-review-index="2">
+                    <div class="review-card-top">
+                        <div>
+                            <div class="review-author">Edit Oláh</div>
+                            <div class="review-meta">Google vélemény • 9 hete</div>
+                        </div>
+                        <div class="review-stars" aria-label="5 csillag">★★★★★</div>
+                    </div>
+                    <p class="review-text">„Megbízható, pontos és alapos villanyszerelő.”</p>
+                </article>
+            </div>
+        </div>
+
+        <button class="review-slider-btn review-slider-btn--next" id="reviewNext" type="button" aria-label="Következő vélemény">›</button>
     </div>
-    <div id="reviews-embed" data-romw-token="VnDD3R62HnpTNSKxzJmVNJ5p2ohFYWndHoVyl3lChqbhSO0XQI" hidden></div>
+
+    <div class="review-slider-dots" id="reviewDots" aria-label="Vélemények lapozása">
+        <button type="button" class="review-dot is-active" data-review-dot="0" aria-label="1. vélemény"></button>
+        <button type="button" class="review-dot" data-review-dot="1" aria-label="2. vélemény"></button>
+        <button type="button" class="review-dot" data-review-dot="2" aria-label="3. vélemény"></button>
+    </div>
+
+    <p class="google-reviews-actions">
+        <a id="googleReviewsMoreLink" class="btn yellow-btn" href="https://www.google.com/search?q=StraVill+Strassenreiter+Attila+Villanyszerel%C5%91+E.V.+Orosh%C3%A1za+v%C3%A9lem%C3%A9nyek" target="_blank" rel="noopener noreferrer">
+            További vélemények Google-on
+        </a>
+    </p>
 </section>
 
 <div class="bottom-info-box">
@@ -199,11 +309,11 @@
 </p>
 
     <div class="footer-links">
-        <a href="#" data-page="impresszum.html">Impresszum</a>
+        <a href="impresszum.html" data-page="impresszum.html">Impresszum</a>
         <span>|</span>
-        <a href="#" data-page="adatkezeles.html">Adatkezelési tájékoztató</a>
+        <a href="adatkezeles.html" data-page="adatkezeles.html">Adatkezelési tájékoztató</a>
         <span>|</span>
-        <a href="#" data-page="cookie.html">Cookie tájékoztató</a>
+        <a href="cookie.html" data-page="cookie.html">Cookie tájékoztató</a>
     </div>
 
     <div class="footer-link-button cookie-settings">
@@ -219,8 +329,8 @@
         A statisztikai mérés csak az Ön hozzájárulása után indul el. A hozzájárulást később a
         <strong>Süti beállítások</strong> gombbal bármikor visszavonhatja.
         <br>
-        <a href="#" data-page="adatkezeles.html">Adatkezelési tájékoztató</a> |
-        <a href="#" data-page="cookie.html">Cookie tájékoztató</a>
+        <a href="adatkezeles.html" data-page="adatkezeles.html">Adatkezelési tájékoztató</a> |
+        <a href="cookie.html" data-page="cookie.html">Cookie tájékoztató</a>
     </p>
     <div class="cookie-actions">
         <button id="cookie-accept" type="button">Elfogadom</button>

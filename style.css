@@ -1736,6 +1736,12 @@ body.dark .contact-form textarea::placeholder {
     }
 }
 
+
+/* ==============================================
+   KONSZOLIDÁLT UTÓLAGOS JAVÍTÁSOK / MOBIL FINOMÍTÁSOK
+   A korábbi ismétlődő hotfix blokkok kiváltására
+============================================== */
+
 @media (forced-colors: active) {
     .footer-link-button:hover,
     .footer-link-button:focus-visible,
@@ -1746,7 +1752,79 @@ body.dark .contact-form textarea::placeholder {
     }
 }
 
-/* ===== Üzenetküldő checkbox sorok középre igazítása ===== */
+/* Általános stabilitás */
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+img,
+iframe,
+video,
+svg,
+canvas {
+    max-width: 100%;
+}
+
+.wrapper {
+    padding-top: var(--header-offset, 96px);
+}
+
+#content-box,
+.content-box,
+.service-box,
+.reviews-box,
+.bottom-info-box,
+.contact-form,
+.contact-card,
+.contact-map,
+.external-content-box,
+.calc-card,
+.hero-text,
+.hero-trust-row,
+#primary-menu,
+.hamburger-menu a,
+.footer-links {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: normal;
+}
+
+.hero,
+.content-box,
+.service-box,
+.reviews-box,
+.bottom-info-box,
+.contact-card,
+.contact-map,
+.calc-card,
+.external-content-box,
+footer {
+    max-width: 100%;
+}
+
+.service-box,
+.reviews-box,
+.bottom-info-box,
+footer {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 900px;
+}
+
+.calc-table td {
+    vertical-align: middle;
+}
+
+.grid-3x3 img,
+.contact-map iframe {
+    height: auto;
+}
+
+#content-box table {
+    width: 100%;
+}
+
+/* Kapcsolati checkbox sor */
 .contact-form .privacy-row {
     width: fit-content;
     max-width: 100%;
@@ -1765,158 +1843,38 @@ body.dark .contact-form textarea::placeholder {
     text-align: center;
 }
 
-@media (max-width: 640px) {
-    .contact-form .privacy-row {
-        width: fit-content;
-        grid-template-columns: auto auto;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
+/* Footer */
+footer {
+    text-align: center;
 }
 
-
-/* ===== Footer layout fix 2026-03-14 ===== */
-footer{
-    text-align:center;
+.footer-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
 }
 
-.footer-links{
-    display:flex;
-    justify-content:center;
-    gap:8px;
-    flex-wrap:nowrap;   /* mindig egy sor */
+.cookie-settings {
+    margin-top: 0.5rem;
 }
 
-.cookie-settings{
-    margin-top:8px;     /* külön sor alatta */
+/* Cookie banner */
+.cookie-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: nowrap;
 }
 
-
-/* ===== FINAL COOKIE + HAMBURGER FIX ===== */
-
-/* Cookie gombok mindig egymás mellett */
-.cookie-actions{
-    display:flex !important;
-    justify-content:center !important;
-    align-items:center !important;
-    gap:0.6rem !important;
-    flex-wrap:nowrap !important;
+.cookie-banner button {
+    width: auto;
+    min-width: 120px;
 }
 
-.cookie-banner button{
-    width:auto !important;
-    min-width:120px !important;
-}
-
-/* Mobilon se legyenek teljes szélességűek */
-@media (max-width: 560px){
-    .cookie-banner button{
-        width:auto !important;
-        min-width:120px !important;
-    }
-}
-
-/* Hamburger a sor végén maradjon, kör alakban */
-.hamburger-wrap{
-    position:relative;
-    display:flex;
-    align-items:center;
-    margin-left:auto;
-    flex:0 0 auto;
-}
-
-.nav-toggle{
-    width:48px !important;
-    height:48px !important;
-    min-width:48px !important;
-    min-height:48px !important;
-    padding:0 !important;
-    border-radius:50% !important;
-    display:inline-flex !important;
-    align-items:center !important;
-    justify-content:center !important;
-    line-height:1 !important;
-    font-size:1.2rem !important;
-    overflow:hidden;
-    flex:0 0 48px !important;
-}
-
-.hamburger-menu{
-    position:absolute;
-    top:58px;
-    right:0;
-    left:auto;
-    background:rgba(17,32,51,0.97);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:14px;
-    box-shadow:0 18px 40px rgba(0,0,0,0.35);
-    padding:0.4rem 0;
-    display:none;
-    flex-direction:column;
-    min-width:220px;
-    max-width:min(280px, calc(100vw - 24px));
-    z-index:1200;
-}
-
-.hamburger-menu a{
-    padding:0.7rem 1rem;
-    text-decoration:none;
-    color:#fff;
-    font-weight:600;
-    white-space:nowrap;
-}
-
-.hamburger-menu a:hover,
-.hamburger-menu a:focus-visible{
-    background:rgba(255,255,255,0.08);
-    color:var(--accent);
-}
-
-.hamburger-wrap.open .hamburger-menu{
-    display:flex;
-}
-
-/* Kisebb képernyőn is látható maradjon */
-@media (max-width: 980px){
-    .fixed-header nav{
-        flex-wrap:wrap;
-    }
-
-    .hamburger-wrap{
-        order:3;
-        margin-left:0;
-    }
-
-    .hamburger-menu{
-        right:0;
-        left:auto;
-    }
-}
-
-@media (max-width: 640px){
-    .hamburger-wrap{
-        width:auto;
-        margin-left:auto;
-    }
-
-    .hamburger-menu{
-        position:absolute;
-        right:0;
-        left:auto;
-        top:58px;
-        width:max-content;
-        min-width:220px;
-        max-width:calc(100vw - 24px);
-    }
-
-    #primary-menu{
-        gap:0.55rem 0.9rem;
-    }
-}
-
-
-/* ===== Hamburger menü finomhangolás 2026-03-15 ===== */
+/* Hamburger menü */
 .fixed-header nav {
     align-items: center;
 }
@@ -1940,18 +1898,18 @@ footer{
 }
 
 .nav-toggle {
-    width: 48px !important;
-    height: 48px !important;
-    min-width: 48px !important;
-    min-height: 48px !important;
-    padding: 0 !important;
-    border-radius: 50% !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex: 0 0 48px !important;
-    line-height: 1 !important;
-    font-size: 1.2rem !important;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    padding: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 48px;
+    line-height: 1;
+    font-size: 1.2rem;
     overflow: hidden;
     white-space: nowrap;
 }
@@ -1998,491 +1956,12 @@ footer{
     display: flex;
 }
 
-@media (min-width: 981px) {
-    .fixed-header nav {
-        flex-wrap: nowrap;
-        justify-content: space-between;
-    }
-
-    .nav-left {
-        order: 1;
-    }
-
-    #primary-menu {
-        order: 2;
-    }
-
-    .hamburger-wrap {
-        order: 3;
-        margin-left: 0;
-    }
-}
-
-@media (max-width: 980px) {
-    .fixed-header nav {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .nav-left {
-        order: 1;
-        width: 100%;
-    }
-
-    #primary-menu {
-        order: 2;
-        width: 100%;
-        justify-content: center;
-        row-gap: 0.65rem;
-    }
-
-    .hamburger-wrap {
-        order: 3;
-        width: 100%;
-        margin-top: 0.2rem;
-        justify-content: center;
-    }
-
-    .hamburger-menu {
-        left: 50%;
-        right: auto;
-        transform: translateX(-50%);
-    }
-}
-
-@media (max-width: 640px) {
-    .wrapper {
-        padding-top: 148px;
-    }
-
-    .hamburger-wrap {
-        margin-top: 0.35rem;
-    }
-
-    .hamburger-menu {
-        width: min(220px, calc(100vw - 24px));
-    }
-}
-
 body.dark .hamburger-menu {
     background: rgba(9, 15, 27, 0.98);
     border-color: rgba(255,255,255,0.08);
 }
 
-
-/* ===== Footer mobil: desktop kinézet arányosan kicsinyítve ===== */
-@media (max-width: 560px) {
-    footer {
-        padding: 1rem 0.75rem;
-    }
-
-    footer p {
-        font-size: 0.78rem;
-        white-space: nowrap;
-    }
-
-    .footer-links {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: nowrap !important;
-        white-space: nowrap !important;
-        gap: 0.35rem;
-    }
-
-    .footer-links span {
-        display: inline !important;
-    }
-
-    .footer-links a,
-    .footer-link-button,
-    .footer-text-button {
-        width: auto !important;
-        display: inline-flex;
-        font-size: 0.78rem;
-        white-space: nowrap;
-    }
-
-    .cookie-settings {
-        margin-top: 0.4rem;
-    }
-
-    .footer-text-button {
-        padding: 0 !important;
-        min-width: 0 !important;
-    }
-}
-
-@media (max-width: 380px) {
-    footer {
-        padding: 0.9rem 0.6rem;
-    }
-
-    footer p,
-    .footer-links a,
-    .footer-link-button,
-    .footer-text-button,
-    .footer-links span {
-        font-size: 0.72rem;
-    }
-
-    .footer-links {
-        gap: 0.25rem;
-    }
-}
-
-
-/* ===== Stabil mobil-optimalizálás grafikai változás nélkül ===== */
-#content-box,
-.content-box,
-.service-box,
-.reviews-box,
-.bottom-info-box,
-.contact-form,
-.contact-card,
-.contact-map,
-.external-content-box,
-.calc-card {
-    overflow-wrap: break-word;
-    word-break: normal;
-}
-
-.calc-table td {
-    vertical-align: middle;
-}
-
-@media (max-width: 980px) {
-    #primary-menu {
-        flex-wrap: wrap;
-    }
-}
-
-@media (max-width: 768px) {
-    .grid-3x3 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .contact-map iframe {
-        min-height: 300px;
-    }
-
-    .calc-table td:last-child {
-        display: flex;
-        justify-content: center;
-    }
-}
-
-@media (max-width: 560px) {
-    .grid-3x3 {
-        grid-template-columns: 1fr;
-    }
-
-    .hero-buttons,
-    .hero-links,
-    .cookie-actions,
-    .calc-actions {
-        width: 100%;
-    }
-
-    .hero-link-chip,
-    .btn,
-    .contact-form button,
-    .cookie-banner button,
-    .calc-actions button {
-        max-width: 100%;
-    }
-
-    .calc-table td,
-    table td,
-    table th {
-        padding-left: 0.2rem;
-        padding-right: 0.2rem;
-    }
-}
-
-/* ===== 2026-03-15 stabil mobil + teljesítmény finomhangolás ===== */
-.wrapper {
-    padding-top: var(--header-offset, 96px) !important;
-}
-
-.hero,
-.service-box,
-.reviews-box,
-.bottom-info-box,
-.content-box,
-.calc-card,
-.contact-card,
-.contact-map,
-.external-content-box,
-footer {
-    max-width: 100%;
-}
-
-.grid-3x3 img,
-.contact-map iframe {
-    height: auto;
-}
-
-@media (max-width: 980px) {
-    nav {
-        row-gap: 0.75rem;
-    }
-
-    #primary-menu {
-        min-width: 0;
-    }
-
-    #primary-menu li {
-        min-width: 0;
-    }
-
-    #primary-menu a,
-    .hamburger-menu a,
-    .footer-links a,
-    .hero-link-chip,
-    .btn {
-        overflow-wrap: anywhere;
-    }
-}
-
-@media (max-width: 768px) {
-    .hero {
-        min-height: 500px;
-    }
-
-    .hero-inner {
-        min-height: 500px;
-        padding: 2.75rem 1rem;
-    }
-
-    .hero-text {
-        width: min(100%, 840px);
-    }
-
-    .grid-3x3 {
-        gap: 0.85rem;
-    }
-
-    .contact-map iframe {
-        width: 100%;
-        min-height: 280px;
-    }
-}
-
-@media (max-width: 560px) {
-    nav {
-        padding-inline: 0.8rem;
-    }
-
-    .hero {
-        margin: 0.75rem;
-        min-height: 460px;
-    }
-
-    .hero-inner {
-        min-height: 460px;
-        padding: 2.35rem 0.9rem;
-    }
-
-    .hero-text {
-        padding: 1.2rem;
-    }
-
-    .hero-trust-row {
-        gap: 0.55rem 0.9rem;
-    }
-
-    .content-box,
-    .service-box,
-    .reviews-box,
-    .bottom-info-box,
-    .contact-card,
-    .contact-map,
-    .calc-card,
-    footer {
-        margin-inline: 0.75rem;
-    }
-
-    .grid-3x3 {
-        gap: 0.75rem;
-    }
-
-    .calc-table input[type="number"] {
-        width: 100%;
-        max-width: 180px;
-    }
-
-    .row-reset {
-        min-width: 46px;
-    }
-}
-
-@media (max-width: 380px) {
-    .nav-title {
-        font-size: 0.8rem;
-    }
-
-    .hamburger-menu {
-        min-width: min(210px, calc(100vw - 20px));
-    }
-
-    .footer-links {
-        flex-wrap: wrap !important;
-        row-gap: 0.2rem;
-    }
-
-    .footer-links span {
-        display: none !important;
-    }
-}
-
-/* ===== 2026-03-15 második kör: óvatos mobil refaktor, grafikai változás nélkül ===== */
-html {
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-}
-
-img,
-iframe,
-video,
-svg,
-canvas {
-    max-width: 100%;
-}
-
-.hero,
-.content-box,
-.service-box,
-.reviews-box,
-.bottom-info-box,
-.contact-card,
-.contact-map,
-.calc-card,
-.external-content-box,
-footer {
-    contain: layout style;
-}
-
-.service-box,
-.reviews-box,
-.bottom-info-box,
-footer {
-    content-visibility: auto;
-    contain-intrinsic-size: 1px 900px;
-}
-
-#content-box table {
-    width: 100%;
-}
-
-#content-box,
-.content-box,
-.service-box,
-.reviews-box,
-.bottom-info-box,
-.contact-card,
-.contact-map,
-.external-content-box,
-.calc-card,
-footer,
-.footer-links,
-.hero-text,
-.hero-trust-row,
-#primary-menu,
-.hamburger-menu a {
-    min-width: 0;
-}
-
-@media (max-width: 980px) {
-    .fixed-header {
-        border-radius: 0 0 20px 20px;
-    }
-
-    #primary-menu {
-        gap: 0.6rem 1rem;
-    }
-
-    #primary-menu li,
-    .footer-links a,
-    .footer-link-button,
-    .footer-text-button {
-        min-width: 0;
-    }
-}
-
-@media (max-width: 768px) {
-    .hero-badge,
-    .hero-trust-row span,
-    .footer-links a,
-    .footer-link-button,
-    .footer-text-button {
-        overflow-wrap: normal;
-        word-break: keep-all;
-    }
-
-    .contact-wrapper,
-    .contact-grid,
-    .calc-actions {
-        gap: 0.85rem;
-    }
-}
-
-@media (max-width: 560px) {
-    .fixed-header {
-        border-radius: 0 0 18px 18px;
-    }
-
-    .header-logo {
-        height: 44px;
-    }
-
-    .hero-badge {
-        font-size: 0.93rem;
-    }
-
-    .hero-lead {
-        text-wrap: pretty;
-    }
-
-    .content-box,
-    .service-box,
-    .reviews-box,
-    .bottom-info-box,
-    .contact-card,
-    .contact-map,
-    .calc-card,
-    .external-content-box,
-    footer {
-        border-radius: min(var(--radius-lg), 20px);
-    }
-
-    .calc-table {
-        table-layout: fixed;
-    }
-
-    .calc-table td:last-child button,
-    .calc-actions button {
-        width: 100%;
-    }
-}
-
-@media (max-width: 380px) {
-    .hero-badges,
-    .hero-buttons,
-    .hero-links,
-    .hero-trust-row,
-    #primary-menu,
-    .footer-links {
-        gap: 0.45rem;
-    }
-}
-@media (max-width: 600px) {
-    .copyright {
-        font-size: 11px;
-    }
-}
-
-/* ===== Külső szolgáltatás engedélyező dobozok stabil középre igazítása ===== */
+/* Külső szolgáltatás placeholder dobozok */
 #reviews-placeholder,
 .contact-map:not([data-loaded="1"]),
 .contact-map[data-loaded="0"],
@@ -2518,11 +1997,11 @@ footer,
 .contact-map .btn,
 .contact-map button,
 .contact-map a.btn {
-    display: inline-flex !important;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     align-self: center;
-    margin: 0 auto !important;
+    margin: 0 auto;
     text-align: center;
 }
 
@@ -2532,7 +2011,150 @@ footer,
     margin-bottom: 0;
 }
 
+/* Responsive */
+@media (min-width: 981px) {
+    .fixed-header nav {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
+    .nav-left {
+        order: 1;
+    }
+
+    #primary-menu {
+        order: 2;
+    }
+
+    .hamburger-wrap {
+        order: 3;
+    }
+}
+
+@media (max-width: 980px) {
+    .fixed-header {
+        border-radius: 0 0 20px 20px;
+    }
+
+    nav {
+        row-gap: 0.75rem;
+    }
+
+    .fixed-header nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-left {
+        order: 1;
+        width: 100%;
+    }
+
+    #primary-menu {
+        order: 2;
+        width: 100%;
+        min-width: 0;
+        justify-content: center;
+        row-gap: 0.65rem;
+        gap: 0.6rem 1rem;
+        flex-wrap: wrap;
+    }
+
+    #primary-menu li {
+        min-width: 0;
+    }
+
+    .hamburger-wrap {
+        order: 3;
+        width: 100%;
+        margin-top: 0.2rem;
+        justify-content: center;
+    }
+
+    .hamburger-menu {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+    }
+
+    #primary-menu a,
+    .hamburger-menu a,
+    .footer-links a,
+    .hero-link-chip,
+    .btn,
+    .footer-link-button,
+    .footer-text-button {
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        min-height: 500px;
+    }
+
+    .hero-inner {
+        min-height: 500px;
+        padding: 2.75rem 1rem;
+    }
+
+    .hero-text {
+        width: min(100%, 840px);
+    }
+
+    .grid-3x3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.85rem;
+    }
+
+    .contact-map iframe {
+        width: 100%;
+        min-height: 280px;
+    }
+
+    .contact-wrapper,
+    .contact-grid,
+    .calc-actions {
+        gap: 0.85rem;
+    }
+
+    .calc-table td:last-child {
+        display: flex;
+        justify-content: center;
+    }
+
+    .hero-badge,
+    .hero-trust-row span,
+    .footer-links a,
+    .footer-link-button,
+    .footer-text-button {
+        overflow-wrap: normal;
+        word-break: keep-all;
+    }
+}
+
 @media (max-width: 640px) {
+    .contact-form .privacy-row {
+        width: fit-content;
+        grid-template-columns: auto auto;
+    }
+
+    .fixed-header {
+        border-radius: 0 0 18px 18px;
+    }
+
+    .wrapper {
+        padding-top: max(var(--header-offset, 96px), 138px);
+    }
+
+    .hamburger-wrap {
+        margin-top: 0.35rem;
+    }
+
+    .hamburger-menu {
+        width: min(220px, calc(100vw - 24px));
+    }
+
     #reviews-placeholder,
     .contact-map:not([data-loaded="1"]),
     .contact-map[data-loaded="0"],
@@ -2548,5 +2170,528 @@ footer,
     .contact-map button,
     .contact-map a.btn {
         width: min(100%, 320px);
+    }
+}
+
+@media (max-width: 560px) {
+    nav {
+        padding-inline: 0.8rem;
+    }
+
+    .hero {
+        margin: 0.75rem;
+        min-height: 460px;
+    }
+
+    .hero-inner {
+        min-height: 460px;
+        padding: 2.35rem 0.9rem;
+    }
+
+    .hero-text {
+        padding: 1.2rem;
+    }
+
+    .hero-trust-row {
+        gap: 0.55rem 0.9rem;
+    }
+
+    .hero-buttons,
+    .hero-links,
+    .cookie-actions,
+    .calc-actions {
+        width: 100%;
+    }
+
+    .hero-link-chip,
+    .btn,
+    .contact-form button,
+    .cookie-banner button,
+    .calc-actions button {
+        max-width: 100%;
+    }
+
+    .cookie-banner button {
+        min-width: 120px;
+    }
+
+    footer {
+        padding: 1rem 0.75rem;
+    }
+
+    footer p,
+    .footer-links a,
+    .footer-link-button,
+    .footer-text-button {
+        font-size: 0.78rem;
+        white-space: nowrap;
+    }
+
+    .footer-links {
+        gap: 0.35rem;
+    }
+
+    .footer-links span {
+        display: inline;
+    }
+
+    .footer-text-button {
+        padding: 0;
+        min-width: 0;
+    }
+
+    .cookie-settings {
+        margin-top: 0.4rem;
+    }
+
+    .grid-3x3 {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .content-box,
+    .service-box,
+    .reviews-box,
+    .bottom-info-box,
+    .contact-card,
+    .contact-map,
+    .calc-card,
+    .external-content-box,
+    footer {
+        margin-inline: 0.75rem;
+        border-radius: min(var(--radius-lg), 20px);
+    }
+
+    .header-logo {
+        height: 44px;
+    }
+
+    .hero-badge {
+        font-size: 0.93rem;
+    }
+
+    .hero-lead {
+        text-wrap: pretty;
+    }
+
+    .contact-map iframe {
+        min-height: 300px;
+    }
+
+    .calc-table {
+        table-layout: fixed;
+    }
+
+    .calc-table td,
+    table td,
+    table th {
+        padding-left: 0.2rem;
+        padding-right: 0.2rem;
+    }
+
+    .calc-table input[type="number"] {
+        width: 100%;
+        max-width: 180px;
+    }
+
+    .calc-table td:last-child button,
+    .calc-actions button {
+        width: 100%;
+    }
+
+    .row-reset {
+        min-width: 46px;
+    }
+}
+
+@media (max-width: 420px) {
+    .wrapper {
+        padding-top: max(var(--header-offset, 96px), 150px);
+    }
+}
+
+@media (max-width: 380px) {
+    .nav-title {
+        font-size: 0.8rem;
+    }
+
+    .hero-badges,
+    .hero-buttons,
+    .hero-links,
+    .hero-trust-row,
+    #primary-menu,
+    .footer-links {
+        gap: 0.45rem;
+    }
+
+    .hamburger-menu {
+        min-width: min(210px, calc(100vw - 20px));
+    }
+
+    footer {
+        padding: 0.9rem 0.6rem;
+    }
+
+    footer p,
+    .footer-links a,
+    .footer-link-button,
+    .footer-text-button,
+    .footer-links span {
+        font-size: 0.72rem;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        row-gap: 0.2rem;
+        gap: 0.25rem;
+    }
+
+    .footer-links span {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .copyright {
+        font-size: 11px;
+    }
+}
+
+
+/* Google reviews */
+.google-reviews-shell {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.google-reviews-summary-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 1rem 1.2rem;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(236,242,251,0.96));
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+}
+
+.google-reviews-score {
+    min-width: 84px;
+    min-height: 84px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #ffd95b 0%, var(--accent) 100%);
+    color: #10203a;
+    font-size: 1.7rem;
+    font-weight: 800;
+    box-shadow: 0 14px 34px rgba(240, 180, 0, 0.2);
+}
+
+.google-reviews-meta {
+    display: grid;
+    gap: 0.2rem;
+}
+
+.google-reviews-meta strong {
+    color: var(--text);
+    font-size: 1.05rem;
+}
+
+.google-reviews-meta span,
+.google-reviews-attrib {
+    color: var(--text-soft);
+}
+
+.google-reviews-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.google-review-card {
+    padding: 1rem 1.1rem;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(17,32,51,0.1);
+    box-shadow: var(--shadow-sm);
+    text-align: left;
+}
+
+.google-review-card--fallback {
+    text-align: center;
+}
+
+.google-review-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.6rem;
+}
+
+.google-review-author {
+    font-weight: 800;
+    color: var(--text);
+}
+
+.google-review-date {
+    color: var(--text-soft);
+    font-size: 0.92rem;
+    margin-top: 0.15rem;
+}
+
+.google-review-rating {
+    font-weight: 800;
+    color: #b8860b;
+    white-space: nowrap;
+}
+
+.google-review-text {
+    color: var(--text-soft);
+    text-align: left !important;
+    margin-bottom: 0.75rem !important;
+}
+
+.google-review-link-row {
+    margin: 0;
+    text-align: left !important;
+}
+
+.google-review-link-row a {
+    font-weight: 700;
+}
+
+.google-reviews-actions,
+.google-reviews-attrib {
+    text-align: center;
+    margin: 0;
+}
+
+body.dark .google-reviews-summary-card,
+body.dark .google-review-card {
+    background: rgba(17,26,41,0.9);
+    border-color: rgba(255,255,255,0.08);
+}
+
+body.dark .google-reviews-meta strong,
+body.dark .google-review-author {
+    color: #f7fbff;
+}
+
+body.dark .google-reviews-meta span,
+body.dark .google-review-date,
+body.dark .google-review-text,
+body.dark .google-reviews-attrib {
+    color: rgba(236,242,255,0.8);
+}
+
+@media (max-width: 640px) {
+    .google-review-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* ===== Vélemény slider ===== */
+.reviews-box--slider {
+    overflow: hidden;
+}
+
+.reviews-intro {
+    max-width: 760px;
+    margin: 0 auto 1.15rem;
+    text-align: center;
+}
+
+.review-slider {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.2rem;
+}
+
+.review-slider-viewport {
+    overflow: hidden;
+    width: 100%;
+}
+
+.review-slider-track {
+    display: flex;
+    transition: transform .45s ease;
+    will-change: transform;
+}
+
+.review-card--slide {
+    min-width: 100%;
+}
+
+.review-card {
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(17,32,51,0.1);
+    border-radius: 22px;
+    padding: 1.35rem;
+    box-shadow: 0 14px 34px rgba(12, 24, 38, 0.08);
+    text-align: left;
+}
+
+.review-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: .85rem;
+}
+
+.review-author {
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--text);
+}
+
+.review-meta {
+    margin-top: .2rem;
+    color: var(--text-soft);
+    font-size: .94rem;
+}
+
+.review-stars {
+    font-size: 1.08rem;
+    color: #f0b400;
+    letter-spacing: .08em;
+    white-space: nowrap;
+}
+
+.review-text {
+    margin: 0;
+    font-size: 1.02rem;
+    line-height: 1.75;
+    color: var(--text);
+}
+
+.review-slider-btn {
+    width: 48px;
+    height: 48px;
+    border: 0;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 1.9rem;
+    line-height: 1;
+    background: linear-gradient(180deg, #ffd95b 0%, var(--accent) 100%);
+    color: #10203a;
+    box-shadow: 0 10px 22px rgba(240, 180, 0, 0.22);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.review-slider-btn:hover,
+.review-slider-btn:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(240, 180, 0, 0.28);
+}
+
+.review-slider-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .65rem;
+    margin-top: 1rem;
+}
+
+.review-dot {
+    width: 12px;
+    height: 12px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(16,32,58,0.18);
+    cursor: pointer;
+    transition: transform .2s ease, background .2s ease;
+}
+
+.review-dot.is-active {
+    background: var(--accent);
+    transform: scale(1.15);
+}
+
+body.dark .review-card {
+    background: rgba(17,26,41,0.92);
+    border-color: rgba(255,255,255,0.08);
+}
+
+body.dark .review-author,
+body.dark .review-text {
+    color: #f7fbff;
+}
+
+body.dark .review-meta {
+    color: rgba(236,242,255,0.76);
+}
+
+body.dark .review-dot {
+    background: rgba(255,255,255,0.18);
+}
+
+body.dark .review-dot.is-active {
+    background: var(--accent);
+}
+
+@media (max-width: 768px) {
+    .review-slider {
+        grid-template-columns: 1fr;
+    }
+
+    .review-slider-btn {
+        display: none;
+    }
+
+    .review-card {
+        padding: 1.1rem;
+    }
+}
+
+@media (max-width: 560px) {
+    .review-card-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .review-text {
+        font-size: 0.98rem;
+        line-height: 1.65;
+    }
+}
+
+
+
+/* ===== Google reviews CTA javítás ===== */
+.google-reviews-actions{
+    text-align:center;
+    margin-top:1.4rem;
+    margin-bottom:2rem; /* extra hely alul hogy ne lógjon bele */
+}
+
+.google-reviews-actions .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:.45rem;
+    padding:.7rem 1.2rem;
+    border-radius:999px;
+    font-weight:700;
+    transition:transform .18s ease, box-shadow .18s ease;
+}
+
+.google-reviews-actions .btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 22px rgba(240,180,0,0.28);
+}
+
+/* kis mobil finomhangolás */
+@media (max-width:560px){
+    .google-reviews-actions{
+        margin-bottom:2.3rem;
     }
 }
