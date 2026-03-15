@@ -2199,3 +2199,285 @@ body.dark .hamburger-menu {
         padding-right: 0.2rem;
     }
 }
+
+/* ===== 2026-03-15 stabil mobil + teljesítmény finomhangolás ===== */
+.wrapper {
+    padding-top: var(--header-offset, 96px) !important;
+}
+
+.hero,
+.service-box,
+.reviews-box,
+.bottom-info-box,
+.content-box,
+.calc-card,
+.contact-card,
+.contact-map,
+.external-content-box,
+footer {
+    max-width: 100%;
+}
+
+.grid-3x3 img,
+.contact-map iframe {
+    height: auto;
+}
+
+@media (max-width: 980px) {
+    nav {
+        row-gap: 0.75rem;
+    }
+
+    #primary-menu {
+        min-width: 0;
+    }
+
+    #primary-menu li {
+        min-width: 0;
+    }
+
+    #primary-menu a,
+    .hamburger-menu a,
+    .footer-links a,
+    .hero-link-chip,
+    .btn {
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        min-height: 500px;
+    }
+
+    .hero-inner {
+        min-height: 500px;
+        padding: 2.75rem 1rem;
+    }
+
+    .hero-text {
+        width: min(100%, 840px);
+    }
+
+    .grid-3x3 {
+        gap: 0.85rem;
+    }
+
+    .contact-map iframe {
+        width: 100%;
+        min-height: 280px;
+    }
+}
+
+@media (max-width: 560px) {
+    nav {
+        padding-inline: 0.8rem;
+    }
+
+    .hero {
+        margin: 0.75rem;
+        min-height: 460px;
+    }
+
+    .hero-inner {
+        min-height: 460px;
+        padding: 2.35rem 0.9rem;
+    }
+
+    .hero-text {
+        padding: 1.2rem;
+    }
+
+    .hero-trust-row {
+        gap: 0.55rem 0.9rem;
+    }
+
+    .content-box,
+    .service-box,
+    .reviews-box,
+    .bottom-info-box,
+    .contact-card,
+    .contact-map,
+    .calc-card,
+    footer {
+        margin-inline: 0.75rem;
+    }
+
+    .grid-3x3 {
+        gap: 0.75rem;
+    }
+
+    .calc-table input[type="number"] {
+        width: 100%;
+        max-width: 180px;
+    }
+
+    .row-reset {
+        min-width: 46px;
+    }
+}
+
+@media (max-width: 380px) {
+    .nav-title {
+        font-size: 0.8rem;
+    }
+
+    .hamburger-menu {
+        min-width: min(210px, calc(100vw - 20px));
+    }
+
+    .footer-links {
+        flex-wrap: wrap !important;
+        row-gap: 0.2rem;
+    }
+
+    .footer-links span {
+        display: none !important;
+    }
+}
+
+/* ===== 2026-03-15 második kör: óvatos mobil refaktor, grafikai változás nélkül ===== */
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+img,
+iframe,
+video,
+svg,
+canvas {
+    max-width: 100%;
+}
+
+.hero,
+.content-box,
+.service-box,
+.reviews-box,
+.bottom-info-box,
+.contact-card,
+.contact-map,
+.calc-card,
+.external-content-box,
+footer {
+    contain: layout style;
+}
+
+.service-box,
+.reviews-box,
+.bottom-info-box,
+footer {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 900px;
+}
+
+#content-box table {
+    width: 100%;
+}
+
+#content-box,
+.content-box,
+.service-box,
+.reviews-box,
+.bottom-info-box,
+.contact-card,
+.contact-map,
+.external-content-box,
+.calc-card,
+footer,
+.footer-links,
+.hero-text,
+.hero-trust-row,
+#primary-menu,
+.hamburger-menu a {
+    min-width: 0;
+}
+
+@media (max-width: 980px) {
+    .fixed-header {
+        border-radius: 0 0 20px 20px;
+    }
+
+    #primary-menu {
+        gap: 0.6rem 1rem;
+    }
+
+    #primary-menu li,
+    .footer-links a,
+    .footer-link-button,
+    .footer-text-button {
+        min-width: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-badge,
+    .hero-trust-row span,
+    .footer-links a,
+    .footer-link-button,
+    .footer-text-button {
+        overflow-wrap: normal;
+        word-break: keep-all;
+    }
+
+    .contact-wrapper,
+    .contact-grid,
+    .calc-actions {
+        gap: 0.85rem;
+    }
+}
+
+@media (max-width: 560px) {
+    .fixed-header {
+        border-radius: 0 0 18px 18px;
+    }
+
+    .header-logo {
+        height: 44px;
+    }
+
+    .hero-badge {
+        font-size: 0.93rem;
+    }
+
+    .hero-lead {
+        text-wrap: pretty;
+    }
+
+    .content-box,
+    .service-box,
+    .reviews-box,
+    .bottom-info-box,
+    .contact-card,
+    .contact-map,
+    .calc-card,
+    .external-content-box,
+    footer {
+        border-radius: min(var(--radius-lg), 20px);
+    }
+
+    .calc-table {
+        table-layout: fixed;
+    }
+
+    .calc-table td:last-child button,
+    .calc-actions button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 380px) {
+    .hero-badges,
+    .hero-buttons,
+    .hero-links,
+    .hero-trust-row,
+    #primary-menu,
+    .footer-links {
+        gap: 0.45rem;
+    }
+}
+@media (max-width: 600px) {
+    .copyright {
+        font-size: 11px;
+    }
+}

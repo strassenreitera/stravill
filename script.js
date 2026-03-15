@@ -4,6 +4,7 @@ const GOOGLE_MAPS_EMBED_URL = "https://www.google.com/maps/embed?pb=!1m14!1m8!1m
 let currentOfferId = "";
 let analyticsLoaded = false;
 let reviewsLoaded = false;
+let activePageRequest = null;
 
 const CONTENT_PAGES = new Set([
     "rolam.html",
@@ -173,9 +174,15 @@ function $$(selector, root = document) {
     return Array.from(root.querySelectorAll(selector));
 }
 
-function getHeaderOffset() {
+function updateHeaderOffset() {
     const header = $(".fixed-header");
-    return header ? header.offsetHeight + 10 : 10;
+    const offset = header ? Math.ceil(header.offsetHeight + 12) : 108;
+    document.documentElement.style.setProperty("--header-offset", `${offset}px`);
+    return offset;
+}
+
+function getHeaderOffset() {
+    return updateHeaderOffset();
 }
 
 function scrollToElement(element) {
@@ -187,10 +194,12 @@ function scrollToElement(element) {
 function updateActiveLinks(page) {
     $$("nav [data-page], .footer-links [data-page]").forEach(link => {
         const isActive = link.getAttribute("data-page") === page;
-        link.classList.toggle("active", isActive && !!link.closest("nav"));
+        const inNav = !!link.closest("nav");
+        link.classList.toggle("active", isActive && inNav);
         link.classList.toggle("active-footer", isActive && !!link.closest(".footer-links"));
-        if (link.closest("nav")) {
-            link.setAttribute("aria-current", isActive ? "page" : "false");
+        if (inNav) {
+            if (isActive) link.setAttribute("aria-current", "page");
+            else link.removeAttribute("aria-current");
         }
     });
 }
@@ -240,8 +249,14 @@ async function loadPage(page, linkElement = null, options = {}) {
     const contentBox = $("#content-box");
     if (!contentBox) return;
 
+    if (activePageRequest) activePageRequest.abort();
+    activePageRequest = new AbortController();
+
     try {
-        const response = await fetch(targetPage, { cache: "no-store" });
+        const response = await fetch(targetPage, {
+            cache: "default",
+            signal: activePageRequest.signal
+        });
         if (!response.ok) throw new Error(String(response.status));
 
         const html = await response.text();
@@ -256,9 +271,9 @@ async function loadPage(page, linkElement = null, options = {}) {
         updatePageMeta(targetPage);
         initPageFeatures(targetPage);
         initDeferredMedia(contentBox);
+        updateHeaderOffset();
 
         requestAnimationFrame(() => {
-
             const anchorTarget = options.anchorId ? document.getElementById(options.anchorId) : null;
             if (anchorTarget) {
                 scrollToElement(anchorTarget);
@@ -269,8 +284,13 @@ async function loadPage(page, linkElement = null, options = {}) {
 
         linkElement?.blur?.();
     } catch (error) {
+        if (error?.name === "AbortError") return;
         console.error(error);
         contentBox.innerHTML = "<p style='text-align:center;color:red;'>Nem sikerült betölteni az oldalt.</p>";
+    } finally {
+        if (activePageRequest?.signal?.aborted === false) {
+            activePageRequest = null;
+        }
     }
 }
 
@@ -1231,8 +1251,31 @@ function initMobileMenu() {
 function initDeferredMedia(root = document) {
     $$("img", root).forEach(img => {
         if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
-        if (!img.hasAttribute('loading') && !img.hasAttribute('fetchpriority')) img.setAttribute('loading', 'lazy');
+        if (img.getAttribute('fetchpriority') === 'high') {
+            if (!img.hasAttribute('loading')) img.setAttribute('loading', 'eager');
+            return;
+        }
+        if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
     });
+}
+
+function initViewportOptimizations() {
+    if (document.body.dataset.viewportBound === "1") return;
+    document.body.dataset.viewportBound = "1";
+
+    let resizeRaf = 0;
+    const scheduleHeaderOffsetUpdate = () => {
+        if (resizeRaf) cancelAnimationFrame(resizeRaf);
+        resizeRaf = requestAnimationFrame(() => {
+            resizeRaf = 0;
+            updateHeaderOffset();
+        });
+    };
+
+    updateHeaderOffset();
+    window.addEventListener("resize", scheduleHeaderOffsetUpdate, { passive: true });
+    window.addEventListener("orientationchange", scheduleHeaderOffsetUpdate, { passive: true });
+    window.addEventListener("load", scheduleHeaderOffsetUpdate, { passive: true });
 }
 
 function initNavigation() {
@@ -1279,6 +1322,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initMobileMenu();
     initNavigation();
     initDeferredMedia(document);
+    initViewportOptimizations();
 
     const route = parseHash();
     const initialPage = route?.page || "rolam.html";
