@@ -2068,3 +2068,65 @@ body.dark .hamburger-menu {
     background: rgba(9, 15, 27, 0.98);
     border-color: rgba(255,255,255,0.08);
 }
+
+
+/* ===== Footer mobil: desktop kinézet arányosan kicsinyítve ===== */
+@media (max-width: 560px) {
+    footer {
+        padding: 1rem 0.75rem;
+    }
+
+    footer p {
+        font-size: 0.78rem;
+        white-space: nowrap;
+    }
+
+    .footer-links {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap !important;
+        white-space: nowrap !important;
+        gap: 0.35rem;
+    }
+
+    .footer-links span {
+        display: inline !important;
+    }
+
+    .footer-links a,
+    .footer-link-button,
+    .footer-text-button {
+        width: auto !important;
+        display: inline-flex;
+        font-size: 0.78rem;
+        white-space: nowrap;
+    }
+
+    .cookie-settings {
+        margin-top: 0.4rem;
+    }
+
+    .footer-text-button {
+        padding: 0 !important;
+        min-width: 0 !important;
+    }
+}
+
+@media (max-width: 380px) {
+    footer {
+        padding: 0.9rem 0.6rem;
+    }
+
+    footer p,
+    .footer-links a,
+    .footer-link-button,
+    .footer-text-button,
+    .footer-links span {
+        font-size: 0.72rem;
+    }
+
+    .footer-links {
+        gap: 0.25rem;
+    }
+}
