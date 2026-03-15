@@ -2481,3 +2481,72 @@ footer,
         font-size: 11px;
     }
 }
+
+/* ===== Külső szolgáltatás engedélyező dobozok stabil középre igazítása ===== */
+#reviews-placeholder,
+.contact-map:not([data-loaded="1"]),
+.contact-map[data-loaded="0"],
+.contact-map .external-content-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    text-align: center;
+}
+
+#reviews-placeholder > *,
+.contact-map:not([data-loaded="1"]) > *,
+.contact-map[data-loaded="0"] > *,
+.contact-map .external-content-box > * {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#reviews-placeholder p,
+.contact-map:not([data-loaded="1"]) p,
+.contact-map[data-loaded="0"] p,
+.contact-map .external-content-box p {
+    width: min(100%, 640px);
+    margin-bottom: 0;
+    text-align: center;
+}
+
+#loadReviewsBtn,
+#loadMapBtn,
+#reviews-placeholder .btn,
+.contact-map .btn,
+.contact-map button,
+.contact-map a.btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    margin: 0 auto !important;
+    text-align: center;
+}
+
+.contact-map > p:last-child,
+.contact-map .external-content-box > p:last-child,
+#reviews-placeholder > p:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+    #reviews-placeholder,
+    .contact-map:not([data-loaded="1"]),
+    .contact-map[data-loaded="0"],
+    .contact-map .external-content-box {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    #loadReviewsBtn,
+    #loadMapBtn,
+    #reviews-placeholder .btn,
+    .contact-map .btn,
+    .contact-map button,
+    .contact-map a.btn {
+        width: min(100%, 320px);
+    }
+}

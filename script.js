@@ -271,6 +271,7 @@ async function loadPage(page, linkElement = null, options = {}) {
         updatePageMeta(targetPage);
         initPageFeatures(targetPage);
         initDeferredMedia(contentBox);
+        normalizeExternalConsentCards(document);
         updateHeaderOffset();
 
         requestAnimationFrame(() => {
@@ -1083,12 +1084,51 @@ function initCookieBanner() {
     }
 }
 
+
+function normalizeExternalConsentCards(root = document) {
+    const blockSet = new Set();
+
+    const reviewsPlaceholder = root.getElementById ? root.getElementById("reviews-placeholder") : null;
+    const contactMap = root.querySelector ? root.querySelector(".contact-map") : null;
+    const externalBoxes = root.querySelectorAll ? root.querySelectorAll(".external-content-box") : [];
+
+    if (reviewsPlaceholder) blockSet.add(reviewsPlaceholder);
+    if (contactMap) blockSet.add(contactMap);
+    externalBoxes.forEach(box => blockSet.add(box));
+
+    blockSet.forEach(block => {
+        block.style.display = "flex";
+        block.style.flexDirection = "column";
+        block.style.alignItems = "center";
+        block.style.justifyContent = "center";
+        block.style.textAlign = "center";
+        block.style.gap = "0.9rem";
+
+        block.querySelectorAll("p, .btn, button, a.btn").forEach(element => {
+            element.style.marginLeft = "auto";
+            element.style.marginRight = "auto";
+
+            if (element.tagName === "P") {
+                element.style.textAlign = "center";
+                element.style.maxWidth = "640px";
+            }
+
+            if (element.matches(".btn, button, a.btn")) {
+                element.style.display = "inline-flex";
+                element.style.alignItems = "center";
+                element.style.justifyContent = "center";
+            }
+        });
+    });
+}
+
 function loadMapEmbed() {
     const container = $(".contact-map");
     if (!container || container.dataset.loaded === "1") return;
 
     container.dataset.loaded = "1";
     setExternalConsent("map-consent", "accepted");
+    normalizeExternalConsentCards(document);
 
     container.innerHTML = `
         <iframe
@@ -1103,6 +1143,8 @@ function loadMapEmbed() {
 }
 
 function initMapEmbed() {
+    normalizeExternalConsentCards(document);
+
     if (getExternalConsent("map-consent") === "accepted") {
         loadMapEmbed();
         return;
@@ -1147,7 +1189,8 @@ function loadReviewWidget() {
                 <p>A vélemények külső widgetje nem töltődött be. Ezt Brave Shield, reklámblokkoló vagy hálózati tiltás is okozhatja.</p>
                 <button type="button" class="btn yellow-btn" id="loadReviewsBtn">Újrapróbálom</button>
             `;
-            initReviewWidget();
+            normalizeExternalConsentCards(document);
+    initReviewWidget();
         }
         console.warn("A LocalImpact widget betöltését a böngésző vagy egy bővítmény blokkolta.");
     };
@@ -1155,6 +1198,8 @@ function loadReviewWidget() {
 }
 
 function initReviewWidget() {
+    normalizeExternalConsentCards(document);
+
     if (getExternalConsent("reviews-consent") === "accepted") {
         loadReviewWidget();
         return;
