@@ -1563,6 +1563,12 @@ body:not(.dark) .calc-table input:disabled {
     transform: scale(1.15);
 }
 
+/* Google map sötét mód */
+body.dark .contact-map iframe {
+    filter: invert(92%) hue-rotate(180deg) brightness(85%) contrast(110%);
+    border-radius: 18px;
+}
+
 /* ==================================================
    13. FOOTER
 ================================================== */
