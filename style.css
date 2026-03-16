@@ -1677,7 +1677,13 @@ footer {
     contain-intrinsic-size: 1px 900px;
 }
 
-
+/* Árlista mobil vibrálás fix */
+@media (max-width: 768px) {
+    #content-box[data-page="arlista.html"] .service-box {
+        content-visibility: visible;
+        contain-intrinsic-size: auto;
+    }
+}
 
 /* ==================================================
    17. DARK MODE
