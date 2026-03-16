@@ -602,6 +602,17 @@ input[type="submit"]:hover,
     text-decoration: none;
 }
 
+/* Rólam oldal telefonszám + email */
+.content-box .rolam-contact a[href^="tel:"],
+.content-box .rolam-contact a[href^="mailto:"] {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.content-box .rolam-contact a:hover {
+    color: var(--primary-strong);
+}
+
 .bottom-phone {
     position: relative;
     margin: 0.7rem auto 0.8rem;
@@ -1806,6 +1817,13 @@ body.dark .privacy-text a,
 body.dark .contact-form p a {
     color: #9ec5ff;
 }
+
+body.dark .content-box .rolam-contact,
+body.dark .content-box .rolam-contact a[href^="tel:"],
+body.dark .content-box .rolam-contact a[href^="mailto:"] {
+    color: var(--accent);
+}
+
 
 body.dark .row-reset {
     background: rgba(69, 153, 255, 0.12);
