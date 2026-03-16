@@ -1037,7 +1037,7 @@ function deleteAnalyticsCookies() {
 }
 
 function openCookieSettings() {
-    const banner = $("#cookie-banner");
+    const banner = $("#privacy-consent-panel");
     if (!banner) return;
     banner.style.display = "block";
     banner.scrollIntoView({ behavior: "smooth", block: "nearest" });
@@ -1060,10 +1060,10 @@ function getExternalConsent(key) {
 }
 
 function initCookieBanner() {
-    const banner = $("#cookie-banner");
+    const banner = $("#privacy-consent-panel");
     const accept = $("#cookie-accept");
     const decline = $("#cookie-decline");
-    const settingsButton = $("#cookie-settings-btn");
+    const settingsButton = $("#privacy-settings-trigger");
     if (!banner) return;
 
     const consent = getCookieConsent();

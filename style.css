@@ -97,7 +97,7 @@ canvas {
 }
 
 .fixed-header,
-.cookie-banner {
+.privacy-consent-panel {
     max-width: var(--content-width);
 }
 
@@ -691,12 +691,24 @@ input[type="submit"]::after,
 .contact-card,
 .contact-form,
 .calc-card,
-.cookie-banner {
+.privacy-consent-panel {
+    position: relative;
+    margin: var(--section-spacing);
+    padding: clamp(1.2rem, 2vw, 1.8rem);
+    border-radius: var(--radius-lg);
     background: var(--surface);
-    border: 1px solid rgba(255, 255, 255, 0.72);
-    box-shadow: var(--shadow-md);
+    border: 1px solid var(--line);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
+    box-shadow: var(--shadow-md);
+}
+
+.privacy-consent-panel button {
+    border: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 .content-box,
@@ -1605,25 +1617,30 @@ footer p {
 /* ==================================================
    14. COOKIE BANNER
 ================================================== */
-.cookie-banner {
+.privacy-consent-panel {
     position: fixed;
     left: 50%;
-    bottom: 0;
+    bottom: 20px;
     transform: translateX(-50%);
-    width: min(1200px, 100%);
+    width: min(92%, 520px);
     z-index: 1200;
     padding: 1rem 1.25rem;
-    border-radius: 22px 22px 0 0;
+    border-radius: 18px;
     display: none;
     text-align: center;
+    background: rgba(255,255,255,0.96);
+    border: 1px solid var(--line);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.18);
 }
 
-.cookie-banner p {
+.privacy-consent-panel p {
     color: var(--text-soft);
     margin-bottom: 0.8rem;
 }
 
-.cookie-banner a {
+.privacy-consent-panel a {
     font-weight: 700;
     text-decoration: none;
 }
@@ -1636,12 +1653,12 @@ footer p {
     flex-wrap: wrap;
 }
 
-.cookie-banner button {
+.privacy-consent-panel button {
     width: auto;
     min-width: 120px;
 }
 
-.cookie-banner button + button {
+.privacy-consent-panel button + button {
     margin-left: 0.6rem;
 }
 
@@ -1709,7 +1726,7 @@ body.dark .contact-map,
 body.dark .contact-card,
 body.dark .contact-form,
 body.dark .calc-card,
-body.dark .cookie-banner,
+body.dark .privacy-consent-panel,
 body.dark .external-content-box,
 body.dark .google-reviews-summary-card,
 body.dark .google-review-card,
@@ -1801,8 +1818,8 @@ body.dark .footer-link-button:hover,
 body.dark .footer-link-button:focus-visible,
 body.dark .footer-text-button:hover,
 body.dark .footer-text-button:focus-visible,
-body.dark #cookie-settings-btn:hover,
-body.dark #cookie-settings-btn:focus-visible {
+#privacy-settings-trigger:hover,
+#privacy-settings-trigger:focus-visible {
     color: var(--accent) !important;
     -webkit-text-fill-color: var(--accent);
     text-decoration-color: currentColor;
