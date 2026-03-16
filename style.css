@@ -1678,6 +1678,7 @@ footer {
 }
 
 
+
 /* ==================================================
    17. DARK MODE
 ================================================== */
@@ -2251,7 +2252,7 @@ body.dark .review-dot.is-active {
     .footer-links a,
     .footer-link-button,
     .footer-text-button {
-        font-size: 0.78rem;
+        font-size: 0.6rem;
         white-space: nowrap;
     }
 
