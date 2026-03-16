@@ -1,3 +1,7 @@
+/* ==================================================
+   01. KONFIGURÁCIÓ / KONSTANSOK / ALAPÁLLAPOT
+================================================== */
+
 const GAS_URL = "https://script.google.com/macros/s/AKfycbx_FI6eN8AONYMFqtBFF792ymRvmFdZSrfkMICwKbgvp2ExavZWIAK72P5Vdsy8FSQrGA/exec";
 const GA_MEASUREMENT_ID = "G-Y6NQ4G486W";
 const GOOGLE_MAPS_EMBED_URL = "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10969.609170720607!2d20.6672226!3d46.579284!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47443f2d22d977cf%3A0xd12daeff6b3b374d!2sStrassenreiter%20Attila%20Villanyszerel%C5%91%20E.V.!5e0!3m2!1shu!2hu!4v1772120210144!5m2!1shu!2hu";
@@ -83,6 +87,10 @@ const PAGE_META = {
 
 };
 
+/* ==================================================
+   02. SEO / META ADATOK / OLDAL INFORMATIKA
+================================================== */
+
 function setMetaContent(selector, value, attribute = "content") {
     const element = document.querySelector(selector);
     if (!element || !value) return;
@@ -101,6 +109,10 @@ function updatePageMeta(page) {
     if (canonical && meta.canonical) canonical.setAttribute('href', meta.canonical);
 }
 
+
+/* ==================================================
+   03. LOCAL STORAGE / BIZTONSÁGOS TÁROLÁS
+================================================== */
 
 function getStorage() {
     try {
@@ -146,6 +158,10 @@ function safeStorageRemove(key) {
     }
 }
 
+/* ==================================================
+   04. PDF SZÖVEG ELŐKÉSZÍTÉS / LOGÓ BETÖLTÉS
+================================================== */
+
 function normalizePdfText(value) {
     return String(value || "")
         .replace(/[–—]/g, "-")
@@ -179,6 +195,10 @@ async function getPdfHeaderLogo() {
     }
     return pdfHeaderLogoCache;
 }
+
+/* ==================================================
+   05. DOM HELPEREK / GÖRGETÉS / AKTÍV LINKEK
+================================================== */
 
 function $(selector, root = document) {
     return root.querySelector(selector);
@@ -258,6 +278,10 @@ function syncHash(page, anchorId = "", replace = false) {
     }
 }
 
+/* ==================================================
+   06. OLDALBETÖLTÉS / HASH-ALAPÚ NAVIGÁCIÓ
+================================================== */
+
 async function loadPage(page, linkElement = null, options = {}) {
     const targetPage = CONTENT_PAGES.has(page) ? page : "rolam.html";
     const contentBox = $("#content-box");
@@ -320,6 +344,10 @@ function initPageFeatures(page) {
     }
 }
 
+/* ==================================================
+   07. ÁLTALÁNOS FORM SEGÉDFÜGGVÉNYEK / STÁTUSZKEZELÉS
+================================================== */
+
 async function fetchOfferId() {
     const response = await fetch(`${GAS_URL}?action=getOfferId`, { method: "GET" });
     const text = await response.text();
@@ -341,6 +369,10 @@ function validateForm(form, statusBox) {
     setStatus(statusBox, "Kérjük, töltse ki a kötelező mezőket.", "error");
     return false;
 }
+
+/* ==================================================
+   08. KAPCSOLATI ŰRLAP
+================================================== */
 
 function initContactForm() {
     const form = $("#contactForm");
@@ -382,6 +414,10 @@ function initContactForm() {
         }
     });
 }
+
+/* ==================================================
+   09. KALKULÁTOR ADATKEZELÉS / SZÁMOLÁS
+================================================== */
 
 let calculatorRowsCache = null;
 
@@ -498,6 +534,10 @@ function attachCalculatorSummary(messageField) {
 
 }
 
+/* ==================================================
+   10. KALKULÁTOR ŰRLAP ESEMÉNYEK / BEKÜLDÉS
+================================================== */
+
 function initCalculator() {
     const form = $("#calcContactForm");
     const statusBox = $("#calc-status");
@@ -585,6 +625,10 @@ function initCalculator() {
         }
     });
 }
+
+/* ==================================================
+   11. PDF GENERÁLÁS AZ AJÁNLATHOZ
+================================================== */
 
 async function generateCalculatorPdfBase64(offerId = "") {
     if (!window.jspdf || !window.jspdf.jsPDF) {
@@ -966,6 +1010,10 @@ async function generateCalculatorPdfBase64(offerId = "") {
     return { base64, doc };
 }
 
+/* ==================================================
+   12. LETÖLTÉS / ANALITIKA
+================================================== */
+
 function initDownloadButton() {
     const button = $("#downloadPdf") || $("#downloadOffer");
     if (!button || button.dataset.bound === "1") return;
@@ -1016,6 +1064,10 @@ function loadAnalytics() {
     document.head.appendChild(script);
 }
 
+/* ==================================================
+   13. COOKIE HOZZÁJÁRULÁS / ANALITIKAI SÜTIK
+================================================== */
+
 function setCookieConsent(value) {
     safeStorageSet("cookie-consent", value);
 }
@@ -1051,6 +1103,10 @@ function revokeCookieConsent() {
     openCookieSettings();
 }
 
+/* ==================================================
+   14. KÜLSŐ TARTALMAK HOZZÁJÁRULÁSAI (MAP / REVIEWS)
+================================================== */
+
 function setExternalConsent(key, value) {
     safeStorageSet(key, value);
 }
@@ -1058,6 +1114,10 @@ function setExternalConsent(key, value) {
 function getExternalConsent(key) {
     return safeStorageGet(key);
 }
+
+/* ==================================================
+   15. COOKIE SÁV / HOZZÁJÁRULÁSI PANEL
+================================================== */
 
 function initCookieBanner() {
     const banner = $("#privacy-consent-panel");
@@ -1135,6 +1195,10 @@ function normalizeExternalConsentCards(root = document) {
         });
     });
 }
+
+/* ==================================================
+   16. TÉRKÉP / GOOGLE REVÉW / BEÁGYAZOTT TARTALMAK
+================================================== */
 
 function loadMapEmbed() {
     const container = $(".contact-map");
@@ -1240,6 +1304,10 @@ function initReviewSlider() {
     startAutoplay();
 }
 
+/* ==================================================
+   17. TÉMAKEZELÉS (VILÁGOS / SÖTÉT MÓD)
+================================================== */
+
 function applyTheme(mode) {
     const body = document.body;
     const toggle = $("#themeToggle");
@@ -1283,6 +1351,10 @@ function initThemeToggle() {
 }
 
 
+/* ==================================================
+   18. MOBIL MENÜ / RESZPONZÍV VISELKEDÉS
+================================================== */
+
 function closeMobileMenu() {
     const wrap = document.querySelector('.hamburger-wrap');
     const toggle = $("#navToggle");
@@ -1316,6 +1388,10 @@ document.addEventListener('click', event => {
     });
 }
 
+/* ==================================================
+   19. HALASZTOTT BETÖLTÉSEK / VIEWPORT OPTIMALIZÁLÁS
+================================================== */
+
 function initDeferredMedia(root = document) {
     $$("img", root).forEach(img => {
         if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
@@ -1345,6 +1421,10 @@ function initViewportOptimizations() {
     window.addEventListener("orientationchange", scheduleHeaderOffsetUpdate, { passive: true });
     window.addEventListener("load", scheduleHeaderOffsetUpdate, { passive: true });
 }
+
+/* ==================================================
+   20. NAVIGÁCIÓ ESEMÉNYEK / MENÜKÖTÉS
+================================================== */
 
 function initNavigation() {
     if (document.body.dataset.navBound === "1") return;
@@ -1382,6 +1462,10 @@ function initNavigation() {
         });
     });
 }
+
+/* ==================================================
+   21. BIZTONSÁGOS INICIALIZÁLÁS / APP INDÍTÁS
+================================================== */
 
 function safeInit(label, fn) {
     try {

@@ -1,348 +1,511 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Villanyszerelő Orosháza – StraVill | Strassenreiter Attila E.V.</title>
-<meta name="description" content="Villanyszerelő Orosházán és környékén: gyors hibaelhárítás, szerelvénycsere, lámpa bekötés, hálózat felújítás. Hétvégén is elérhető. Hívjon most!">
-<meta name="robots" content="index,follow">
-<meta name="author" content="Strassenreiter Attila E.V.">
-<meta name="theme-color" content="#12233c">
-<meta name="format-detection" content="telephone=yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="canonical" href="https://www.stravill.hu">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" type="image/x-icon" href="icons/favicon.ico">
-<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-<link rel="preload" as="image" href="icons/hero-bg.jpg" fetchpriority="high">
-<link rel="preload" as="image" href="icons/logo.png">
-<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
-<link rel="dns-prefetch" href="//www.googletagmanager.com">
-<link rel="dns-prefetch" href="//www.google.com">
+    <!-- ==================================================
+         01. META / ALAPBEÁLLÍTÁSOK
+    ================================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Villanyszerelő Orosháza – StraVill | Strassenreiter Attila E.V.</title>
 
-<meta property="og:title" content="Villanyszerelő Orosháza – StraVill">
-<meta property="og:description" content="Gyors, precíz villanyszerelés Orosházán – hívjon most!">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.stravill.hu">
-<meta property="og:image" content="https://www.stravill.hu/icons/logo.png">
-<meta property="og:locale" content="hu_HU">
+    <meta
+        name="description"
+        content="Villanyszerelő Orosházán és környékén: gyors hibaelhárítás, szerelvénycsere, lámpa bekötés, hálózat felújítás. Hétvégén is elérhető. Hívjon most!"
+    >
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="Strassenreiter Attila E.V.">
+    <meta name="theme-color" content="#12233c">
+    <meta name="format-detection" content="telephone=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Villanyszerelő Orosháza – StraVill">
-<meta name="twitter:description" content="Gyors, precíz villanyszerelés Orosházán – hívjon most!">
-<meta name="twitter:image" content="https://www.stravill.hu/icons/logo.png">
+    <!-- ==================================================
+         02. CANONICAL / MANIFEST / IKONOK
+    ================================================== -->
+    <link rel="canonical" href="https://www.stravill.hu">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" type="image/x-icon" href="icons/favicon.ico">
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Electrician",
-  "name": "StraVill – Strassenreiter Attila",
-  "url": "https://www.stravill.hu",
-  "telephone": "+36304938929",
-  "priceRange": "$$",
-  "image": "https://www.stravill.hu/icons/logo.png",
-  "serviceType": [
-    "Villanyszerelés",
-    "Hibaelhárítás",
-    "Lakás villanyhálózat felújítás",
-    "Konnektor csere",
-    "Kapcsoló csere",
-    "Lámpatest felszerelés",
-    "Villanybojler bekötés"
-  ],
-  "openingHours": [
-    "Mo-Fr 08:00-18:00",
-    "Sa-Su 09:00-15:00"
-  ],
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Szarvasi utca 12",
-    "addressLocality": "Orosháza",
-    "postalCode": "5900",
-    "addressCountry": "HU"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 46.579284,
-    "longitude": 20.6672226
-  },
-  "areaServed": [
-    "Orosháza",
-    "Békéscsaba",
-    "Csorvás",
-    "Nagyszénás",
-    "Gádoros",
-    "Kardoskút"
-  ],
-  "sameAs": [
-    "https://www.facebook.com/16rfCArxpN/",
-    "https://www.instagram.com/stra_vill/",
-    "https://youtube.com/@stra_vill",
-    "https://tiktok.com/@stra_vill"
-  ],
-  "review": [
-    {
-      "@type": "Review",
-      "author": {
-        "@type": "Person",
-        "name": "Zoltánné Czvitkó"
-      },
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": 5,
-        "bestRating": 5
-      },
-      "reviewBody": "Pontos, korrekt ár, mindenkinek ajánlom.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Google"
-      }
-    },
-    {
-      "@type": "Review",
-      "author": {
-        "@type": "Person",
-        "name": "Béla Strassenreiter"
-      },
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": 5,
-        "bestRating": 5
-      },
-      "reviewBody": "Köszi!",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Google"
-      }
-    },
-    {
-      "@type": "Review",
-      "author": {
-        "@type": "Person",
-        "name": "Edit Oláh"
-      },
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": 5,
-        "bestRating": 5
-      },
-      "reviewBody": "Megbízható, pontos és alapos villanyszerelő.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Google"
-      }
-    }
-  ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": 5,
-    "reviewCount": 3,
-    "bestRating": 5,
-    "worstRating": 1
-  }
-}
-</script>
+    <!-- ==================================================
+         03. TELJESÍTMÉNY / PRECONNECT / PRELOAD
+    ================================================== -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preload" as="image" href="icons/hero-bg.jpg" fetchpriority="high">
+    <link rel="preload" as="image" href="icons/logo.png">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
+    <link rel="dns-prefetch" href="//www.google.com">
 
-<link rel="stylesheet" href="style.css">
+    <!-- ==================================================
+         04. OPEN GRAPH
+    ================================================== -->
+    <meta property="og:title" content="Villanyszerelő Orosháza – StraVill">
+    <meta property="og:description" content="Gyors, precíz villanyszerelés Orosházán – hívjon most!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.stravill.hu">
+    <meta property="og:image" content="https://www.stravill.hu/icons/logo.png">
+    <meta property="og:locale" content="hu_HU">
+
+    <!-- ==================================================
+         05. TWITTER META
+    ================================================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Villanyszerelő Orosháza – StraVill">
+    <meta name="twitter:description" content="Gyors, precíz villanyszerelés Orosházán – hívjon most!">
+    <meta name="twitter:image" content="https://www.stravill.hu/icons/logo.png">
+
+    <!-- ==================================================
+         06. STRUCTURED DATA / JSON-LD
+    ================================================== -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Electrician",
+            "name": "StraVill – Strassenreiter Attila",
+            "url": "https://www.stravill.hu",
+            "telephone": "+36304938929",
+            "priceRange": "$$",
+            "image": "https://www.stravill.hu/icons/logo.png",
+            "serviceType": [
+                "Villanyszerelés",
+                "Hibaelhárítás",
+                "Lakás villanyhálózat felújítás",
+                "Konnektor csere",
+                "Kapcsoló csere",
+                "Lámpatest felszerelés",
+                "Villanybojler bekötés"
+            ],
+            "openingHours": [
+                "Mo-Fr 08:00-18:00",
+                "Sa-Su 09:00-15:00"
+            ],
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Szarvasi utca 12",
+                "addressLocality": "Orosháza",
+                "postalCode": "5900",
+                "addressCountry": "HU"
+            },
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 46.579284,
+                "longitude": 20.6672226
+            },
+            "areaServed": [
+                "Orosháza",
+                "Békéscsaba",
+                "Csorvás",
+                "Nagyszénás",
+                "Gádoros",
+                "Kardoskút"
+            ],
+            "sameAs": [
+                "https://www.facebook.com/16rfCArxpN/",
+                "https://www.instagram.com/stra_vill/",
+                "https://youtube.com/@stra_vill",
+                "https://tiktok.com/@stra_vill"
+            ],
+            "review": [
+                {
+                    "@type": "Review",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Zoltánné Czvitkó"
+                    },
+                    "reviewRating": {
+                        "@type": "Rating",
+                        "ratingValue": 5,
+                        "bestRating": 5
+                    },
+                    "reviewBody": "Pontos, korrekt ár, mindenkinek ajánlom.",
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "Google"
+                    }
+                },
+                {
+                    "@type": "Review",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Béla Strassenreiter"
+                    },
+                    "reviewRating": {
+                        "@type": "Rating",
+                        "ratingValue": 5,
+                        "bestRating": 5
+                    },
+                    "reviewBody": "Köszi!",
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "Google"
+                    }
+                },
+                {
+                    "@type": "Review",
+                    "author": {
+                        "@type": "Person",
+                        "name": "Edit Oláh"
+                    },
+                    "reviewRating": {
+                        "@type": "Rating",
+                        "ratingValue": 5,
+                        "bestRating": 5
+                    },
+                    "reviewBody": "Megbízható, pontos és alapos villanyszerelő.",
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "Google"
+                    }
+                }
+            ],
+            "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": 5,
+                "reviewCount": 3,
+                "bestRating": 5,
+                "worstRating": 1
+            }
+        }
+    </script>
+
+    <!-- ==================================================
+         07. STÍLUSLAP
+    ================================================== -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<noscript><div class="noscript-banner">A weboldal egyes funkciói JavaScript nélkül nem működnek teljesen. Brave-ben ellenőrizze, hogy a JavaScript engedélyezve van-e. Elérhetőség: <a href="tel:+36304938929">06 30 493 8929</a> • <a href="mailto:strassenreiter.a@gmail.com">strassenreiter.a@gmail.com</a></div></noscript>
-<div class="wrapper">
-<header class="fixed-header">
-    <nav aria-label="Fő navigáció">
-        <div class="nav-left">
-            <a href="https://www.facebook.com/profile.php?id=61578948980529" target="_blank" rel="noopener noreferrer" class="nav-left-link" aria-label="StraVill Facebook oldal">
-                <img src="icons/logo.png" alt="StraVill villanyszerelő Orosháza" class="header-logo" fetchpriority="high" decoding="async">
-                <span class="nav-title">StraVill – Strassenreiter Attila E.V.</span>
-            </a>
+    <!-- ==================================================
+         08. NOSCRIPT FIGYELMEZTETÉS
+    ================================================== -->
+    <noscript>
+        <div class="noscript-banner">
+            A weboldal egyes funkciói JavaScript nélkül nem működnek teljesen.
+            Ellenőrizze, hogy a JavaScript engedélyezve van-e.
+            Elérhetőség:
+            <a href="tel:+36304938929">06 30 493 8929</a>
+            •
+            <a href="mailto:strassenreiter.a@gmail.com">strassenreiter.a@gmail.com</a>
         </div>
+    </noscript>
 
-        <ul id="primary-menu">
-            <li><a href="rolam.html" data-page="rolam.html">Főoldal</a></li>
-            <li><a href="szolgaltatasok.html" data-page="szolgaltatasok.html">Szolgáltatások</a></li>
-            <li><a href="arlista.html" data-page="arlista.html">Árlista</a></li>
-            <li><a href="galeria.html" data-page="galeria.html">Galéria</a></li>
-            <li><a href="kapcsolat.html" data-page="kapcsolat.html">Kapcsolat</a></li>
-        </ul>
+    <div class="wrapper">
+        <!-- ==================================================
+             09. FIX FEJLÉC / NAVIGÁCIÓ
+        ================================================== -->
+        <header class="fixed-header">
+            <nav aria-label="Fő navigáció">
+                <div class="nav-left">
+                    <a
+                        href="https://www.facebook.com/profile.php?id=61578948980529"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="nav-left-link"
+                        aria-label="StraVill Facebook oldal"
+                    >
+                        <img
+                            src="icons/logo.png"
+                            alt="StraVill villanyszerelő Orosháza"
+                            class="header-logo"
+                            fetchpriority="high"
+                            decoding="async"
+                        >
+                        <span class="nav-title">StraVill – Strassenreiter Attila E.V.</span>
+                    </a>
 
-        <div class="hamburger-wrap">
-            <button type="button" class="nav-toggle" id="navToggle" aria-label="További menüpontok" aria-controls="hamburgerMenu" aria-expanded="false">☰</button>
-            <div class="hamburger-menu" id="hamburgerMenu" role="menu" aria-label="További menüpontok">
-                <a href="kalkulator.html" data-page="kalkulator.html">Kalkulátor</a>
-                <a href="blog.html" data-page="blog.html">Blog</a>
-                <a href="videok.html" data-page="videok.html">Videók</a>
+                    <div class="hamburger-wrap">
+                        <button
+                            type="button"
+                            class="nav-toggle"
+                            id="navToggle"
+                            aria-label="További menüpontok"
+                            aria-controls="hamburgerMenu"
+                            aria-expanded="false"
+                        >
+                            ☰
+                        </button>
+
+                        <div class="hamburger-menu" id="hamburgerMenu" role="menu" aria-label="További menüpontok">
+                            <a href="kalkulator.html" data-page="kalkulator.html">Kalkulátor</a>
+                            <a href="blog.html" data-page="blog.html">Blog</a>
+                            <a href="videok.html" data-page="videok.html">Videók</a>
+                        </div>
+                    </div>
+                </div>
+
+                <ul id="primary-menu">
+                    <li><a href="rolam.html" data-page="rolam.html">Főoldal</a></li>
+                    <li><a href="szolgaltatasok.html" data-page="szolgaltatasok.html">Szolgáltatások</a></li>
+                    <li><a href="arlista.html" data-page="arlista.html">Árlista</a></li>
+                    <li><a href="galeria.html" data-page="galeria.html">Galéria</a></li>
+                    <li><a href="kapcsolat.html" data-page="kapcsolat.html">Kapcsolat</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- ==================================================
+             10. HERO SZEKCIÓ
+        ================================================== -->
+        <section class="hero">
+            <div class="hero-inner">
+                <div class="hero-text">
+                    <div class="hero-badges">
+                        <span class="hero-badge">⚡ Gyors kiszállás</span>
+                        <span class="hero-badge">🛡️ Garanciális munkavégzés</span>
+                        <span class="hero-badge">📍 Orosháza és környéke</span>
+                    </div>
+
+                    <h1>Villanyszerelő Orosházán és környékén</h1>
+
+                    <p class="hero-lead">
+                        Gyors hibaelhárítás, szerelvénycsere, lámpa bekötés és teljes villanyhálózat felújítás
+                        lakossági ügyfeleknek. Hétvégén is elérhető.
+                    </p>
+
+                    <div class="hero-buttons">
+                        <a href="tel:+36304938929" class="hero-link-chip hero-cta-chip">📞 Hívjon most</a>
+                        <a
+                            href="https://m.me/752587131264576"
+                            class="hero-link-chip hero-cta-chip"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            💬 Írjon Messengeren
+                        </a>
+                    </div>
+
+                    <div class="hero-links">
+                        <a
+                            href="kalkulator.html#ajanlatkeres"
+                            class="hero-link-chip"
+                            data-page="kalkulator.html"
+                            data-anchor="ajanlatkeres"
+                        >
+                            📩 Kérjen ajánlatot
+                        </a>
+                    </div>
+
+                    <div class="hero-trust-row" aria-label="Bizalmi elemek">
+                        <span>✓ Hétvégén is elérhető</span>
+                        <span>✓ Garanciával</span>
+                        <span>✓ Korrekt árképzés</span>
+                    </div>
+                </div>
             </div>
-        </div>
-    </nav>
-</header>
+        </section>
 
-<section class="hero">
-    <div class="hero-inner">
-        <div class="hero-text">
-            <div class="hero-badges">
-                <span class="hero-badge">⚡ Gyors kiszállás</span>
-                <span class="hero-badge">🛡️ Garanciális munkavégzés</span>
-                <span class="hero-badge">📍 Orosháza és környéke</span>
-            </div>
+        <!-- ==================================================
+             11. DINAMIKUS TARTALOM BETÖLTÉSI TERÜLET
+        ================================================== -->
+        <main id="content-box" aria-live="polite" tabindex="-1"></main>
 
-            <h1>Villanyszerelő Orosházán és környékén</h1>
-            <p class="hero-lead">
-                Gyors hibaelhárítás, szerelvénycsere, lámpa bekötés és teljes villanyhálózat felújítás
-                lakossági ügyfeleknek. Hétvégén is elérhető.
+        <!-- ==================================================
+             12. KÖZÖSSÉGI MÉDIA BLOKK
+        ================================================== -->
+        <div class="service-box social-box">
+            <h2>🌐 Kövessen a közösségi médiában</h2>
+            <p class="social-text">
+                Ahol a munkáimról, villanyszerelési tippekről és aktuális projektekből osztok meg képeket és videókat.
             </p>
 
-            <div class="hero-buttons">
-                <a href="tel:+36304938929" class="hero-link-chip hero-cta-chip">📞 Hívjon most</a>
-                <a href="https://m.me/752587131264576" class="hero-link-chip hero-cta-chip" target="_blank" rel="noopener noreferrer">💬 Írjon Messengeren</a>
-            </div>
+            <div class="social-icons">
+                <a
+                    href="https://www.facebook.com/16rfCArxpN/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="facebook"
+                    aria-label="Facebook"
+                >
+                    <img src="icons/facebook.png" alt="Facebook" loading="lazy" decoding="async">
+                </a>
 
-            <div class="hero-links">
-                <a href="kalkulator.html#ajanlatkeres" class="hero-link-chip" data-page="kalkulator.html" data-anchor="ajanlatkeres">📩 Kérjen ajánlatot</a>
-            </div>
+                <a
+                    href="https://www.instagram.com/stra_vill/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="instagram"
+                    aria-label="Instagram"
+                >
+                    <img src="icons/instagram.png" alt="Instagram" loading="lazy" decoding="async">
+                </a>
 
-            <div class="hero-trust-row" aria-label="Bizalmi elemek">
-                <span>✓ Hétvégén is elérhető</span>
-                <span>✓ Garanciával</span>
-                <span>✓ Korrekt árképzés</span>
-            </div>
-        </div>
-    </div>
-</section>
+                <a
+                    href="https://youtube.com/@stra_vill"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="youtube"
+                    aria-label="YouTube"
+                >
+                    <img src="icons/youtube.png" alt="YouTube">
+                </a>
 
-<main id="content-box" aria-live="polite" tabindex="-1"></main>
-
-<div class="service-box social-box">
-    <h2>🌐 Kövessen a közösségi médiában</h2>
-    <p class="social-text">
-        Ahol a munkáimról, villanyszerelési tippekről és aktuális projektekből osztok meg képeket és videókat.
-    </p>
-
-    <div class="social-icons">
-        <a href="https://www.facebook.com/16rfCArxpN/" target="_blank" rel="noopener noreferrer" class="facebook" aria-label="Facebook">
-            <img src="icons/facebook.png" alt="Facebook" loading="lazy" decoding="async">
-        </a>
-        <a href="https://www.instagram.com/stra_vill/" target="_blank" rel="noopener noreferrer" class="instagram" aria-label="Instagram">
-            <img src="icons/instagram.png" alt="Instagram" loading="lazy" decoding="async">
-        </a>
-        <a href="https://youtube.com/@stra_vill" target="_blank" rel="noopener noreferrer" class="youtube" aria-label="YouTube">
-            <img src="icons/youtube.png" alt="YouTube">
-        </a>
-        <a href="https://tiktok.com/@stra_vill" target="_blank" rel="noopener noreferrer" class="tiktok" aria-label="TikTok">
-            <img src="icons/tiktok.png" alt="TikTok">
-        </a>
-    </div>
-</div>
-
-<section class="reviews-box reviews-box--slider" id="google-reviews-section" aria-labelledby="reviewsTitle">
-    <h2 id="reviewsTitle">Ügyfeleim véleménye</h2>
-    <p class="reviews-intro">
-        A teljes értékelési listát a Google-on is meg tudja nézni.
-    </p>
-
-    <div class="review-slider" id="reviewSlider" aria-roledescription="carousel">
-        <button class="review-slider-btn review-slider-btn--prev" id="reviewPrev" type="button" aria-label="Előző vélemény">‹</button>
-
-        <div class="review-slider-viewport">
-            <div class="review-slider-track" id="reviewTrack">
-                <article class="review-card review-card--slide is-active" data-review-index="0">
-                    <div class="review-card-top">
-                        <div>
-                            <div class="review-author">Zoltánné Czvitkó</div>
-                            <div class="review-meta">Google vélemény • 4 hete</div>
-                        </div>
-                        <div class="review-stars" aria-label="5 csillag">★★★★★</div>
-                    </div>
-                    <p class="review-text">„Pontos, korrekt ár, mindenkinek ajánlom.”</p>
-                </article>
-
-                <article class="review-card review-card--slide" data-review-index="1">
-                    <div class="review-card-top">
-                        <div>
-                            <div class="review-author">Béla Strassenreiter</div>
-                            <div class="review-meta">Google vélemény • 9 hete</div>
-                        </div>
-                        <div class="review-stars" aria-label="5 csillag">★★★★★</div>
-                    </div>
-                    <p class="review-text">„Köszi!”</p>
-                </article>
-
-                <article class="review-card review-card--slide" data-review-index="2">
-                    <div class="review-card-top">
-                        <div>
-                            <div class="review-author">Edit Oláh</div>
-                            <div class="review-meta">Google vélemény • 9 hete</div>
-                        </div>
-                        <div class="review-stars" aria-label="5 csillag">★★★★★</div>
-                    </div>
-                    <p class="review-text">„Megbízható, pontos és alapos villanyszerelő.”</p>
-                </article>
+                <a
+                    href="https://tiktok.com/@stra_vill"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="tiktok"
+                    aria-label="TikTok"
+                >
+                    <img src="icons/tiktok.png" alt="TikTok">
+                </a>
             </div>
         </div>
 
-        <button class="review-slider-btn review-slider-btn--next" id="reviewNext" type="button" aria-label="Következő vélemény">›</button>
+        <!-- ==================================================
+             13. ÜGYFÉLVÉLEMÉNYEK / REVIEW SLIDER
+        ================================================== -->
+        <section class="reviews-box reviews-box--slider" id="google-reviews-section" aria-labelledby="reviewsTitle">
+            <h2 id="reviewsTitle">Ügyfeleim véleménye</h2>
+            <p class="reviews-intro">
+                A teljes értékelési listát a Google-on is meg tudja nézni.
+            </p>
+
+            <div class="review-slider" id="reviewSlider" aria-roledescription="carousel">
+                <button
+                    class="review-slider-btn review-slider-btn--prev"
+                    id="reviewPrev"
+                    type="button"
+                    aria-label="Előző vélemény"
+                >
+                    ‹
+                </button>
+
+                <div class="review-slider-viewport">
+                    <div class="review-slider-track" id="reviewTrack">
+                        <article class="review-card review-card--slide is-active" data-review-index="0">
+                            <div class="review-card-top">
+                                <div>
+                                    <div class="review-author">Zoltánné Czvitkó</div>
+                                    <div class="review-meta">Google vélemény • 4 hete</div>
+                                </div>
+                                <div class="review-stars" aria-label="5 csillag">★★★★★</div>
+                            </div>
+                            <p class="review-text">„Pontos, korrekt ár, mindenkinek ajánlom.”</p>
+                        </article>
+
+                        <article class="review-card review-card--slide" data-review-index="1">
+                            <div class="review-card-top">
+                                <div>
+                                    <div class="review-author">Béla Strassenreiter</div>
+                                    <div class="review-meta">Google vélemény • 9 hete</div>
+                                </div>
+                                <div class="review-stars" aria-label="5 csillag">★★★★★</div>
+                            </div>
+                            <p class="review-text">„Köszi!”</p>
+                        </article>
+
+                        <article class="review-card review-card--slide" data-review-index="2">
+                            <div class="review-card-top">
+                                <div>
+                                    <div class="review-author">Edit Oláh</div>
+                                    <div class="review-meta">Google vélemény • 9 hete</div>
+                                </div>
+                                <div class="review-stars" aria-label="5 csillag">★★★★★</div>
+                            </div>
+                            <p class="review-text">„Megbízható, pontos és alapos villanyszerelő.”</p>
+                        </article>
+                    </div>
+                </div>
+
+                <button
+                    class="review-slider-btn review-slider-btn--next"
+                    id="reviewNext"
+                    type="button"
+                    aria-label="Következő vélemény"
+                >
+                    ›
+                </button>
+            </div>
+
+            <div class="review-slider-dots" id="reviewDots" aria-label="Vélemények lapozása">
+                <button type="button" class="review-dot is-active" data-review-dot="0" aria-label="1. vélemény"></button>
+                <button type="button" class="review-dot" data-review-dot="1" aria-label="2. vélemény"></button>
+                <button type="button" class="review-dot" data-review-dot="2" aria-label="3. vélemény"></button>
+            </div>
+
+            <p class="google-reviews-actions">
+                <a
+                    id="googleReviewsMoreLink"
+                    class="btn yellow-btn"
+                    href="https://www.google.com/search?q=StraVill+Strassenreiter+Attila+Villanyszerel%C5%91+E.V.+Orosh%C3%A1za+v%C3%A9lem%C3%A9nyek"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    További vélemények Google-on
+                </a>
+            </p>
+        </section>
+
+        <!-- ==================================================
+             14. ALSÓ INFORMÁCIÓS BLOKK
+        ================================================== -->
+        <div class="bottom-info-box">
+            <h2>Villanyszerelő – Orosháza és környéke</h2>
+            <p>Békéscsaba, Csorvás, Nagyszénás, Gádoros, Kardoskút, Békéssámson és Medgyesegyháza.</p>
+            <a href="tel:+36304938929" class="btn yellow-btn">📞 06 30 493 8929</a>
+            <p>Gyors kiszállás • Hétvégi elérhetőség • Garanciális munkavégzés</p>
+        </div>
+
+        <!-- ==================================================
+             15. LÁBLÉC
+        ================================================== -->
+        <footer>
+            <p class="copyright">
+                © 2026 StraVill – Strassenreiter Attila egyéni vállalkozó. Minden jog fenntartva.
+            </p>
+
+            <div class="footer-links">
+                <a href="impresszum.html" data-page="impresszum.html">Impresszum</a>
+                <span>|</span>
+                <a href="adatkezeles.html" data-page="adatkezeles.html">Adatkezelési tájékoztató</a>
+                <span>|</span>
+                <a href="cookie.html" data-page="cookie.html">Cookie tájékoztató</a>
+            </div>
+
+            <div class="footer-link-button privacy-settings-trigger">
+                <button id="privacy-settings-trigger" type="button" class="footer-text-button">
+                    Süti beállítások
+                </button>
+            </div>
+        </footer>
+
+        <!-- ==================================================
+             16. TÉMA VÁLTÓ GOMB
+        ================================================== -->
+        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Téma váltása">🌙</button>
+
+        <!-- ==================================================
+             17. COOKIE / PRIVACY PANEL
+        ================================================== -->
+        <div
+            id="privacy-consent-panel"
+            class="privacy-consent-panel"
+            role="dialog"
+            aria-live="polite"
+            aria-label="Süti beállítások"
+            aria-modal="false"
+        >
+            <p>
+                Ez a weboldal opcionális statisztikai sütiket (Google Analytics 4) használ a látogatottság mérésére.
+                A statisztikai mérés csak az Ön hozzájárulása után indul el. A hozzájárulást később a
+                <strong>Süti beállítások</strong> gombbal bármikor visszavonhatja.
+                <br>
+                <a href="adatkezeles.html" data-page="adatkezeles.html">Adatkezelési tájékoztató</a>
+                |
+                <a href="cookie.html" data-page="cookie.html">Cookie tájékoztató</a>
+            </p>
+
+            <div class="cookie-actions">
+                <button id="cookie-accept" class="yellow-btn">Elfogadom</button>
+                <button id="cookie-decline" class="yellow-btn">Elutasítom</button>
+            </div>
+        </div>
     </div>
 
-    <div class="review-slider-dots" id="reviewDots" aria-label="Vélemények lapozása">
-        <button type="button" class="review-dot is-active" data-review-dot="0" aria-label="1. vélemény"></button>
-        <button type="button" class="review-dot" data-review-dot="1" aria-label="2. vélemény"></button>
-        <button type="button" class="review-dot" data-review-dot="2" aria-label="3. vélemény"></button>
-    </div>
-
-    <p class="google-reviews-actions">
-        <a id="googleReviewsMoreLink" class="btn yellow-btn" href="https://www.google.com/search?q=StraVill+Strassenreiter+Attila+Villanyszerel%C5%91+E.V.+Orosh%C3%A1za+v%C3%A9lem%C3%A9nyek" target="_blank" rel="noopener noreferrer">
-            További vélemények Google-on
-        </a>
-    </p>
-</section>
-
-<div class="bottom-info-box">
-    <h2>Villanyszerelő – Orosháza és környéke</h2>
-    <p>Békéscsaba, Csorvás, Nagyszénás, Gádoros, Kardoskút, Békéssámson és Medgyesegyháza.</p>
-    <a href="tel:+36304938929" class="btn yellow-btn">📞 06 30 493 8929</a>
-    <p>Gyors kiszállás • Hétvégi elérhetőség • Garanciális munkavégzés</p>
-</div>
-
-<footer>
-   <p class="copyright">
-© 2026 StraVill – Strassenreiter Attila egyéni vállalkozó. Minden jog fenntartva.
-</p>
-
-    <div class="footer-links">
-        <a href="impresszum.html" data-page="impresszum.html">Impresszum</a>
-        <span>|</span>
-        <a href="adatkezeles.html" data-page="adatkezeles.html">Adatkezelési tájékoztató</a>
-        <span>|</span>
-        <a href="cookie.html" data-page="cookie.html">Cookie tájékoztató</a>
-    </div>
-
-   <div class="footer-link-button privacy-settings-trigger">
-    <button id="privacy-settings-trigger" type="button" class="footer-text-button">Süti beállítások</button>
-</div>
-</footer>
-
-<button type="button" class="theme-toggle" id="themeToggle" aria-label="Téma váltása">🌙</button>
-
-<div id="privacy-consent-panel" class="privacy-consent-panel" role="dialog" aria-live="polite" aria-label="Süti beállítások" aria-modal="false">
-    <p>
-        Ez a weboldal opcionális statisztikai sütiket (Google Analytics 4) használ a látogatottság mérésére.
-        A statisztikai mérés csak az Ön hozzájárulása után indul el. A hozzájárulást később a
-        <strong>Süti beállítások</strong> gombbal bármikor visszavonhatja.
-        <br>
-        <a href="adatkezeles.html" data-page="adatkezeles.html">Adatkezelési tájékoztató</a> |
-        <a href="cookie.html" data-page="cookie.html">Cookie tájékoztató</a>
-    </p>
-    <div class="cookie-actions">
-        <button id="cookie-accept" class="yellow-btn">Elfogadom</button>
-        <button id="cookie-decline" class="yellow-btn">Elutasítom</button>
-    </div>
-</div>
-
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-<script src="dejavu.js" defer></script>
-<script src="script.js" defer></script>
-
+    <!-- ==================================================
+         18. SCRIPTEK
+    ================================================== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="dejavu.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
