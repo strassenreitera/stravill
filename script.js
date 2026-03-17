@@ -19,7 +19,7 @@ const CONTENT_PAGES = new Set([
     "impresszum.html",
     "adatkezeles.html",
     "cookie.html",
-    "blog.html",
+    "gyik.html",
     "videok.html"
 ]);;
 
@@ -68,10 +68,10 @@ const PAGE_META = {
         canonical: "https://www.stravill.hu/#cookie.html"
     }
 ,
-"blog.html": {
-    title: "Blog | StraVill",
-    description: "StraVill blog: tippek, tudnivalók és villanyszerelési bejegyzések.",
-    canonical: "https://www.stravill.hu/#blog.html"
+"gyik.html": {
+    title: "GY.I.K. | StraVill",
+    description: "StraVill GY.I.K.: Gyakran ismételt kérdések villanyszereléssel kapcsolatban – tippek, válaszok és hasznos tudnivalók",
+    canonical: "https://www.stravill.hu/#gyik.html"
 },
 "videok.html": {
     title: "Videók | StraVill",
