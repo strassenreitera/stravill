@@ -12,8 +12,7 @@ let activePageRequest = null;
 
 const CONTENT_PAGES = new Set([
 "rolam.html",
-    "szolgaltatasok.html",
-    "arlista.html",
+    "szolgaltatasokesarak.html",
     "galeria.html",
     "kapcsolat.html",
     "kalkulator.html",
@@ -33,15 +32,10 @@ const PAGE_META = {
         description: "Ismerje meg StraVill – Strassenreiter Attila egyéni vállalkozó villanyszerelő szolgáltatásait Orosházán és környékén.",
         canonical: "https://www.stravill.hu/#rolam.html"
     },
-    "szolgaltatasok.html": {
-        title: "Szolgáltatások | StraVill villanyszerelő Orosháza",
-        description: "Villanyszerelési szolgáltatások Orosházán: hibakeresés, szerelvénycsere, hálózat kiépítés, gépbekötés és felújítás.",
-        canonical: "https://www.stravill.hu/#szolgaltatasok.html"
-    },
-    "arlista.html": {
-        title: "Árlista | StraVill villanyszerelő Orosháza",
-        description: "Tájékoztató villanyszerelési árak Orosházán és környékén: konnektorcsere, lámpaszerelés, hibajavítás, hálózat felújítás.",
-        canonical: "https://www.stravill.hu/#arlista.html"
+    "szolgaltatasokesarak.html": {
+        title: "Szolgáltatások és árak | StraVill villanyszerelő Orosháza",
+        description: "Villanyszerelési szolgáltatások és árak Orosházán: hibakeresés, szerelvénycsere, hálózat kiépítés, gépbekötés és felújítás.",
+        canonical: "https://www.stravill.hu/#szolgaltatasokesarak.html"
     },
     "galeria.html": {
         title: "Galéria | StraVill villanyszerelő Orosháza",
