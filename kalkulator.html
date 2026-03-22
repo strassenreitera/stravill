@@ -1,76 +1,91 @@
 <div class="content-box">
 
-    <h1>Villanyszerelési kalkulátor</h1>
-    <p>Adja meg a kívánt mennyiséget, a végösszeg automatikusan frissül.</p>
+    <h1>⚡ Villanyszerelési kalkulátor</h1>
+    <p style="font-size:1.05rem; line-height:1.5;">
+        Add meg, mire van szükséged, és azonnal látod a várható költséget.<br>
+        <strong>1 perc alatt kapsz egy becsült árat.</strong>
+    </p>
+
+    <p class="section-note">
+        Az árak tájékoztató jellegűek. A pontos ár helyszíni felmérés után kerül meghatározásra.
+    </p>
 
     <div class="calc-card">
-        <h2>🛠️ Teljes felújítás</h2>
+        <h2 style="font-size:1.2rem;">🛠️ Teljes felújítás</h2>
         <table class="calc-table">
-            <tr><td>Teljes felújítás (anyag nélkül)</td><td>1 m²</td><td>10000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
-            <tr><td>Teljes felújítás (anyaggal)</td><td>1 m²</td><td>20000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Teljes felújítás (csak munkadíj)</td><td>1 m²</td><td>10000</td><td><input type="number" min="0" inputmode="numeric" placeholder="m²"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Teljes felújítás (anyaggal együtt)</td><td>1 m²</td><td>20000</td><td><input type="number" min="0" inputmode="numeric" placeholder="m²"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
         </table>
     </div>
 
     <div class="calc-card">
-        <h2>🔌 Szerelvények</h2>
+        <h2 style="font-size:1.2rem;">🔌 Szerelvénycsere</h2>
         <table class="calc-table">
-            <tr><td>Konnektor csere</td><td>1 db</td><td>2500</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
-            <tr><td>Kapcsoló csere</td><td>1 db</td><td>2500</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
-            <tr><td>Konnektor + kapcsoló csomag</td><td>1 db</td><td>2000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Konnektor csere</td><td>1 db</td><td>2500</td><td><input type="number" min="0" inputmode="numeric" placeholder="db"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Kapcsoló csere</td><td>1 db</td><td>2500</td><td><input type="number" min="0" inputmode="numeric" placeholder="db"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Kedvezményes ár (3 db felett)</td><td>1 db</td><td>2000</td><td><input type="number" min="0" inputmode="numeric" placeholder="db"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
         </table>
     </div>
 
     <div class="calc-card">
-        <h2>💡 Lámpák</h2>
+        <h2 style="font-size:1.2rem;">💡 Lámpák</h2>
         <table class="calc-table">
-            <tr><td>Lámpatest felszerelés</td><td>1 db</td><td>5000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
-            <tr><td>Csillár bekötés</td><td>1 db</td><td>6000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Lámpatest felszerelés</td><td>1 db</td><td>5000</td><td><input type="number" min="0" inputmode="numeric" placeholder="db"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Csillár bekötés</td><td>1 db</td><td>6000</td><td><input type="number" min="0" inputmode="numeric" placeholder="db"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
         </table>
     </div>
 
     <div class="calc-card">
-        <h2>🔥 Háztartási gépek</h2>
+        <h2 style="font-size:1.2rem;">🔥 Háztartási gépek</h2>
         <table class="calc-table">
-            <tr><td>Sütő bekötés</td><td>1 db</td><td>10000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
-            <tr><td>Főzőlap bekötés</td><td>1 db</td><td>10000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
-            <tr><td>Kombinált tűzhely bekötés</td><td>1 db</td><td>15000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
-            <tr><td>Bojler bekötés</td><td>1 db</td><td>15000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Sütő bekötés</td><td>1 db</td><td>10000</td><td><input type="number" min="0" inputmode="numeric" placeholder="db"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Főzőlap bekötés</td><td>1 db</td><td>10000</td><td><input type="number" min="0" inputmode="numeric" placeholder="db"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Kombinált tűzhely bekötés</td><td>1 db</td><td>15000</td><td><input type="number" min="0" inputmode="numeric" placeholder="db"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Bojler bekötés</td><td>1 db</td><td>15000</td><td><input type="number" min="0" inputmode="numeric" placeholder="db"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
         </table>
     </div>
 
     <div class="calc-card">
-        <h2>📦 Kábelezés</h2>
+        <h2 style="font-size:1.2rem;">📦 Kábelezés</h2>
         <table class="calc-table">
-            <tr><td>Új kábel falon kívül</td><td>1 m</td><td>6000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
-            <tr><td>Új kábel falban (vésve)</td><td>1 m</td><td>8500</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Új kábel falon kívül</td><td>1 m</td><td>6000</td><td><input type="number" min="0" inputmode="numeric" placeholder="m"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Új kábel falban (vésve)</td><td>1 m</td><td>8500</td><td><input type="number" min="0" inputmode="numeric" placeholder="m"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
         </table>
     </div>
 
     <div class="calc-card">
-        <h2>⚡ Elosztó / Áramkörök</h2>
+        <h2 style="font-size:1.2rem;">⚡ Elosztó / áramkörök</h2>
         <table class="calc-table">
-            <tr><td>Lakáselosztó csere</td><td>1 db</td><td>20000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
-            <tr><td>Áramkör bővítés</td><td>1 db</td><td>3000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Lakáselosztó csere (4 kismegszakítóig)</td><td>1 db</td><td>20000</td><td><input type="number" min="0" inputmode="numeric" placeholder="db"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Új áramkör kiépítése (elosztóban)</td><td>1 db</td><td>3000</td><td><input type="number" min="0" inputmode="numeric" placeholder="db"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+        </table>
+
+        <p class="section-note">
+            Nagyobb elosztó vagy összetettebb munka esetén egyedi árajánlat szükséges.
+        </p>
+    </div>
+
+    <div class="calc-card">
+        <h2 style="font-size:1.2rem;">🧲 FI-relé</h2>
+        <table class="calc-table">
+            <tr><td>FI-relé (1 fázis)</td><td>1 db</td><td>10000</td><td><input type="number" min="0" inputmode="numeric" placeholder="db"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>FI-relé (3 fázis)</td><td>1 db</td><td>12000</td><td><input type="number" min="0" inputmode="numeric" placeholder="db"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
         </table>
     </div>
 
     <div class="calc-card">
-        <h2>🧲 FI-relé</h2>
+        <h2 style="font-size:1.2rem;">🚨 Hibaelhárítás</h2>
         <table class="calc-table">
-            <tr><td>FI-relé (1 fázis)</td><td>1 db</td><td>10000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
-            <tr><td>FI-relé (3 fázis)</td><td>1 db</td><td>12000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>Hibaelhárítás – első óra</td><td>1 óra</td><td>8000</td><td><input type="number" min="0" inputmode="numeric" placeholder="óra"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
+            <tr><td>További fél óra</td><td>30 perc</td><td>3500</td><td><input type="number" min="0" inputmode="numeric" placeholder="db"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
         </table>
     </div>
 
-    <div class="calc-card">
-        <h2>🚨 Hibaelhárítás</h2>
-        <table class="calc-table">
-            <tr><td>Hibaelhárítás – első óra</td><td>1 óra</td><td>8000</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
-            <tr><td>További fél óra</td><td>30 perc</td><td>3500</td><td><input type="number" min="0" inputmode="numeric"></td><td class="sum"></td><td><button class="row-reset" type="button" aria-label="Sor törlése">✖</button></td></tr>
-        </table>
-    </div>
+    <h2 class="total-box">💰 Becsült végösszeg: <span id="total">0 Ft</span></h2>
 
-    <h2 class="total-box">Végösszeg: <span id="total">0 Ft</span></h2>
+    <p class="section-note" style="font-size:0.95rem;">
+        Ez egy gyors kalkuláció, nem minősül hivatalos ajánlatnak.
+    </p>
 
     <p class="section-note">
         Az árak tájékoztató jellegűek, pontos árajánlatot helyszíni felmérés után adok.
@@ -85,6 +100,10 @@
 
     <h2 id="ajanlatkeres" class="form-title">📨 Ajánlatkérés a kalkulátor alapján</h2>
 
+    <p style="font-size:1rem;">
+        Töltsd ki az adatokat, és rövid egyeztetés után pontos árat mondok.
+    </p>
+
     <form id="calcContactForm" class="contact-form" novalidate>
         <input type="text" name="name" placeholder="Név" autocomplete="name" required>
         <input type="email" name="email" placeholder="E-mail" autocomplete="email" required>
@@ -97,7 +116,7 @@
 
         <div class="privacy-row">
             <input type="checkbox" id="callbackReqCalc" name="callbackReq">
-            <label for="callbackReqCalc" class="privacy-text">Kérek visszahívást</label>
+            <label for="callbackReqCalc" class="privacy-text">📞 Visszahívást kérek</label>
         </div>
 
         <div class="privacy-row">
@@ -108,7 +127,7 @@
             </label>
         </div>
 
-        <button type="submit">Ajánlatkérés elküldése</button>
+        <button type="submit">Küldés</button>
     </form>
 
     <p class="section-note">
