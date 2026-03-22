@@ -858,6 +858,172 @@ input[type="submit"]::after,
     opacity: 0.3;
 }
 
+/* ==================================================
+   FAQ – EGYSÉGES UI
+================================================== */
+
+.faq-list {
+    width: 100%;
+    margin: 1.2rem 0 0;
+    display: grid;
+    gap: 1rem;
+}
+
+.faq-item {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+.faq-item:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(31, 111, 229, 0.25);
+}
+
+.faq-item[open] {
+    border-color: rgba(31, 111, 229, 0.22);
+    background: linear-gradient(
+        180deg,
+        rgba(31, 111, 229, 0.04),
+        rgba(255, 255, 255, 0.92)
+    );
+}
+
+.faq-item-highlight {
+    border-color: rgba(255, 202, 40, 0.45);
+}
+
+.faq-item summary {
+    position: relative;
+    list-style: none;
+    cursor: pointer;
+    padding: 1.05rem 3.5rem 1.05rem 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    text-align: left;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.faq-item summary:hover {
+    background: rgba(31, 111, 229, 0.05);
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: "+";
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.9rem;
+    height: 1.9rem;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: rgba(31, 111, 229, 0.1);
+    color: var(--primary);
+    font-size: 1.25rem;
+    line-height: 1;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.faq-item[open] summary::after {
+    content: "−";
+    background: rgba(31, 111, 229, 0.15);
+}
+
+.faq-answer {
+    padding: 0 1.1rem 1.1rem;
+    animation: faqFadeIn 0.25s ease;
+}
+
+.content-box .faq-answer p {
+    margin-bottom: 0;
+    text-align: left;
+}
+
+@keyframes faqFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* DARK MODE – teljesen igazodjon a jelenlegi grafikához */
+body.dark .faq-item {
+    background: rgba(17, 26, 41, 0.86);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: var(--shadow-sm);
+}
+
+body.dark .faq-item:hover {
+    border-color: rgba(158, 197, 255, 0.22);
+    box-shadow: var(--shadow-md);
+}
+
+body.dark .faq-item[open] {
+    border-color: rgba(158, 197, 255, 0.22);
+    background: linear-gradient(
+        180deg,
+        rgba(69, 153, 255, 0.10),
+        rgba(17, 26, 41, 0.92)
+    );
+}
+
+body.dark .faq-item-highlight {
+    border-color: rgba(255, 202, 40, 0.35);
+    background: linear-gradient(
+        180deg,
+        rgba(255, 202, 40, 0.10),
+        rgba(17, 26, 41, 0.92)
+    );
+}
+
+body.dark .faq-item summary {
+    color: #f7fbff;
+}
+
+body.dark .faq-item summary:hover {
+    background: rgba(69, 153, 255, 0.08);
+}
+
+body.dark .faq-item summary::after {
+    background: rgba(69, 153, 255, 0.16);
+    color: #9ec5ff;
+}
+
+body.dark .faq-item[open] summary::after {
+    background: rgba(255, 202, 40, 0.18);
+    color: var(--accent);
+}
+
+body.dark .content-box .faq-answer p {
+    color: rgba(236, 242, 255, 0.8);
+}
+
+/* mobil finomhangolás */
+@media (max-width: 640px) {
+    .faq-item summary {
+        padding: 0.95rem 3rem 0.95rem 0.95rem;
+        font-size: 0.98rem;
+    }
+
+    .faq-answer {
+        padding: 0 0.95rem 0.95rem;
+    }
+}
+
 .external-content-box {
     max-width: 760px;
     margin: 1rem auto 0;
