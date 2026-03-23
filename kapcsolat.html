@@ -2,7 +2,7 @@
 
     <h1>Kapcsolat</h1>
 
-    <p><strong>Forduljon hozzám bizalommal bármilyen villanyszerelési munkával kapcsolatban!</strong></p>
+    <p><strong>Kérjen gyors segítséget vagy személyre szabott ajánlatot bármilyen villanyszerelési munkához.</strong></p>
 
     <div class="contact-wrapper">
         <div class="contact-card">
@@ -19,24 +19,24 @@
             <div class="external-content-box" id="map-placeholder">
                 <p>
                     A térkép a Google Maps külső szolgáltatásból töltődik be. Betöltés után a Google
-                    technikai adatokat, például IP-címet és böngészőadatokat kezelhet.
+                    technikai adatokat, például IP-címet és böngészőadatokat kezelhet a saját szabályzata szerint.
                 </p>
-                <button type="button" class="btn yellow-btn" id="loadMapBtn">Térkép betöltése</button>
+                <button type="button" class="btn yellow-btn" id="loadMapBtn">Térkép megnyitása</button>
             </div>
         </div>
     </div>
 
-    <h2 id="uzenetkuldes" class="form-title">📨 Üzenet küldése</h2>
+    <h2 id="uzenetkuldes" class="form-title">📨 Kapcsolatfelvétel</h2>
 
     <form id="contactForm" class="contact-form" novalidate>
         <input type="text" name="name" placeholder="Név" autocomplete="name" required>
         <input type="email" name="email" placeholder="E-mail" autocomplete="email" required>
         <input type="tel" name="phone" placeholder="Telefonszám (nem kötelező)" autocomplete="tel">
-        <textarea name="message" placeholder="Üzenet" rows="6" required></textarea>
+        <textarea name="message" placeholder="Írja meg röviden, miben segíthetek" rows="6" required></textarea>
 
         <div class="privacy-row">
             <input type="checkbox" id="callbackReqContact" name="callbackReq">
-            <label for="callbackReqContact" class="privacy-text">Kérek visszahívást</label>
+            <label for="callbackReqContact" class="privacy-text">📞 Visszahívást kérek</label>
         </div>
 
         <div class="privacy-row">
@@ -47,13 +47,13 @@
             </label>
         </div>
 
-        <button type="submit" class="btn yellow-btn">Küldés</button>
+        <button type="submit" class="btn yellow-btn">Üzenet elküldése</button>
     </form>
 
     <p class="section-note">
-        Az üzenet elküldésével elfogadja az
+        Az üzenet elküldésével hozzájárul az
         <a href="#" data-page="adatkezeles.html">adatkezelési tájékoztatóban</a>
-        foglaltakat.
+        foglaltak szerinti adatkezeléshez.
     </p>
 
     <div id="status" class="status-box" aria-live="polite"></div>

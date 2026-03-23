@@ -1327,14 +1327,14 @@ body:not(.dark) .calc-table input:disabled {
     resize: vertical;
 }
 
-.contact-form a,
-.contact-card a,
-.privacy-text a,
-.contact-form p a {
+/* Linkek: világos téma = kék */
+.content-box a:not(.btn),
+.section-note a:not(.btn),
+.privacy-text a:not(.btn),
+.contact-form a:not(.btn),
+.contact-card a:not(.btn),
+.contact-form p a:not(.btn) {
     color: var(--primary);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    font-weight: 700;
 }
 
 .contact-form p[style],
@@ -1977,11 +1977,14 @@ body.dark .contact-form textarea::placeholder {
     color: rgba(214, 223, 236, 0.72);
 }
 
+/* Linkek: sötét téma = sárga */
+body.dark .content-box a:not(.btn),
+body.dark .section-note a,
+body.dark .privacy-text a,
 body.dark .contact-form a,
 body.dark .contact-card a,
-body.dark .privacy-text a,
 body.dark .contact-form p a {
-    color: #9ec5ff;
+    color: var(--accent);
 }
 
 body.dark .content-box .rolam-contact,
